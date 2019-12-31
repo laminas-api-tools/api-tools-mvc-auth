@@ -1,7 +1,7 @@
-ZF MVC Auth
+Laminas MVC Auth
 ===========
 
-Provide events for Authentication and Authorization in the ZF2 MVC lifecycle.
+Provide events for Authentication and Authorization in the Laminas MVC lifecycle.
 
 
 Installation
@@ -19,5 +19,5 @@ Configuration
 -------------
 
 Services:
-    ```authentication``` is provided and is an instance of Zend\Auth\AuthenticationService
+    ```authentication``` is provided and is an instance of Laminas\Auth\AuthenticationService
     with a NonPersistent storage adapter.

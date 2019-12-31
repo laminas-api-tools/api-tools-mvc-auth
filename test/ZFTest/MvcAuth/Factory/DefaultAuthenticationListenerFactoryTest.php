@@ -1,23 +1,25 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Factory\DefaultAuthenticationListenerFactory;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\ServiceManager\ServiceManager;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Factory\DefaultAuthenticationListenerFactory;
 
 class DefaultAuthenticationListenerFactoryTest extends TestCase
 {
     public function setUp()
     {
         $this->services = new ServiceManager();
-        $this->services->setFactory('ZF\MvcAuth\Authentication\AuthHttpAdapter', 'ZF\MvcAuth\Factory\DefaultAuthHttpAdapterFactory');
+        $this->services->setFactory('Laminas\ApiTools\MvcAuth\Authentication\AuthHttpAdapter', 'Laminas\ApiTools\MvcAuth\Factory\DefaultAuthHttpAdapterFactory');
         $this->factory  = new DefaultAuthenticationListenerFactory();
     }
 
@@ -27,57 +29,57 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
 
         $this->services->setService('TestAdapter', $adapter);
         $this->services->setService('config', array(
-            'zf-oauth2' => array(
+            'api-tools-oauth2' => array(
                 'storage' => 'TestAdapter'
             )
         ));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithNoConfigServiceReturnsListenerWithNoHttpAdapter()
     {
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithConfigMissingMvcAuthSectionReturnsListenerWithNoHttpAdapter()
     {
         $this->services->setService('config', array());
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithConfigMissingAuthenticationSubSectionReturnsListenerWithNoHttpAdapter()
     {
-        $this->services->setService('config', array('zf-mvc-auth' => array()));
+        $this->services->setService('config', array('api-tools-mvc-auth' => array()));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithConfigMissingHttpSubSubSectionReturnsListenerWithNoHttpAdapter()
     {
-        $this->services->setService('config', array('zf-mvc-auth' => array('authentication' => array())));
+        $this->services->setService('config', array('api-tools-mvc-auth' => array('authentication' => array())));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithConfigMissingAcceptSchemesRaisesException()
     {
-        $this->services->setService('config', array('zf-mvc-auth' => array('authentication' => array('http' => array()))));
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException');
+        $this->services->setService('config', array('api-tools-mvc-auth' => array('authentication' => array('http' => array()))));
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException');
         $listener = $this->factory->createService($this->services);
     }
 
     public function testCallingFactoryWithBasicSchemeButMissingHtpasswdValueReturnsListenerWithNoHttpAdapter()
     {
         $this->services->setService('config', array(
-            'zf-mvc-auth' => array(
+            'api-tools-mvc-auth' => array(
                 'authentication' => array(
                     'http' => array(
                         'accept_schemes' => array('basic'),
@@ -87,14 +89,14 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
             ),
         ));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithDigestSchemeButMissingHtdigestValueReturnsListenerWithNoHttpAdapter()
     {
         $this->services->setService('config', array(
-            'zf-mvc-auth' => array(
+            'api-tools-mvc-auth' => array(
                 'authentication' => array(
                     'http' => array(
                         'accept_schemes' => array('digest'),
@@ -106,14 +108,14 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
             ),
         ));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeNotInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeNotInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithBasicSchemeAndHtpasswdValueReturnsListenerWithHttpAdapter()
     {
         $this->services->setService('config', array(
-            'zf-mvc-auth' => array(
+            'api-tools-mvc-auth' => array(
                 'authentication' => array(
                     'http' => array(
                         'accept_schemes' => array('basic'),
@@ -126,14 +128,14 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
             ),
         ));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 
     public function testCallingFactoryWithDigestSchemeAndHtdigestValueReturnsListenerWithHttpAdapter()
     {
         $this->services->setService('config', array(
-            'zf-mvc-auth' => array(
+            'api-tools-mvc-auth' => array(
                 'authentication' => array(
                     'http' => array(
                         'accept_schemes' => array('digest'),
@@ -146,7 +148,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
             ),
         ));
         $listener = $this->factory->createService($this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
-        $this->assertAttributeInstanceOf('Zend\Authentication\Adapter\Http', 'httpAdapter', $listener);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener', $listener);
+        $this->assertAttributeInstanceOf('Laminas\Authentication\Adapter\Http', 'httpAdapter', $listener);
     }
 }
