@@ -1,19 +1,24 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth;
+namespace Laminas\ApiTools\MvcAuth;
 
-use Zend\Authentication\Storage\NonPersistent;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\Authentication\Storage\NonPersistent;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'controller_plugins' => [
         'aliases' => [
             'getidentity' => Identity\IdentityPlugin::class,
             'getIdentity' => Identity\IdentityPlugin::class,
+
+            // Legacy Zend Framework aliases
+            \ZF\MvcAuth\Identity\IdentityPlugin::class => Identity\IdentityPlugin::class,
         ],
         'factories' => [
             Identity\IdentityPlugin::class => InvokableFactory::class,
@@ -21,7 +26,7 @@ return [
     ],
     'service_manager'    => [
         'aliases'    => [
-            'authentication'                            => 'ZF\MvcAuth\Authentication',
+            'authentication'                            => 'Laminas\ApiTools\MvcAuth\Authentication',
             'authorization'                             => Authorization\AuthorizationInterface::class,
             Authorization\AuthorizationInterface::class => Authorization\AclAuthorization::class,
         ],
@@ -32,15 +37,15 @@ return [
         ],
         // @codingStandardsIgnoreStart
         'factories'  => [
-            'ZF\MvcAuth\Authentication'                             => Factory\AuthenticationServiceFactory::class,
-            'ZF\MvcAuth\ApacheResolver'                             => Factory\ApacheResolverFactory::class,
-            'ZF\MvcAuth\FileResolver'                               => Factory\FileResolverFactory::class,
+            'Laminas\ApiTools\MvcAuth\Authentication'                             => Factory\AuthenticationServiceFactory::class,
+            'Laminas\ApiTools\MvcAuth\ApacheResolver'                             => Factory\ApacheResolverFactory::class,
+            'Laminas\ApiTools\MvcAuth\FileResolver'                               => Factory\FileResolverFactory::class,
             Authentication\DefaultAuthenticationListener::class     => Factory\DefaultAuthenticationListenerFactory::class,
             Authentication\AuthHttpAdapter::class                   => Factory\DefaultAuthHttpAdapterFactory::class,
             Authorization\AclAuthorization::class                   => Factory\AclAuthorizationFactory::class,
             Authorization\DefaultAuthorizationListener::class       => Factory\DefaultAuthorizationListenerFactory::class,
             Authorization\DefaultResourceResolverListener::class    => Factory\DefaultResourceResolverListenerFactory::class,
-            'ZF\OAuth2\Service\OAuth2Server'                        => Factory\NamedOAuth2ServerFactory::class,
+            'Laminas\ApiTools\OAuth2\Service\OAuth2Server'                        => Factory\NamedOAuth2ServerFactory::class,
             NonPersistent::class                                    => InvokableFactory::class,
             Authentication\DefaultAuthenticationPostListener::class => InvokableFactory::class,
             Authorization\DefaultAuthorizationPostListener::class   => InvokableFactory::class,
@@ -48,7 +53,7 @@ return [
         ],
         // @codingStandardsIgnoreEnd
     ],
-    'zf-mvc-auth'        => [
+    'api-tools-mvc-auth'        => [
         'authentication' => [
             /* First, we define authentication configuration types. These have
              * the keys:
@@ -74,22 +79,22 @@ return [
              *
              * Starting in 1.1, we have an "adapters" key, which is a key/value
              * pair of adapter name -> adapter configuration information. Each
-             * adapter should name the ZF\MvcAuth\Authentication\AdapterInterface
+             * adapter should name the Laminas\ApiTools\MvcAuth\Authentication\AdapterInterface
              * type in the 'adapter' key.
              *
              * For HttpAdapter cases, specify an 'options' key with the options
-             * to use to create the Zend\Authentication\Adapter\Http instance.
+             * to use to create the Laminas\Authentication\Adapter\Http instance.
              *
              * Starting in 1.2, you can specify a resolver implementing the
-             * Zend\Authentication\Adapter\Http\ResolverInterface that is passed
-             * into the Zend\Authentication\Adapter\Http as either basic or digest
+             * Laminas\Authentication\Adapter\Http\ResolverInterface that is passed
+             * into the Laminas\Authentication\Adapter\Http as either basic or digest
              * resolver. This allows you to implement your own method of authentication
              * instead of having to rely on the two default methods (ApacheResolver
              * for basic authentication and FileResolver for digest authentication,
              * both based on files).
              *
              * When you want to use this feature, use the "basic_resolver_factory"
-             * key to get your custom resolver instance from the Zend service manager.
+             * key to get your custom resolver instance from the Laminas service manager.
              * If this key is set and pointing to a valid entry in the service manager,
              * the entry "htpasswd" is ignored (unless you use it in your custom
              * factory to build the resolver).
@@ -106,8 +111,8 @@ return [
              * - Specify a "storage" subkey pointing to a named service or an array
              *   of named services to use.
              * - Specify an "adapter" subkey with the value "pdo" or "mongo", and
-             *   include additional subkeys for configuring a ZF\OAuth2\Adapter\PdoAdapter
-             *   or ZF\OAuth2\Adapter\MongoAdapter, accordingly. See the zf-oauth2
+             *   include additional subkeys for configuring a Laminas\ApiTools\OAuth2\Adapter\PdoAdapter
+             *   or Laminas\ApiTools\OAuth2\Adapter\MongoAdapter, accordingly. See the api-tools-oauth2
              *   documentation for details.
              *
              * This looks like the following for the HTTP basic/digest and OAuth2
@@ -115,7 +120,7 @@ return [
             'adapters' => [
                 // HTTP adapter
                 'api' => [
-                    'adapter' => 'ZF\MvcAuth\Authentication\HttpAdapter',
+                    'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter',
                     'options' => [
                         'accept_schemes' => ['basic', 'digest'],
                         'realm' => 'api',
@@ -131,7 +136,7 @@ return [
                 ],
                 // OAuth2 adapter, using an "adapter" type of "pdo"
                 'user' => [
-                    'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
+                    'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter',
                     'storage' => [
                         'adapter' => 'pdo',
                         'route' => '/user',
@@ -145,7 +150,7 @@ return [
                 ],
                 // OAuth2 adapter, using an "adapter" type of "mongo"
                 'client' => [
-                    'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
+                    'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter',
                     'storage' => [
                         'adapter' => 'mongo',
                         'route' => '/client',
@@ -161,7 +166,7 @@ return [
                 ],
                 // OAuth2 adapter, using a named "storage" service
                 'named-storage' => [
-                    'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
+                    'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter',
                     'storage' => [
                         'storage' => 'Name\Of\An\OAuth2\Storage\Service',
                         'route' => '/named-storage',

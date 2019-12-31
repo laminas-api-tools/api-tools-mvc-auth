@@ -6,9 +6,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#114](https://github.com/zfcampus/zf-mvc-auth/pull/114) and
-  [#116](https://github.com/zfcampus/zf-mvc-auth/pull/116) add support for both
-  PHP 7 and version 3 components from Zend Framework (while retaining
+- [zfcampus/zf-mvc-auth#114](https://github.com/zfcampus/zf-mvc-auth/pull/114) and
+  [zfcampus/zf-mvc-auth#116](https://github.com/zfcampus/zf-mvc-auth/pull/116) add support for both
+  PHP 7 and version 3 components from Laminas (while retaining
   compatibility for version 2 components).
 
 ### Deprecated
@@ -17,7 +17,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- [#116](https://github.com/zfcampus/zf-mvc-auth/pull/116) removes support for
+- [zfcampus/zf-mvc-auth#116](https://github.com/zfcampus/zf-mvc-auth/pull/116) removes support for
   PHP 5.5.
 
 ### Fixed
@@ -40,6 +40,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#111](https://github.com/zfcampus/zf-mvc-auth/pull/111) adds a check for the
+- [zfcampus/zf-mvc-auth#111](https://github.com/zfcampus/zf-mvc-auth/pull/111) adds a check for the
   `unset_refresh_token_after_use` configuration flag when creating an
   `OAuth2\Server` instance, passing it to the instance when discovered.
