@@ -1,17 +1,19 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Zend\Http\Request;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authorization\AclFactory;
-use ZF\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\ApiTools\MvcAuth\Authorization\AclFactory;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\Http\Request;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating the DefaultAuthorizationListener from configuration
@@ -26,14 +28,14 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $services)
     {
-        if (!$services->has('ZF\MvcAuth\Authorization\AuthorizationInterface')) {
+        if (!$services->has('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface')) {
             throw new ServiceNotCreatedException(
-                'Cannot create DefaultAuthorizationListener service; no ZF\MvcAuth\Authorization\AuthorizationInterface service available!'
+                'Cannot create DefaultAuthorizationListener service; no Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface service available!'
             );
         }
 
         return new DefaultAuthorizationListener(
-            $services->get('ZF\MvcAuth\Authorization\AuthorizationInterface')
+            $services->get('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface')
         );
     }
 }
