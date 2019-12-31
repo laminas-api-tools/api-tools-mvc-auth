@@ -1,13 +1,13 @@
 <?php
 
-namespace ZFTest\MvcAuth;
+namespace LaminasTest\ApiTools\MvcAuth;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Result;
-use Zend\Mvc\MvcEvent;
-use ZF\MvcAuth\Identity\GuestIdentity;
-use ZF\MvcAuth\MvcAuthEvent;
-use Zend\Permissions\Acl\Acl;
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\Result;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Permissions\Acl\Acl;
 use PHPUnit_Framework_TestCase as TestCase;
 
 class MvcAuthEventTest extends TestCase
@@ -26,7 +26,7 @@ class MvcAuthEventTest extends TestCase
 
     public function testGetAuthenticationService()
     {
-        $this->assertInstanceOf('Zend\Authentication\AuthenticationService', $this->mvcAuthEvent->getAuthenticationService());
+        $this->assertInstanceOf('Laminas\Authentication\AuthenticationService', $this->mvcAuthEvent->getAuthenticationService());
     }
 
     public function testHasAuthenticationResult()
@@ -44,17 +44,17 @@ class MvcAuthEventTest extends TestCase
     public function testGetAuthenticationResult()
     {
         $this->mvcAuthEvent->setAuthenticationResult(new Result('success', 'foobar'));
-        $this->assertInstanceOf('Zend\Authentication\Result', $this->mvcAuthEvent->getAuthenticationResult());
+        $this->assertInstanceOf('Laminas\Authentication\Result', $this->mvcAuthEvent->getAuthenticationResult());
     }
 
     public function testGetAuthorizationService()
     {
-        $this->assertInstanceOf('Zend\Permissions\Acl\Acl', $this->mvcAuthEvent->getAuthorizationService());
+        $this->assertInstanceOf('Laminas\Permissions\Acl\Acl', $this->mvcAuthEvent->getAuthorizationService());
     }
 
     public function testGetMvcEvent()
     {
-        $this->assertInstanceOf('Zend\Mvc\MvcEvent', $this->mvcAuthEvent->getMvcEvent());
+        $this->assertInstanceOf('Laminas\Mvc\MvcEvent', $this->mvcAuthEvent->getMvcEvent());
     }
 
     public function testSetIdentity()
