@@ -1,9 +1,9 @@
 <?php
 
-namespace ZFTest\MvcAuth\Identity;
+namespace LaminasTest\ApiTools\MvcAuth\Identity;
 
+use Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Identity\AuthenticatedIdentity;
 
 class AuthenticatedIdentityTest extends TestCase
 {
@@ -17,17 +17,17 @@ class AuthenticatedIdentityTest extends TestCase
 
     public function testAuthenticatedIsAnIdentityType()
     {
-        $this->assertInstanceOf('ZF\MvcAuth\Identity\IdentityInterface', $this->identity);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\IdentityInterface', $this->identity);
     }
 
     public function testAuthenticatedImplementsAclRole()
     {
-        $this->assertInstanceOf('Zend\Permissions\Acl\Role\RoleInterface', $this->identity);
+        $this->assertInstanceOf('Laminas\Permissions\Acl\Role\RoleInterface', $this->identity);
     }
 
     public function testAuthenticatedImplementsRbacRole()
     {
-        $this->assertInstanceOf('Zend\Permissions\Rbac\RoleInterface', $this->identity);
+        $this->assertInstanceOf('Laminas\Permissions\Rbac\RoleInterface', $this->identity);
     }
 
     public function testAuthenticatedAllowsSettingName()

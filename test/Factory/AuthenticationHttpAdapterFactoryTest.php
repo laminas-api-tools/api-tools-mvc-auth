@@ -1,19 +1,21 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\AuthenticationHttpAdapterFactory;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Factory\AuthenticationHttpAdapterFactory;
 
 class AuthenticationHttpAdapterFactoryTest extends TestCase
 {
     public function setUp()
     {
-        $this->services = $this->getMockBuilder('Zend\ServiceManager\ServiceLocatorInterface')->getMock();
+        $this->services = $this->getMockBuilder('Laminas\ServiceManager\ServiceLocatorInterface')->getMock();
     }
 
     public function testRaisesExceptionIfNoAuthenticationServicePresent()
@@ -24,7 +26,7 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
             ->will($this->returnValue(false));
 
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'missing AuthenticationService'
         );
         AuthenticationHttpAdapterFactory::factory('foo', [], $this->services);
@@ -54,7 +56,7 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
             ->will($this->returnValue(true));
 
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'missing options'
         );
         AuthenticationHttpAdapterFactory::factory('foo', $config, $this->services);
@@ -91,7 +93,7 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
      */
     public function testCreatesHttpAdapterWhenConfigurationIsValid(array $options, array $provides)
     {
-        $authService = $this->getMockBuilder('Zend\Authentication\AuthenticationService')->getMock();
+        $authService = $this->getMockBuilder('Laminas\Authentication\AuthenticationService')->getMock();
         $this->services->expects($this->atLeastOnce())
             ->method('has')
             ->with($this->equalTo('authentication'))
@@ -102,7 +104,7 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
             ->will($this->returnValue($authService));
 
         $adapter = AuthenticationHttpAdapterFactory::factory('foo', ['options' => $options], $this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\HttpAdapter', $adapter);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter', $adapter);
         $this->assertEquals($provides, $adapter->provides());
     }
 }

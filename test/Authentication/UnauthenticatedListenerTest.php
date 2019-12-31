@@ -1,19 +1,21 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authentication;
+namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\Result as AuthenticationResult;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\Response;
+use LaminasTest\ApiTools\MvcAuth\TestAsset;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Authentication\Result as AuthenticationResult;
-use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\Response;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener;
-use ZF\MvcAuth\MvcAuthEvent;
-use ZFTest\MvcAuth\TestAsset;
 
 class DefaultAuthenticationPostListenerTest extends TestCase
 {
@@ -30,7 +32,7 @@ class DefaultAuthenticationPostListenerTest extends TestCase
     public function createMvcAuthEvent(MvcEvent $mvcEvent)
     {
         $this->authentication = new TestAsset\AuthenticationService();
-        $this->authorization  = $this->getMockBuilder('ZF\MvcAuth\Authorization\AuthorizationInterface')->getMock();
+        $this->authorization  = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface')->getMock();
         return new MvcAuthEvent($mvcEvent, $this->authentication, $this->authorization);
     }
 

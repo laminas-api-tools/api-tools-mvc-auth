@@ -1,17 +1,19 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authentication;
+namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
 use ArrayIterator;
+use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
+use Laminas\Http\PhpEnvironment\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
 use OAuth2\Request as OAuth2Request;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Http\PhpEnvironment\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use ZF\MvcAuth\Authentication\OAuth2Adapter;
 
 class OAuth2AdapterTest extends TestCase
 {
@@ -56,12 +58,12 @@ class OAuth2AdapterTest extends TestCase
             ->method('getResponse')
             ->willReturn($oauth2Response);
 
-        $mvcAuthEvent = $this->getMockBuilder('ZF\MvcAuth\MvcAuthEvent')
+        $mvcAuthEvent = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\MvcAuthEvent')
             ->disableOriginalConstructor()
             ->getMock();
 
         $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
-        $this->assertInstanceOf('Zend\Http\Response', $result);
+        $this->assertInstanceOf('Laminas\Http\Response', $result);
         $this->assertEquals(401, $result->getStatusCode());
     }
 
@@ -100,12 +102,12 @@ class OAuth2AdapterTest extends TestCase
             ->method('getResponse')
             ->willReturn($oauth2Response);
 
-        $mvcAuthEvent = $this->getMockBuilder('ZF\MvcAuth\MvcAuthEvent')
+        $mvcAuthEvent = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\MvcAuthEvent')
             ->disableOriginalConstructor()
             ->getMock();
 
         $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
-        $this->assertInstanceOf('Zend\Http\Response', $result);
+        $this->assertInstanceOf('Laminas\Http\Response', $result);
         $this->assertEquals(403, $result->getStatusCode());
     }
 
@@ -139,12 +141,12 @@ class OAuth2AdapterTest extends TestCase
             ->method('getResponse')
             ->willReturn($oauth2Response);
 
-        $mvcAuthEvent = $this->getMockBuilder('ZF\MvcAuth\MvcAuthEvent')
+        $mvcAuthEvent = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\MvcAuthEvent')
             ->disableOriginalConstructor()
             ->getMock();
 
         $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
-        $this->assertInstanceOf('ZF\MvcAuth\Identity\GuestIdentity', $result);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\GuestIdentity', $result);
     }
 
     /**
@@ -188,12 +190,12 @@ class OAuth2AdapterTest extends TestCase
             ->method('getResponse')
             ->willReturn($oauth2Response);
 
-        $mvcAuthEvent = $this->getMockBuilder('ZF\MvcAuth\MvcAuthEvent')
+        $mvcAuthEvent = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\MvcAuthEvent')
             ->disableOriginalConstructor()
             ->getMock();
 
         $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
-        $this->assertInstanceOf('Zend\Http\Response', $result);
+        $this->assertInstanceOf('Laminas\Http\Response', $result);
 
         $headers = $result->getHeaders();
         foreach ($expectedHeaders as $name => $value) {
