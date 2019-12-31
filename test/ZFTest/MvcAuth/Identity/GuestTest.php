@@ -1,9 +1,9 @@
 <?php
 
-namespace ZFTest\MvcAuth\Identity;
+namespace LaminasTest\ApiTools\MvcAuth\Identity;
 
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Identity\GuestIdentity;
 
 class GuestIdentityTest extends TestCase
 {
@@ -14,17 +14,17 @@ class GuestIdentityTest extends TestCase
 
     public function testGuestIsAnIdentityType()
     {
-        $this->assertInstanceOf('ZF\MvcAuth\Identity\IdentityInterface', $this->identity);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\IdentityInterface', $this->identity);
     }
 
     public function testGuestImplementsAclRole()
     {
-        $this->assertInstanceOf('Zend\Permissions\Acl\Role\RoleInterface', $this->identity);
+        $this->assertInstanceOf('Laminas\Permissions\Acl\Role\RoleInterface', $this->identity);
     }
 
     public function testGuestImplementsRbacRole()
     {
-        $this->assertInstanceOf('Zend\Permissions\Rbac\RoleInterface', $this->identity);
+        $this->assertInstanceOf('Laminas\Permissions\Rbac\RoleInterface', $this->identity);
     }
 
     public function testGuestRoleIdIsGuest()

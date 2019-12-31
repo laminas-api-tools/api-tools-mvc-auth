@@ -1,21 +1,23 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\Http\Request;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\OAuth2\Adapter\Pdo as OAuth2Storage;
-use OAuth2\Server as OAuth2Server;
-use OAuth2\GrantType\ClientCredentials;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\OAuth2\Adapter\Pdo as OAuth2Storage;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Http\Request;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use OAuth2\GrantType\AuthorizationCode;
+use OAuth2\GrantType\ClientCredentials;
+use OAuth2\Server as OAuth2Server;
 
 /**
  * Factory for creating the DefaultAuthenticationListener from configuration
@@ -54,10 +56,10 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
      */
     protected function createHttpAdapterFromConfig(array $config)
     {
-        if (!isset($config['zf-mvc-auth']['authentication'])) {
+        if (!isset($config['api-tools-mvc-auth']['authentication'])) {
             return false;
         }
-        $authConfig = $config['zf-mvc-auth']['authentication'];
+        $authConfig = $config['api-tools-mvc-auth']['authentication'];
 
         if (!isset($authConfig['http'])) {
             return false;
@@ -110,11 +112,11 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
      */
     protected function createOauth2ServerFromConfig(array $config)
     {
-        if (!isset($config['zf-oauth2']['db'])) {
+        if (!isset($config['api-tools-oauth2']['db'])) {
             return false;
         }
 
-        $dbConfig = $config['zf-oauth2']['db'];
+        $dbConfig = $config['api-tools-oauth2']['db'];
 
         if (!isset($dbConfig['dsn'])) {
             throw new ServiceNotCreatedException('DSN is required when configuring the db for OAuth2 authentication');

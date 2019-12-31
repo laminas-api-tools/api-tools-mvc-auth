@@ -1,13 +1,15 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Authorization;
+namespace Laminas\ApiTools\MvcAuth\Authorization;
 
-use Zend\Http\Response as HttpResponse;
-use ZF\MvcAuth\MvcAuthEvent;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Http\Response as HttpResponse;
 
 class DefaultAuthorizationPostListener
 {
@@ -15,7 +17,7 @@ class DefaultAuthorizationPostListener
      * Determine if we have an authorization failure, and, if so, return a 403 response
      *
      * @param MvcAuthEvent $mvcAuthEvent
-     * @return null|\Zend\Http\Response
+     * @return null|\Laminas\Http\Response
      */
     public function __invoke(MvcAuthEvent $mvcAuthEvent)
     {

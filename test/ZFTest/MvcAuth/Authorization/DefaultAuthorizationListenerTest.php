@@ -1,27 +1,29 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authorization;
+namespace LaminasTest\ApiTools\MvcAuth\Authorization;
 
+use Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\EventManager\EventManager;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stdlib\Request;
+use Laminas\Stdlib\Response;
+use LaminasTest\ApiTools\MvcAuth\TestAsset\AuthenticationService;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\Request;
-use Zend\Stdlib\Response;
-use ZF\MvcAuth\Authorization\AclAuthorization;
-use ZF\MvcAuth\Authorization\DefaultAuthorizationListener;
-use ZF\MvcAuth\Identity\GuestIdentity;
-use ZF\MvcAuth\MvcAuthEvent;
-use ZFTest\MvcAuth\TestAsset\AuthenticationService;
 
 class DefaultAuthorizationListenerTest extends TestCase
 {

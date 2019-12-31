@@ -1,8 +1,8 @@
 <?php
 
-namespace ZF\MvcAuth\Identity;
+namespace Laminas\ApiTools\MvcAuth\Identity;
 
-use Zend\Permissions\Rbac\AbstractRole as AbstractRbacRole;
+use Laminas\Permissions\Rbac\AbstractRole as AbstractRbacRole;
 
 class GuestIdentity extends AbstractRbacRole implements IdentityInterface
 {
