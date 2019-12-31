@@ -1,18 +1,20 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\Authentication\Adapter\Http\ApacheResolver;
-use Zend\Authentication\Adapter\Http\FileResolver;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\Authentication\Adapter\Http\ApacheResolver;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Authentication\Adapter\Http\FileResolver;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 
 /**
- * Create and return a Zend\Authentication\Adapter\Http instance based on the
+ * Create and return a Laminas\Authentication\Adapter\Http instance based on the
  * configuration provided.
  */
 final class HttpAdapterFactory

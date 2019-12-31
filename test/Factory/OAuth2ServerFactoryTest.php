@@ -1,27 +1,29 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\OAuth2ServerFactory;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceManager;
 use MongoDB;
 use OAuth2\GrantType;
 use OAuth2\OpenID\GrantType\AuthorizationCode as OpenIDAuthorizationCodeGrantType;
 use OAuth2\Server as OAuth2Server;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
-use ZF\MvcAuth\Factory\OAuth2ServerFactory;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceManager;
 
 class OAuth2ServerFactoryTest extends TestCase
 {
     protected function getOAuth2Options()
     {
         return [
-            'zf-oauth2' => [
+            'api-tools-oauth2' => [
                 'grant_types' => [
                     'client_credentials' => true,
                     'authorization_code' => true,
@@ -121,7 +123,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $services = $this->mockConfig(new ServiceManager());
         $config = [
             'adapter' => 'mongo',
-            'database' => 'zf-mvc-auth-test',
+            'database' => 'api-tools-mvc-auth-test',
         ];
         $server = OAuth2ServerFactory::factory($config, $services);
         $this->assertInstanceOf(OAuth2Server::class, $server);
@@ -145,8 +147,8 @@ class OAuth2ServerFactoryTest extends TestCase
     public function testServerCreatedHasDefaultGrantTypesAsDefinedByOAuth2Module($disable)
     {
         $options  = $this->getOAuth2Options();
-        $options['zf-oauth2']['grant_types'][$disable] = false;
-        $options['zf-oauth2']['storage_settings'] = [
+        $options['api-tools-oauth2']['grant_types'][$disable] = false;
+        $options['api-tools-oauth2']['storage_settings'] = [
             'client_table'        => 'CLIENTS',
             'code_table'          => 'AUTHORIZATION_CODES',
             'user_table'          => 'USERS',
@@ -165,7 +167,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $this->assertInstanceOf(OAuth2Server::class, $server);
 
         $grantTypes = $server->getGrantTypes();
-        foreach ($options['zf-oauth2']['grant_types'] as $type => $enabled) {
+        foreach ($options['api-tools-oauth2']['grant_types'] as $type => $enabled) {
             // jwt is hinted differently in OAuth2\Server
             if ($type === 'jwt') {
                 $type = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
@@ -212,7 +214,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $r = new ReflectionProperty($storage, 'config');
         $r->setAccessible(true);
         $storageConfig = $r->getValue($storage);
-        foreach ($options['zf-oauth2']['storage_settings'] as $key => $value) {
+        foreach ($options['api-tools-oauth2']['storage_settings'] as $key => $value) {
             $this->assertArrayHasKey($key, $storageConfig);
             $this->assertEquals($value, $storageConfig[$key]);
         }
@@ -221,8 +223,8 @@ class OAuth2ServerFactoryTest extends TestCase
     public function testAllowsUsingOpenIDConnectGrantTypeViaConfiguration()
     {
         $options  = $this->getOAuth2Options();
-        $options['zf-oauth2']['options']['use_openid_connect'] = true;
-        $options['zf-oauth2']['storage_settings'] = [
+        $options['api-tools-oauth2']['options']['use_openid_connect'] = true;
+        $options['api-tools-oauth2']['storage_settings'] = [
             'client_table'        => 'CLIENTS',
             'code_table'          => 'AUTHORIZATION_CODES',
             'user_table'          => 'USERS',
