@@ -9,6 +9,7 @@ php:
   - hhvm
 
 matrix:
+  fast_finish: true
   allow_failures:
     - php: 7
     - php: hhvm
@@ -23,5 +24,4 @@ script:
   - ./vendor/bin/phpcs --standard=PSR2 --ignore=test/Bootstrap.php src test Module.php
 
 notifications:
-  irc: "irc.freenode.org#apigility-dev"
   email: false

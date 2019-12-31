@@ -1,13 +1,15 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\HttpAdapterFactory;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Factory\HttpAdapterFactory;
 
 class HttpAdapterFactoryTest extends TestCase
 {
@@ -20,7 +22,7 @@ class HttpAdapterFactoryTest extends TestCase
     public function testFactoryRaisesExceptionWhenNoAcceptSchemesPresent()
     {
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'accept_schemes'
         );
         HttpAdapterFactory::factory(array());
@@ -47,7 +49,7 @@ class HttpAdapterFactoryTest extends TestCase
     public function testFactoryRaisesExceptionWhenAcceptSchemesIsNotAnArray($acceptSchemes)
     {
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'accept_schemes'
         );
         HttpAdapterFactory::factory(array('accept_schemes' => $acceptSchemes));
@@ -56,7 +58,7 @@ class HttpAdapterFactoryTest extends TestCase
     public function testFactoryRaisesExceptionWhenRealmIsMissing()
     {
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'realm'
         );
         HttpAdapterFactory::factory(array(
@@ -67,7 +69,7 @@ class HttpAdapterFactoryTest extends TestCase
     public function testRaisesExceptionWhenDigestConfiguredAndNoDomainsPresent()
     {
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'digest_domains'
         );
         HttpAdapterFactory::factory(array(
@@ -80,7 +82,7 @@ class HttpAdapterFactoryTest extends TestCase
     public function testRaisesExceptionWhenDigestConfiguredAndNoNoncePresent()
     {
         $this->setExpectedException(
-            'Zend\ServiceManager\Exception\ServiceNotCreatedException',
+            'Laminas\ServiceManager\Exception\ServiceNotCreatedException',
             'digest_domains'
         );
         HttpAdapterFactory::factory(array(
@@ -118,7 +120,7 @@ class HttpAdapterFactoryTest extends TestCase
     public function testCanReturnAdapterWithNoResolvers($config)
     {
         $adapter = HttpAdapterFactory::factory($config);
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http', $adapter);
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http', $adapter);
         $this->assertNull($adapter->getBasicResolver());
         $this->assertNull($adapter->getDigestResolver());
     }
@@ -131,8 +133,8 @@ class HttpAdapterFactoryTest extends TestCase
             'htpasswd' => $this->htpasswd,
         ));
 
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http', $adapter);
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http\ApacheResolver', $adapter->getBasicResolver());
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http', $adapter);
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http\ApacheResolver', $adapter->getBasicResolver());
         $this->assertNull($adapter->getDigestResolver());
     }
 
@@ -146,9 +148,9 @@ class HttpAdapterFactoryTest extends TestCase
             'htdigest' => $this->htdigest,
         ));
 
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http', $adapter);
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http', $adapter);
         $this->assertNull($adapter->getBasicResolver());
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http\FileResolver', $adapter->getDigestResolver());
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http\FileResolver', $adapter->getDigestResolver());
     }
 
     public function testCanReturnCompoundAdapter()
@@ -162,8 +164,8 @@ class HttpAdapterFactoryTest extends TestCase
             'htdigest' => $this->htdigest,
         ));
 
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http', $adapter);
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http\ApacheResolver', $adapter->getBasicResolver());
-        $this->assertInstanceOf('Zend\Authentication\Adapter\Http\FileResolver', $adapter->getDigestResolver());
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http', $adapter);
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http\ApacheResolver', $adapter->getBasicResolver());
+        $this->assertInstanceOf('Laminas\Authentication\Adapter\Http\FileResolver', $adapter->getDigestResolver());
     }
 }
