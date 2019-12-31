@@ -1,13 +1,15 @@
 <?php
-/**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- */
-namespace ZF\MvcAuth\Factory;
 
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authentication\HttpAdapter;
+/**
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
+ */
+namespace Laminas\ApiTools\MvcAuth\Factory;
+
+use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 final class AuthenticationHttpAdapterFactory
 {
@@ -19,7 +21,7 @@ final class AuthenticationHttpAdapterFactory
     }
 
     /**
-     * Create an instance of ZF\MvcAuth\Authentication\HttpAdapter based on
+     * Create an instance of Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter based on
      * the configuration provided and the registered AuthenticationService.
      *
      * @param string $type The base "type" the adapter will provide

@@ -1,19 +1,21 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Authentication;
+namespace Laminas\ApiTools\MvcAuth\Authentication;
 
+use Laminas\ApiTools\MvcAuth\Identity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\Router\RouteMatch;
 use OAuth2\Server as OAuth2Server;
 use RuntimeException;
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use ZF\MvcAuth\Identity;
-use ZF\MvcAuth\MvcAuthEvent;
 
 class DefaultAuthenticationListener
 {
@@ -168,7 +170,7 @@ class DefaultAuthenticationListener
             // Ambiguous situation; no matching type in map, but multiple
             // authentication adapters; return a guest identity.
             $identity = new Identity\GuestIdentity();
-            $mvcEvent->setParam('ZF\MvcAuth\Identity', $identity);
+            $mvcEvent->setParam('Laminas\ApiTools\MvcAuth\Identity', $identity);
             return $identity;
         }
 
@@ -178,7 +180,7 @@ class DefaultAuthenticationListener
             // and return a guest identity.
             $this->triggerAdapterPreAuth($request, $response);
             $identity = new Identity\GuestIdentity();
-            $mvcEvent->setParam('ZF\MvcAuth\Identity', $identity);
+            $mvcEvent->setParam('Laminas\ApiTools\MvcAuth\Identity', $identity);
             return $identity;
         }
 
@@ -195,7 +197,7 @@ class DefaultAuthenticationListener
             $identity = new Identity\GuestIdentity();
         }
 
-        $mvcEvent->setParam('ZF\MvcAuth\Identity', $identity);
+        $mvcEvent->setParam('Laminas\ApiTools\MvcAuth\Identity', $identity);
         return $identity;
     }
 
