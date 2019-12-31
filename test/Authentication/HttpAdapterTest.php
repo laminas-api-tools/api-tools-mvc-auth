@@ -1,23 +1,25 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authentication;
+namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
+use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
+use Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface;
+use Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity;
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\Storage\NonPersistent;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\MvcEvent;
 use PHPUnit\Framework\TestCase;
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Storage\NonPersistent;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\MvcEvent;
-use ZF\MvcAuth\Authentication\HttpAdapter;
-use ZF\MvcAuth\Authorization\AuthorizationInterface;
-use ZF\MvcAuth\Identity\AuthenticatedIdentity;
-use ZF\MvcAuth\Identity\GuestIdentity;
-use ZF\MvcAuth\MvcAuthEvent;
 
 class HttpAdapterTest extends TestCase
 {

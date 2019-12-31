@@ -1,17 +1,19 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authorization\AuthorizationInterface;
-use ZF\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating the DefaultAuthorizationListener from configuration.
@@ -29,7 +31,9 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        if (! $container->has(AuthorizationInterface::class)) {
+        if (! $container->has(AuthorizationInterface::class)
+            && ! $container->has(\ZF\MvcAuth\Authorization\AuthorizationInterface::class)
+        ) {
             throw new ServiceNotCreatedException(sprintf(
                 'Cannot create %s service; no %s service available!',
                 DefaultAuthorizationListener::class,
@@ -37,7 +41,7 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
             ));
         }
 
-        return new DefaultAuthorizationListener($container->get(AuthorizationInterface::class));
+        return new DefaultAuthorizationListener($container->has(AuthorizationInterface::class) ? $container->get(AuthorizationInterface::class) : $container->get(\ZF\MvcAuth\Authorization\AuthorizationInterface::class));
     }
 
     /**

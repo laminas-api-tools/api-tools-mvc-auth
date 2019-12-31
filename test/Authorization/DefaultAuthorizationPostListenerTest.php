@@ -1,19 +1,21 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authorization;
+namespace LaminasTest\ApiTools\MvcAuth\Authorization;
 
+use Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\Response;
+use LaminasTest\ApiTools\MvcAuth\TestAsset;
 use PHPUnit\Framework\TestCase;
-use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\Response;
-use ZF\MvcAuth\Authorization\AuthorizationInterface;
-use ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener;
-use ZF\MvcAuth\MvcAuthEvent;
-use ZFTest\MvcAuth\TestAsset;
 
 class DefaultAuthorizationPostListenerTest extends TestCase
 {
