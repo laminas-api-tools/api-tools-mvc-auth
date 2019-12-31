@@ -1,21 +1,23 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
+use Laminas\ApiTools\OAuth2\Factory\OAuth2ServerInstanceFactory;
 use RuntimeException;
-use ZF\OAuth2\Factory\OAuth2ServerInstanceFactory;
 
 /**
- * Override factory for the ZF\OAuth2\Service\OAuth2Server service.
+ * Override factory for the Laminas\ApiTools\OAuth2\Service\OAuth2Server service.
  *
  * This factory returns a factory that will allow retrieving a named
  * OAuth2\Server instance. It delegates to
- * ZF\OAuth2\Factory\OAuth2ServerInstanceFactory after first marshaling the
- * correct configuration from zf-mvc-auth.authentication.adapters.
+ * Laminas\ApiTools\OAuth2\Factory\OAuth2ServerInstanceFactory after first marshaling the
+ * correct configuration from api-tools-mvc-auth.authentication.adapters.
  */
 class NamedOAuth2ServerFactory
 {
@@ -27,9 +29,9 @@ class NamedOAuth2ServerFactory
     {
         $config = $container->get('config');
 
-        $oauth2Config  = isset($config['zf-oauth2']) ? $config['zf-oauth2'] : [];
-        $mvcAuthConfig = isset($config['zf-mvc-auth']['authentication']['adapters'])
-            ? $config['zf-mvc-auth']['authentication']['adapters']
+        $oauth2Config  = isset($config['api-tools-oauth2']) ? $config['api-tools-oauth2'] : [];
+        $mvcAuthConfig = isset($config['api-tools-mvc-auth']['authentication']['adapters'])
+            ? $config['api-tools-mvc-auth']['authentication']['adapters']
             : [];
 
         $servers = (object) ['application' => null, 'api' => []];
@@ -49,7 +51,7 @@ class NamedOAuth2ServerFactory
 
             foreach ($mvcAuthConfig as $name => $adapterConfig) {
                 if (! isset($adapterConfig['storage']['route'])) {
-                    // Not a zf-oauth2 config
+                    // Not a api-tools-oauth2 config
                     continue;
                 }
 

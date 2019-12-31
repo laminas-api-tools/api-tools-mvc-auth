@@ -1,18 +1,20 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Authentication;
+namespace Laminas\ApiTools\MvcAuth\Authentication;
 
+use Laminas\ApiTools\MvcAuth\Identity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
 use OAuth2\Request as OAuth2Request;
 use OAuth2\Response as OAuth2Response;
 use OAuth2\Server as OAuth2Server;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use ZF\MvcAuth\Identity;
-use ZF\MvcAuth\MvcAuthEvent;
 
 class OAuth2Adapter extends AbstractAdapter
 {
@@ -182,7 +184,7 @@ class OAuth2Adapter extends AbstractAdapter
     }
 
     /**
-     * Merge the OAuth2\Response instance's status and headers into the current Zend\Http\Response.
+     * Merge the OAuth2\Response instance's status and headers into the current Laminas\Http\Response.
      *
      * @param int $status
      * @param Response $response
@@ -196,7 +198,7 @@ class OAuth2Adapter extends AbstractAdapter
     }
 
     /**
-     * Merge the OAuth2\Response headers into the current Zend\Http\Response.
+     * Merge the OAuth2\Response headers into the current Laminas\Http\Response.
      *
      * @param Response $response
      * @param array $oauth2Headers

@@ -1,26 +1,28 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\ApacheResolver;
+use Laminas\ApiTools\MvcAuth\Authentication\AuthHttpAdapter;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
+use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
+use Laminas\ApiTools\MvcAuth\Factory;
+use Laminas\ApiTools\MvcAuth\FileResolver;
+use Laminas\Authentication\Adapter\Http as HttpBasic;
+use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceManager;
 use OAuth2\Server as OAuth2Server;
 use OAuth2\Storage\Pdo as PdoStorage;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
-use Zend\Authentication\Adapter\Http as HttpBasic;
-use Zend\Authentication\AuthenticationServiceInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceManager;
-use ZF\MvcAuth\ApacheResolver;
-use ZF\MvcAuth\Authentication\AuthHttpAdapter;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Authentication\HttpAdapter;
-use ZF\MvcAuth\Authentication\OAuth2Adapter;
-use ZF\MvcAuth\Factory;
-use ZF\MvcAuth\FileResolver;
 
 class DefaultAuthenticationListenerFactoryTest extends TestCase
 {
@@ -42,7 +44,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
 
         $this->services->setService('TestAdapter', $adapter);
         $this->services->setService('config', [
-            'zf-oauth2' => [
+            'api-tools-oauth2' => [
                 'storage' => 'TestAdapter',
                 'grant_types' => [
                     'client_credentials' => true,
@@ -83,7 +85,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
 
     public function testCallingFactoryWithConfigMissingAuthenticationSubSectionReturnsListenerWithNoHttpAdapter()
     {
-        $this->services->setService('config', ['zf-mvc-auth' => []]);
+        $this->services->setService('config', ['api-tools-mvc-auth' => []]);
         $factory = $this->factory;
 
         $listener = $factory($this->services, 'DefaultAuthenticationListener');
@@ -93,7 +95,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
 
     public function testCallingFactoryWithConfigMissingHttpSubSubSectionReturnsListenerWithNoHttpAdapter()
     {
-        $this->services->setService('config', ['zf-mvc-auth' => ['authentication' => []]]);
+        $this->services->setService('config', ['api-tools-mvc-auth' => ['authentication' => []]]);
         $factory = $this->factory;
 
         $listener = $factory($this->services, 'DefaultAuthenticationListener');
@@ -106,7 +108,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->services->setService(
             'config',
             [
-                'zf-mvc-auth' => [
+                'api-tools-mvc-auth' => [
                     'authentication' => [
                         'http' => [],
                     ],
@@ -124,7 +126,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
     public function testCallingFactoryWithBasicSchemeButMissingHtpasswdValueReturnsListenerWithNoHttpAdapter()
     {
         $this->services->setService('config', [
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'http' => [
                         'accept_schemes' => ['basic'],
@@ -144,7 +146,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
     public function testCallingFactoryWithDigestSchemeButMissingHtdigestValueReturnsListenerWithNoHttpAdapter()
     {
         $this->services->setService('config', [
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'http' => [
                         'accept_schemes' => ['digest'],
@@ -167,7 +169,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
         $this->services->setService('config', [
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'http' => [
                         'accept_schemes' => ['basic'],
@@ -191,7 +193,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
         $this->services->setService('config', [
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'http' => [
                         'accept_schemes' => ['digest'],
@@ -215,7 +217,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
         $this->services->setService('config', [
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'http' => [
                         'accept_schemes' => ['digest'],
@@ -237,12 +239,12 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertEquals(['digest', 'token'], $listener->getAuthenticationTypes());
     }
 
-    public function testFactoryWillUsePreconfiguredOAuth2ServerInstanceProvidedByZfOAuth2()
+    public function testFactoryWillUsePreconfiguredOAuth2ServerInstanceProvidedByLaminasOAuth2()
     {
         // Configure mock OAuth2 Server
         $oauth2Server = $this->getMockBuilder(OAuth2Server::class)->disableOriginalConstructor()->getMock();
         // Wrap it in a factory
-        $this->services->setService('ZF\OAuth2\Service\OAuth2Server', function () use ($oauth2Server) {
+        $this->services->setService('Laminas\ApiTools\OAuth2\Service\OAuth2Server', function () use ($oauth2Server) {
             return $oauth2Server;
         });
 
@@ -251,7 +253,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
 
         $this->services->setService('TestAdapter', $adapter);
         $this->services->setService('config', [
-            'zf-oauth2' => [
+            'api-tools-oauth2' => [
                 'storage' => 'TestAdapter'
             ]
         ]);
@@ -274,7 +276,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
         $this->services->setService('config', [
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'map' => [
                         'Testing\V1' => 'oauth2',

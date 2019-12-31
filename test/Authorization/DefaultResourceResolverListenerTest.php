@@ -1,21 +1,23 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authorization;
+namespace LaminasTest\ApiTools\MvcAuth\Authorization;
 
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\Request;
+use Laminas\Stdlib\Response;
+use LaminasTest\ApiTools\MvcAuth\RouteMatchFactoryTrait;
+use LaminasTest\ApiTools\MvcAuth\TestAsset;
 use PHPUnit\Framework\TestCase;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\Request;
-use Zend\Stdlib\Response;
-use ZF\MvcAuth\Authorization\DefaultResourceResolverListener;
-use ZF\MvcAuth\MvcAuthEvent;
-use ZFTest\MvcAuth\RouteMatchFactoryTrait;
-use ZFTest\MvcAuth\TestAsset;
 
 class DefaultResourceResolverListenerTest extends TestCase
 {
@@ -33,7 +35,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         $this->mvcAuthEvent = $this->createMvcAuthEvent($mvcEvent);
 
         $this->restControllers = [
-            'ZendCon\V1\Rest\Session\Controller' => 'session_id',
+            'LaminasCon\V1\Rest\Session\Controller' => 'session_id',
         ];
         $this->listener = new DefaultResourceResolverListener($this->restControllers);
     }
@@ -41,7 +43,7 @@ class DefaultResourceResolverListenerTest extends TestCase
     public function createMvcAuthEvent(MvcEvent $mvcEvent)
     {
         $this->authentication = new TestAsset\AuthenticationService();
-        $this->authorization  = $this->getMockBuilder('ZF\MvcAuth\Authorization\AuthorizationInterface')->getMock();
+        $this->authorization  = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface')->getMock();
         return new MvcAuthEvent($mvcEvent, $this->authentication, $this->authorization);
     }
 
@@ -57,12 +59,12 @@ class DefaultResourceResolverListenerTest extends TestCase
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
-        $routeMatch->setParam('controller', 'ZendCon\V1\Rest\Session\Controller');
+        $routeMatch->setParam('controller', 'LaminasCon\V1\Rest\Session\Controller');
         $routeMatch->setParam('action', 'foo');
         $routeMatch->setParam('session_id', '0');
         $request    = $mvcEvent->getRequest();
         $this->assertEquals(
-            'ZendCon\V1\Rest\Session\Controller::entity',
+            'LaminasCon\V1\Rest\Session\Controller::entity',
             $this->listener->buildResourceString($routeMatch, $request)
         );
     }
@@ -81,10 +83,10 @@ class DefaultResourceResolverListenerTest extends TestCase
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
-        $routeMatch->setParam('controller', 'ZendCon\V1\Rest\Session\Controller');
+        $routeMatch->setParam('controller', 'LaminasCon\V1\Rest\Session\Controller');
         $request    = $mvcEvent->getRequest();
         $this->assertEquals(
-            'ZendCon\V1\Rest\Session\Controller::collection',
+            'LaminasCon\V1\Rest\Session\Controller::collection',
             $this->listener->buildResourceString($routeMatch, $request)
         );
     }
@@ -93,11 +95,11 @@ class DefaultResourceResolverListenerTest extends TestCase
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
-        $routeMatch->setParam('controller', 'ZendCon\V1\Rest\Session\Controller');
+        $routeMatch->setParam('controller', 'LaminasCon\V1\Rest\Session\Controller');
         $routeMatch->setParam('session_id', 'foo');
         $request    = $mvcEvent->getRequest();
         $this->assertEquals(
-            'ZendCon\V1\Rest\Session\Controller::entity',
+            'LaminasCon\V1\Rest\Session\Controller::entity',
             $this->listener->buildResourceString($routeMatch, $request)
         );
     }
@@ -106,11 +108,11 @@ class DefaultResourceResolverListenerTest extends TestCase
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
-        $routeMatch->setParam('controller', 'ZendCon\V1\Rest\Session\Controller');
+        $routeMatch->setParam('controller', 'LaminasCon\V1\Rest\Session\Controller');
         $request    = $mvcEvent->getRequest();
         $request->getQuery()->set('session_id', 'bar');
         $this->assertEquals(
-            'ZendCon\V1\Rest\Session\Controller::entity',
+            'LaminasCon\V1\Rest\Session\Controller::entity',
             $this->listener->buildResourceString($routeMatch, $request)
         );
     }

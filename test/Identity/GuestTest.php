@@ -1,12 +1,12 @@
 <?php
 
-namespace ZFTest\MvcAuth\Identity;
+namespace LaminasTest\ApiTools\MvcAuth\Identity;
 
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
+use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface as AclRoleInterface;
+use Laminas\Permissions\Rbac\RoleInterface as RbacRoleInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\Permissions\Acl\Role\RoleInterface as AclRoleInterface;
-use Zend\Permissions\Rbac\RoleInterface as RbacRoleInterface;
-use ZF\MvcAuth\Identity\GuestIdentity;
-use ZF\MvcAuth\Identity\IdentityInterface;
 
 class GuestIdentityTest extends TestCase
 {
