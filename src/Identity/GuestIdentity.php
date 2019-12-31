@@ -1,12 +1,14 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Identity;
+namespace Laminas\ApiTools\MvcAuth\Identity;
 
-use Zend\Permissions\Rbac\AbstractRole as AbstractRbacRole;
+use Laminas\Permissions\Rbac\AbstractRole as AbstractRbacRole;
 
 class GuestIdentity extends AbstractRbacRole implements IdentityInterface
 {

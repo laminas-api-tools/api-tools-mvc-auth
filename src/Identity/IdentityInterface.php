@@ -1,13 +1,15 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Identity;
+namespace Laminas\ApiTools\MvcAuth\Identity;
 
-use Zend\Permissions\Acl\Role\RoleInterface as AclRoleInterface;
-use Zend\Permissions\Rbac\RoleInterface as RbacRoleInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface as AclRoleInterface;
+use Laminas\Permissions\Rbac\RoleInterface as RbacRoleInterface;
 
 interface IdentityInterface extends
     AclRoleInterface,
