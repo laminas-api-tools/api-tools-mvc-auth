@@ -1,20 +1,22 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
+use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
+use Laminas\ApiTools\OAuth2\Factory\OAuth2ServerFactory as LaminasOAuth2ServerFactory;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use RuntimeException;
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Authentication\HttpAdapter;
-use ZF\MvcAuth\Authentication\OAuth2Adapter;
-use ZF\OAuth2\Factory\OAuth2ServerFactory as ZFOAuth2ServerFactory;
 
 /**
  * Factory for creating the DefaultAuthenticationListener from configuration.
@@ -73,9 +75,9 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
     protected function retrieveHttpAdapter(ContainerInterface $container)
     {
         // Allow applications to provide their own AuthHttpAdapter service; if none provided,
-        // or no HTTP adapter configuration provided to zf-mvc-auth, we can stop early.
+        // or no HTTP adapter configuration provided to api-tools-mvc-auth, we can stop early.
 
-        $httpAdapter = $container->get('ZF\MvcAuth\Authentication\AuthHttpAdapter');
+        $httpAdapter = $container->get('Laminas\ApiTools\MvcAuth\Authentication\AuthHttpAdapter');
 
         if ($httpAdapter === false) {
             return false;
@@ -107,27 +109,27 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config['zf-oauth2']['storage'])
-            || ! is_string($config['zf-oauth2']['storage'])
-            || ! $container->has($config['zf-oauth2']['storage'])
+        if (! isset($config['api-tools-oauth2']['storage'])
+            || ! is_string($config['api-tools-oauth2']['storage'])
+            || ! $container->has($config['api-tools-oauth2']['storage'])
         ) {
             return false;
         }
 
-        if ($container->has('ZF\OAuth2\Service\OAuth2Server')) {
+        if ($container->has('Laminas\ApiTools\OAuth2\Service\OAuth2Server')) {
             // If the service locator already has a pre-configured OAuth2 server, use it.
-            $factory = $container->get('ZF\OAuth2\Service\OAuth2Server');
+            $factory = $container->get('Laminas\ApiTools\OAuth2\Service\OAuth2Server');
 
             return new OAuth2Adapter($factory());
         }
 
-        $factory = new ZFOAuth2ServerFactory();
+        $factory = new LaminasOAuth2ServerFactory();
 
         try {
             $serverFactory = $factory($container);
         } catch (RuntimeException $e) {
             // These are exceptions specifically thrown from the
-            // ZF\OAuth2\Factory\OAuth2ServerFactory when essential
+            // Laminas\ApiTools\OAuth2\Factory\OAuth2ServerFactory when essential
             // configuration is missing.
             switch (true) {
                 case strpos($e->getMessage(), 'missing'):
@@ -157,13 +159,13 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config['zf-mvc-auth']['authentication']['types'])
-            || ! is_array($config['zf-mvc-auth']['authentication']['types'])
+        if (! isset($config['api-tools-mvc-auth']['authentication']['types'])
+            || ! is_array($config['api-tools-mvc-auth']['authentication']['types'])
         ) {
             return false;
         }
 
-        return $config['zf-mvc-auth']['authentication']['types'];
+        return $config['api-tools-mvc-auth']['authentication']['types'];
     }
 
     /**
@@ -177,12 +179,12 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config['zf-mvc-auth']['authentication']['map'])
-            || ! is_array($config['zf-mvc-auth']['authentication']['map'])
+        if (! isset($config['api-tools-mvc-auth']['authentication']['map'])
+            || ! is_array($config['api-tools-mvc-auth']['authentication']['map'])
         ) {
             return [];
         }
 
-        return $config['zf-mvc-auth']['authentication']['map'];
+        return $config['api-tools-mvc-auth']['authentication']['map'];
     }
 }

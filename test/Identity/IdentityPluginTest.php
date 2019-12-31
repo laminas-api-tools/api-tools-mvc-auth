@@ -1,13 +1,13 @@
 <?php
 
-namespace ZFTest\MvcAuth\Identity;
+namespace LaminasTest\ApiTools\MvcAuth\Identity;
 
+use Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity;
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
+use Laminas\ApiTools\MvcAuth\Identity\IdentityPlugin;
+use Laminas\Mvc\Controller\AbstractController;
+use Laminas\Mvc\MvcEvent;
 use PHPUnit\Framework\TestCase;
-use Zend\Mvc\Controller\AbstractController;
-use Zend\Mvc\MvcEvent;
-use ZF\MvcAuth\Identity\AuthenticatedIdentity;
-use ZF\MvcAuth\Identity\GuestIdentity;
-use ZF\MvcAuth\Identity\IdentityPlugin;
 
 class IdentityPluginTest extends TestCase
 {
@@ -33,14 +33,14 @@ class IdentityPluginTest extends TestCase
 
     public function testInvalidTypeInEventIdentityParamCausesPluginToYieldGuestIdentity()
     {
-        $this->event->setParam('ZF\MvcAuth\Identity', (object) ['foo' => 'bar']);
+        $this->event->setParam('Laminas\ApiTools\MvcAuth\Identity', (object) ['foo' => 'bar']);
         $this->assertInstanceOf(GuestIdentity::class, $this->plugin->__invoke());
     }
 
     public function testValidIdentityInEventIsReturnedByPlugin()
     {
         $identity = new AuthenticatedIdentity('mwop');
-        $this->event->setParam('ZF\MvcAuth\Identity', $identity);
+        $this->event->setParam('Laminas\ApiTools\MvcAuth\Identity', $identity);
         $this->assertSame($identity, $this->plugin->__invoke());
     }
 }

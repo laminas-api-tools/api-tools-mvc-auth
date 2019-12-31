@@ -1,16 +1,18 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\DelegatorFactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Authentication\HttpAdapter;
-use ZF\MvcAuth\Authentication\OAuth2Adapter;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
+use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
+use Laminas\ServiceManager\DelegatorFactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
 {
@@ -30,13 +32,13 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
         $listener = $callback();
 
         $config = $container->get('config');
-        if (! isset($config['zf-mvc-auth']['authentication']['adapters'])
-            || ! is_array($config['zf-mvc-auth']['authentication']['adapters'])
+        if (! isset($config['api-tools-mvc-auth']['authentication']['adapters'])
+            || ! is_array($config['api-tools-mvc-auth']['authentication']['adapters'])
         ) {
             return $listener;
         }
 
-        foreach ($config['zf-mvc-auth']['authentication']['adapters'] as $type => $data) {
+        foreach ($config['api-tools-mvc-auth']['authentication']['adapters'] as $type => $data) {
             $this->attachAdapterOfType($type, $data, $container, $listener);
         }
 

@@ -1,18 +1,20 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
+use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
+use Laminas\ApiTools\MvcAuth\Factory\AuthenticationAdapterDelegatorFactory;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\ServiceManager;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Authentication\HttpAdapter;
-use ZF\MvcAuth\Authentication\OAuth2Adapter;
-use ZF\MvcAuth\Factory\AuthenticationAdapterDelegatorFactory;
 
 class AuthenticationAdapterDelegatorFactoryTest extends TestCase
 {
@@ -57,8 +59,8 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
     public function testReturnsListenerWithConfiguredAdapters()
     {
         $config = [
-            // ensure top-level zf-oauth2 are available
-            'zf-oauth2' => [
+            // ensure top-level api-tools-oauth2 are available
+            'api-tools-oauth2' => [
                 'grant_types' => [
                     'client_credentials' => true,
                     'authorization_code' => true,
@@ -68,7 +70,7 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
                 ],
                 'api_problem_error_response' => true,
             ],
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'adapters' => [
                         'foo' => [

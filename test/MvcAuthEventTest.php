@@ -1,14 +1,14 @@
 <?php
 
-namespace ZFTest\MvcAuth;
+namespace LaminasTest\ApiTools\MvcAuth;
 
+use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\Result;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Permissions\Acl\Acl;
 use PHPUnit\Framework\TestCase;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Result;
-use Zend\Permissions\Acl\Acl;
-use Zend\Mvc\MvcEvent;
-use ZF\MvcAuth\Identity\GuestIdentity;
-use ZF\MvcAuth\MvcAuthEvent;
 
 class MvcAuthEventTest extends TestCase
 {

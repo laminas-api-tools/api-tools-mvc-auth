@@ -1,19 +1,21 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\HttpAdapterFactory;
+use Laminas\Authentication\Adapter\Http\ApacheResolver;
+use Laminas\Authentication\Adapter\Http as HttpBasic;
+use Laminas\Authentication\Adapter\Http\FileResolver;
+use Laminas\Authentication\Adapter\Http\ResolverInterface;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\Authentication\Adapter\Http as HttpBasic;
-use Zend\Authentication\Adapter\Http\ApacheResolver;
-use Zend\Authentication\Adapter\Http\FileResolver;
-use Zend\Authentication\Adapter\Http\ResolverInterface;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Factory\HttpAdapterFactory;
 
 class HttpAdapterFactoryTest extends TestCase
 {
