@@ -1,10 +1,10 @@
-ZF MVC Auth
+Laminas MVC Auth
 ===========
 
-[![Build Status](https://travis-ci.org/zfcampus/zf-mvc-auth.png)](https://travis-ci.org/zfcampus/zf-mvc-auth)
-[![Coverage Status](https://coveralls.io/repos/zfcampus/zf-mvc-auth/badge.png?branch=master)](https://coveralls.io/r/zfcampus/zf-mvc-auth)
+[![Build Status](https://travis-ci.org/laminas-api-tools/api-tools-mvc-auth.png)](https://travis-ci.org/laminas-api-tools/api-tools-mvc-auth)
+[![Coverage Status](https://coveralls.io/repos/laminas-api-tools/api-tools-mvc-auth/badge.png?branch=master)](https://coveralls.io/r/laminas-api-tools/api-tools-mvc-auth)
 
-Provide events for Authentication and Authorization in the ZF2 MVC lifecycle.
+Provide events for Authentication and Authorization in the Laminas MVC lifecycle.
 
 
 Installation
@@ -22,5 +22,5 @@ Configuration
 -------------
 
 Services:
-    ```authentication``` is provided and is an instance of Zend\Auth\AuthenticationService
+    ```authentication``` is provided and is an instance of Laminas\Auth\AuthenticationService
     with a NonPersistent storage adapter.
