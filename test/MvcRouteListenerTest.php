@@ -1,12 +1,12 @@
 <?php
 
-namespace ZFTest\MvcAuth;
+namespace LaminasTest\ApiTools\MvcAuth;
 
+use Laminas\ApiTools\MvcAuth\MvcRouteListener;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\Test\EventListenerIntrospectionTrait;
+use Laminas\Mvc\MvcEvent;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\Test\EventListenerIntrospectionTrait;
-use Zend\Mvc\MvcEvent;
-use ZF\MvcAuth\MvcRouteListener;
 
 class MvcRouteListenerTest extends TestCase
 {
@@ -18,11 +18,11 @@ class MvcRouteListenerTest extends TestCase
     {
         $this->events = new EventManager;
         $this->auth   = $this
-            ->getMockBuilder('Zend\Authentication\AuthenticationService')
+            ->getMockBuilder('Laminas\Authentication\AuthenticationService')
             ->disableOriginalConstructor()
             ->getMock();
         $this->event  = $this
-            ->getMockBuilder('ZF\MvcAuth\MvcAuthEvent')
+            ->getMockBuilder('Laminas\ApiTools\MvcAuth\MvcAuthEvent')
             ->disableOriginalConstructor()
             ->getMock();
 

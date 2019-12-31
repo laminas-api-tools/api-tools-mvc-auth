@@ -1,15 +1,17 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Factory\AuthenticationAdapterDelegatorFactory;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\ServiceManager\ServiceManager;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Factory\AuthenticationAdapterDelegatorFactory;
 
 class AuthenticationAdapterDelegatorFactoryTest extends TestCase
 {
@@ -43,7 +45,7 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
 
         $listener = $factory(
             $this->services,
-            'ZF\MvcAuth\Authentication\DefaultAuthenticationListener',
+            'Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener',
             $this->callback
         );
         $this->assertSame($this->listener, $listener);
@@ -54,8 +56,8 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
     public function testReturnsListenerWithConfiguredAdapters()
     {
         $config = [
-            // ensure top-level zf-oauth2 are available
-            'zf-oauth2' => [
+            // ensure top-level api-tools-oauth2 are available
+            'api-tools-oauth2' => [
                 'grant_types' => [
                     'client_credentials' => true,
                     'authorization_code' => true,
@@ -65,11 +67,11 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
                 ],
                 'api_problem_error_response' => true,
             ],
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'adapters' => [
                         'foo' => [
-                            'adapter' => 'ZF\MvcAuth\Authentication\HttpAdapter',
+                            'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter',
                             'options' => [
                                 'accept_schemes' => ['basic'],
                                 'realm' => 'api',
@@ -77,7 +79,7 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
                             ],
                         ],
                         'bar' => [
-                            'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
+                            'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter',
                             'storage' => [
                                 'adapter' => 'pdo',
                                 'dsn' => 'sqlite::memory:',
@@ -96,14 +98,14 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
         $this->services->setService('config', $config);
         $this->services->setService(
             'authentication',
-            $this->getMockBuilder('Zend\Authentication\AuthenticationService')->getMock()
+            $this->getMockBuilder('Laminas\Authentication\AuthenticationService')->getMock()
         );
 
         $factory = $this->factory;
 
         $listener = $factory(
             $this->services,
-            'ZF\MvcAuth\Authentication\DefaultAuthenticationListener',
+            'Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener',
             $this->callback
         );
         $this->assertSame($this->listener, $listener);

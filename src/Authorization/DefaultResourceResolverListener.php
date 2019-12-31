@@ -1,16 +1,18 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Authorization;
+namespace Laminas\ApiTools\MvcAuth\Authorization;
 
 use InvalidArgumentException;
-use Zend\Http\Request;
-use Zend\Mvc\Router\RouteMatch as V2RouteMatch;
-use Zend\Router\RouteMatch;
-use ZF\MvcAuth\MvcAuthEvent;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Http\Request;
+use Laminas\Mvc\Router\RouteMatch as V2RouteMatch;
+use Laminas\Router\RouteMatch;
 
 class DefaultResourceResolverListener
 {
@@ -72,7 +74,7 @@ class DefaultResourceResolverListener
      * If it cannot resolve a controller service name, boolean false is returned.
      *
      * @param RouteMatch|V2RouteMatch $routeMatch
-     * @param \Zend\Stdlib\RequestInterface $request
+     * @param \Laminas\Stdlib\RequestInterface $request
      * @return false|string
      */
     public function buildResourceString($routeMatch, $request)
@@ -95,7 +97,7 @@ class DefaultResourceResolverListener
         }
 
         // - Is this an RPC or a REST call?
-        //   - Basically, if it's not in the zf-rest configuration, we assume RPC
+        //   - Basically, if it's not in the api-tools-rest configuration, we assume RPC
         if (! array_key_exists($controller, $this->restControllers)) {
             $action = $routeMatch->getParam('action', 'index');
             return sprintf('%s::%s', $controller, $action);
@@ -120,7 +122,7 @@ class DefaultResourceResolverListener
      *
      * @param string $identifierName
      * @param RouteMatch|V2RouteMatch $routeMatch Validated by calling method.
-     * @param \Zend\Stdlib\RequestInterface $request
+     * @param \Laminas\Stdlib\RequestInterface $request
      * @return false|mixed
      */
     protected function getIdentifier($identifierName, $routeMatch, $request)

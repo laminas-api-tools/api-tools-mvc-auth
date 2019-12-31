@@ -1,30 +1,32 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015-2016 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth;
+namespace LaminasTest\ApiTools\MvcAuth;
 
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener;
+use Laminas\ApiTools\MvcAuth\Module;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\Test\EventListenerIntrospectionTrait;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\Mvc\Application;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Stdlib\RequestInterface;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionMethod;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\Test\EventListenerIntrospectionTrait;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\Mvc\Application;
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Stdlib\RequestInterface;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener;
-use ZF\MvcAuth\Authorization\DefaultAuthorizationListener;
-use ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener;
-use ZF\MvcAuth\Authorization\DefaultResourceResolverListener;
-use ZF\MvcAuth\Module;
-use ZF\MvcAuth\MvcAuthEvent;
 
 class ModuleTest extends TestCase
 {
@@ -34,22 +36,22 @@ class ModuleTest extends TestCase
     {
         $r = new ReflectionMethod(Application::class, '__construct');
         if ($r->getNumberOfRequiredParameters() === 2) {
-            // zend-mvc v2
+            // laminas-mvc v2
             return new Application([], $services, $events);
         }
 
-        // zend-mvc v3
+        // laminas-mvc v3
         return new Application($services, $events);
     }
 
     protected function createServiceManager(array $config)
     {
         if (method_exists(ServiceManager::class, 'configure')) { // v3
-            // zend-servicemanager v3
+            // laminas-servicemanager v3
             return new ServiceManager($config['service_manager']);
         }
 
-        // zend-servicemanager v2
+        // laminas-servicemanager v2
         $servicesConfig = new ServiceManagerConfig($config['service_manager']);
         $services = new ServiceManager($servicesConfig);
     }
