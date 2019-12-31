@@ -1,14 +1,16 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\AclAuthorizationFactory;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\ServiceManager\ServiceManager;
-use ZF\MvcAuth\Factory\AclAuthorizationFactory;
 
 class AclAuthorizationFactoryTest extends TestCase
 {
@@ -46,7 +48,7 @@ class AclAuthorizationFactoryTest extends TestCase
         ];
 
         foreach (['Foo\Bar\\', 'Foo-Bar-'] as $namespace) {
-            yield $namespace => [['zf-mvc-auth' => ['authorization' => [
+            yield $namespace => [['api-tools-mvc-auth' => ['authorization' => [
                 $namespace . 'RestController' => [
                     'entity' => $entityConfig,
                     'collection' => $collectionConfig,
@@ -71,12 +73,12 @@ class AclAuthorizationFactoryTest extends TestCase
 
         $acl = $factory($this->services, 'AclAuthorization');
 
-        $this->assertInstanceOf('ZF\MvcAuth\Authorization\AclAuthorization', $acl);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization', $acl);
 
-        $authorizations = $config['zf-mvc-auth']['authorization'];
+        $authorizations = $config['api-tools-mvc-auth']['authorization'];
 
         foreach ($authorizations as $resource => $rules) {
-            // Internally, zend-mvc is always using namespace separators, so
+            // Internally, laminas-mvc is always using namespace separators, so
             // ensure we test against those specifically.
             $resource = strtr($resource, '-', '\\');
             switch (true) {
@@ -106,7 +108,7 @@ class AclAuthorizationFactoryTest extends TestCase
 
     public function testBlacklistAclSpecificationHonorsBooleansSetForMethods()
     {
-        $config = ['zf-mvc-auth' => ['authorization' => [
+        $config = ['api-tools-mvc-auth' => ['authorization' => [
             'deny_by_default' => true,
             'Foo\Bar\RestController' => [
                 'entity' => [
@@ -142,9 +144,9 @@ class AclAuthorizationFactoryTest extends TestCase
 
         $acl = $factory($this->services, 'AclAuthorization');
 
-        $this->assertInstanceOf('ZF\MvcAuth\Authorization\AclAuthorization', $acl);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization', $acl);
 
-        $authorizations = $config['zf-mvc-auth']['authorization'];
+        $authorizations = $config['api-tools-mvc-auth']['authorization'];
         unset($authorizations['deny_by_default']);
 
         foreach ($authorizations as $resource => $rules) {
@@ -175,7 +177,7 @@ class AclAuthorizationFactoryTest extends TestCase
 
     public function testBlacklistAclsDenyByDefaultForUnspecifiedHttpMethods()
     {
-        $config = ['zf-mvc-auth' => ['authorization' => [
+        $config = ['api-tools-mvc-auth' => ['authorization' => [
             'deny_by_default' => true,
             'Foo\Bar\RestController' => [
                 'entity' => [
@@ -206,9 +208,9 @@ class AclAuthorizationFactoryTest extends TestCase
 
         $acl = $factory($this->services, 'AclAuthorization');
 
-        $this->assertInstanceOf('ZF\MvcAuth\Authorization\AclAuthorization', $acl);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization', $acl);
 
-        $authorizations = $config['zf-mvc-auth']['authorization'];
+        $authorizations = $config['api-tools-mvc-auth']['authorization'];
         unset($authorizations['deny_by_default']);
 
         $this->assertFalse($acl->isAllowed('guest', 'Foo\Bar\RestController::entity', 'PATCH'));
@@ -232,7 +234,7 @@ class AclAuthorizationFactoryTest extends TestCase
 
     public function testRpcActionsAreNormalizedWhenCreatingAcl()
     {
-        $config = ['zf-mvc-auth' => ['authorization' => [
+        $config = ['api-tools-mvc-auth' => ['authorization' => [
             'Foo\Bar\RpcController' => [
                 'actions' => [
                     'Do' => [
@@ -250,7 +252,7 @@ class AclAuthorizationFactoryTest extends TestCase
         $factory = $this->factory;
 
         $acl = $factory($this->services, 'AclAuthorization');
-        $this->assertInstanceOf('ZF\MvcAuth\Authorization\AclAuthorization', $acl);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization', $acl);
         $this->assertFalse($acl->isAllowed('guest', 'Foo\Bar\RpcController::do', 'POST'));
     }
 

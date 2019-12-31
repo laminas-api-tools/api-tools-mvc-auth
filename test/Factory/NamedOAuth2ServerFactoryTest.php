@@ -1,15 +1,17 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\NamedOAuth2ServerFactory;
+use Laminas\ApiTools\MvcAuth\Factory\OAuth2ServerFactory;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Factory\NamedOAuth2ServerFactory;
-use ZF\MvcAuth\Factory\OAuth2ServerFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class NamedOAuth2ServerFactoryTest extends TestCase
 {
@@ -22,8 +24,8 @@ class NamedOAuth2ServerFactoryTest extends TestCase
     public function setUpConfig($services)
     {
         $services->setService('config', [
-            'zf-oauth2' => [
-                'storage' => 'ZFTest\OAuth2\TestAsset\MockAdapter',
+            'api-tools-oauth2' => [
+                'storage' => 'LaminasTest\ApiTools\OAuth2\TestAsset\MockAdapter',
                 'grant_types' => [
                     'client_credentials' => true,
                     'authorization_code' => true,
@@ -33,20 +35,20 @@ class NamedOAuth2ServerFactoryTest extends TestCase
                 ],
                 'api_problem_error_response' => true,
             ],
-            'zf-mvc-auth' => [
+            'api-tools-mvc-auth' => [
                 'authentication' => [
                     'adapters' => [
                         'test' => [
-                            'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
+                            'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter',
                             'storage' => [
-                                'storage' => 'ZFTest\OAuth2\TestAsset\MockAdapter',
+                                'storage' => 'LaminasTest\ApiTools\OAuth2\TestAsset\MockAdapter',
                                 'route'   => 'test',
                             ],
                         ],
                         'test2' => [
-                            'adapter' => 'ZF\MvcAuth\Authentication\OAuth2Adapter',
+                            'adapter' => 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter',
                             'storage' => [
-                                'storage' => 'ZFTest\OAuth2\TestAsset\MockAdapter',
+                                'storage' => 'LaminasTest\ApiTools\OAuth2\TestAsset\MockAdapter',
                                 'route'   => 'test2',
                             ],
                         ],
@@ -60,7 +62,7 @@ class NamedOAuth2ServerFactoryTest extends TestCase
             ->getMock();
 
         $services->setService(
-            'ZFTest\OAuth2\TestAsset\MockAdapter',
+            'LaminasTest\ApiTools\OAuth2\TestAsset\MockAdapter',
             $oauth2StorageAdapter
         );
         return $services;
