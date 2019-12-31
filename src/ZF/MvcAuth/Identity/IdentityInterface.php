@@ -1,9 +1,9 @@
 <?php
 
-namespace ZF\MvcAuth\Identity;
+namespace Laminas\ApiTools\MvcAuth\Identity;
 
-use Zend\Permissions\Acl\Role\RoleInterface as AclRoleInterface;
-use Zend\Permissions\Rbac\RoleInterface as RbacRoleInterface;
+use Laminas\Permissions\Acl\Role\RoleInterface as AclRoleInterface;
+use Laminas\Permissions\Rbac\RoleInterface as RbacRoleInterface;
 
 interface IdentityInterface extends
     AclRoleInterface,

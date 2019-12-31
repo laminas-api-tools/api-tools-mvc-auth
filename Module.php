@@ -1,12 +1,14 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth;
+namespace Laminas\ApiTools\MvcAuth;
 
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 
 class Module
 {
@@ -17,8 +19,8 @@ class Module
      */
     public function getAutoloaderConfig()
     {
-        return array('Zend\Loader\StandardAutoloader' => array('namespaces' => array(
-            __NAMESPACE__ => __DIR__ . '/src/ZF/MvcAuth/',
+        return array('Laminas\Loader\StandardAutoloader' => array('namespaces' => array(
+            __NAMESPACE__ => __DIR__ . '/src/Laminas/MvcAuth/',
         )));
     }
 
@@ -50,10 +52,10 @@ class Module
             $authentication
         );
 
-        $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('ZF\MvcAuth\Authentication\DefaultAuthenticationListener'));
-        $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION_POST, $services->get('ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener'));
-        $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION, $services->get('ZF\MvcAuth\Authorization\DefaultResourceResolverListener'), 1000);
-        $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION, $services->get('ZF\MvcAuth\Authorization\DefaultAuthorizationListener'));
-        $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION_POST, $services->get('ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener'));
+        $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION, $services->get('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener'));
+        $events->attach(MvcAuthEvent::EVENT_AUTHENTICATION_POST, $services->get('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener'));
+        $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION, $services->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener'), 1000);
+        $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION, $services->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener'));
+        $events->attach(MvcAuthEvent::EVENT_AUTHORIZATION_POST, $services->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener'));
     }
 }

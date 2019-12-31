@@ -1,17 +1,19 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Authorization;
+namespace Laminas\ApiTools\MvcAuth\Authorization;
 
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Permissions\Acl\Acl;
-use ZF\MvcAuth\MvcAuthEvent;
-use ZF\MvcAuth\Identity\IdentityInterface;
+use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Permissions\Acl\Acl;
 
 class DefaultAuthorizationListener
 {
