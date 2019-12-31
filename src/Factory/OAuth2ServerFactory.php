@@ -1,21 +1,23 @@
 <?php
-/**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- */
-namespace ZF\MvcAuth\Factory;
 
+/**
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
+ */
+namespace Laminas\ApiTools\MvcAuth\Factory;
+
+use Laminas\ApiTools\OAuth2\Adapter\MongoAdapter;
+use Laminas\ApiTools\OAuth2\Adapter\PdoAdapter;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use MongoClient;
 use OAuth2\GrantType\AuthorizationCode;
 use OAuth2\GrantType\ClientCredentials;
+use OAuth2\GrantType\JwtBearer;
 use OAuth2\GrantType\RefreshToken;
 use OAuth2\GrantType\UserCredentials;
-use OAuth2\GrantType\JwtBearer;
 use OAuth2\Server as OAuth2Server;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\OAuth2\Adapter\MongoAdapter;
-use ZF\OAuth2\Adapter\PdoAdapter;
 
 final class OAuth2ServerFactory
 {
@@ -38,7 +40,7 @@ final class OAuth2ServerFactory
     public static function factory(array $config, ServiceLocatorInterface $services)
     {
         $allConfig    = $services->get('Config');
-        $oauth2Config = isset($allConfig['zf-oauth2']) ? $allConfig['zf-oauth2'] : [];
+        $oauth2Config = isset($allConfig['api-tools-oauth2']) ? $allConfig['api-tools-oauth2'] : [];
         $options      = self::marshalOptions($oauth2Config);
 
         $oauth2Server = new OAuth2Server(
@@ -217,7 +219,7 @@ final class OAuth2ServerFactory
     }
 
     /**
-     * Marshal OAuth2\Server options from zf-oauth2 configuration.
+     * Marshal OAuth2\Server options from api-tools-oauth2 configuration.
      *
      * @param array $config
      * @return array
@@ -249,7 +251,7 @@ final class OAuth2ServerFactory
     }
 
     /**
-     * Inject grant types into the OAuth2\Server instance, based on zf-oauth2
+     * Inject grant types into the OAuth2\Server instance, based on api-tools-oauth2
      * configuration.
      *
      * @param OAuth2Server $server

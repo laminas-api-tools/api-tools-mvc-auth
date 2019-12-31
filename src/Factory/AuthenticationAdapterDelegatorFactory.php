@@ -1,12 +1,14 @@
 <?php
-/**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- */
-namespace ZF\MvcAuth\Factory;
 
-use Zend\ServiceManager\DelegatorFactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+/**
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
+ */
+namespace Laminas\ApiTools\MvcAuth\Factory;
+
+use Laminas\ServiceManager\DelegatorFactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
 {
@@ -19,22 +21,22 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
         $listener = $callback();
 
         $config = $services->get('Config');
-        if (! isset($config['zf-mvc-auth']['authentication']['adapters'])
-            || ! is_array($config['zf-mvc-auth']['authentication']['adapters'])
+        if (! isset($config['api-tools-mvc-auth']['authentication']['adapters'])
+            || ! is_array($config['api-tools-mvc-auth']['authentication']['adapters'])
         ) {
             return $listener;
         }
 
-        foreach ($config['zf-mvc-auth']['authentication']['adapters'] as $type => $data) {
+        foreach ($config['api-tools-mvc-auth']['authentication']['adapters'] as $type => $data) {
             if (! isset($data['adapter']) || ! is_string($data['adapter'])) {
                 continue;
             }
 
             switch ($data['adapter']) {
-                case 'ZF\MvcAuth\Authentication\HttpAdapter':
+                case 'Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter':
                     $adapter = AuthenticationHttpAdapterFactory::factory($type, $data, $services);
                     break;
-                case 'ZF\MvcAuth\Authentication\OAuth2Adapter':
+                case 'Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter':
                     $adapter = AuthenticationOAuth2AdapterFactory::factory($type, $data, $services);
                     break;
                 default:

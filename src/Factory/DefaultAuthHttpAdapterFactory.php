@@ -1,15 +1,17 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating the DefaultAuthHttpAdapterFactory from configuration
@@ -31,10 +33,10 @@ class DefaultAuthHttpAdapterFactory implements FactoryInterface
         $config = $services->get('config');
 
         // If no HTTP adapter configuration present, nothing to create
-        if (!isset($config['zf-mvc-auth']['authentication']['http'])) {
+        if (!isset($config['api-tools-mvc-auth']['authentication']['http'])) {
             return false;
         }
 
-        return HttpAdapterFactory::factory($config['zf-mvc-auth']['authentication']['http'], $services);
+        return HttpAdapterFactory::factory($config['api-tools-mvc-auth']['authentication']['http'], $services);
     }
 }
