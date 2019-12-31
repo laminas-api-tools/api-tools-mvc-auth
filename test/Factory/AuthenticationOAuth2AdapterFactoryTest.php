@@ -1,19 +1,21 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\AuthenticationOAuth2AdapterFactory;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Factory\AuthenticationOAuth2AdapterFactory;
 
 class AuthenticationOAuth2AdapterFactoryTest extends TestCase
 {
     public function setUp()
     {
-        $this->services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $this->services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
     }
 
 
@@ -35,7 +37,7 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
      */
     public function testRaisesExceptionForMissingOrInvalidStorage(array $config)
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'Missing storage');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'Missing storage');
         AuthenticationOAuth2AdapterFactory::factory('foo', $config, $this->services);
     }
 
@@ -53,7 +55,7 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
             ->method('get')
             ->with($this->stringContains('Config'))
             ->will($this->returnValue(array(
-                'zf-oauth2' => array(
+                'api-tools-oauth2' => array(
                     'grant_types' => array(
                         'client_credentials' => true,
                         'authorization_code' => true,
@@ -66,7 +68,7 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
             )));
 
         $adapter = AuthenticationOAuth2AdapterFactory::factory('foo', $config, $this->services);
-        $this->assertInstanceOf('ZF\MvcAuth\Authentication\OAuth2Adapter', $adapter);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter', $adapter);
         $this->assertEquals(array('foo'), $adapter->provides());
     }
 }
