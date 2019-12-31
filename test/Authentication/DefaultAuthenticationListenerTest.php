@@ -1,23 +1,25 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Authentication;
+namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\Result as AuthenticationResult;
+use Laminas\Authentication\Storage\NonPersistent;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Stdlib\Request;
 use OAuth2\Request as OAuth2Request;
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Result as AuthenticationResult;
-use Zend\Authentication\Storage\NonPersistent;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\Mvc\MvcEvent;
-use Zend\Stdlib\Request;
-use ZF\MvcAuth\Authentication\DefaultAuthenticationListener;
-use ZF\MvcAuth\MvcAuthEvent;
+use PHPUnit_Framework_TestCase as TestCase;
 
 class DefaultAuthenticationListenerTest extends TestCase
 {
@@ -54,7 +56,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     protected $mvcAuthEvent;
 
     /**
-     * @var \Zend\Config\Config
+     * @var \Laminas\Config\Config
      */
     protected $configuration;
 
@@ -64,7 +66,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->authentication = new AuthenticationService(new NonPersistent());
 
         // authorization service
-        $this->authorization = $this->getMock('ZF\MvcAuth\Authorization\AuthorizationInterface');
+        $this->authorization = $this->getMock('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface');
 
         // event for mvc and mvc-auth
         $this->request    = new HttpRequest();
@@ -115,7 +117,7 @@ class DefaultAuthenticationListenerTest extends TestCase
 
         $this->request->getHeaders()->addHeaderLine('Authorization: Basic dXNlcjp1c2Vy');
         $identity = $this->listener->__invoke($this->mvcAuthEvent);
-        $this->assertInstanceOf('ZF\MvcAuth\Identity\AuthenticatedIdentity', $identity);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity', $identity);
         $this->assertEquals('user', $identity->getRoleId());
         return array('identity' => $identity, 'mvc_event' => $this->mvcAuthEvent->getMvcEvent());
     }
@@ -133,7 +135,7 @@ class DefaultAuthenticationListenerTest extends TestCase
 
         $this->request->getHeaders()->addHeaderLine('Authorization: Basic xxxxxxxxx');
         $identity = $this->listener->__invoke($this->mvcAuthEvent);
-        $this->assertInstanceOf('ZF\MvcAuth\Identity\GuestIdentity', $identity);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\GuestIdentity', $identity);
         $this->assertEquals('guest', $identity->getRoleId());
         return array('identity' => $identity, 'mvc_event' => $this->mvcAuthEvent->getMvcEvent());
     }
@@ -172,7 +174,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertRegexp(
             '#^Digest realm="User Area", domain="/", '
             . 'nonce="[a-f0-9]{32}", '
-            . 'opaque="e66aa41ca5bf6992a5479102cc787bc9", '
+            . 'opaque="cbf8b7892feb4d4aaacecc4e4fb12f83", '
             . 'algorithm="MD5", '
             . 'qop="auth"$#',
             $authHeader->getFieldValue()
@@ -187,7 +189,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $identity = $params['identity'];
         $mvcEvent = $params['mvc_event'];
 
-        $received = $mvcEvent->getParam('ZF\MvcAuth\Identity', false);
+        $received = $mvcEvent->getParam('Laminas\ApiTools\MvcAuth\Identity', false);
         $this->assertSame($identity, $received);
     }
 
@@ -199,7 +201,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $identity = $params['identity'];
         $mvcEvent = $params['mvc_event'];
 
-        $received = $mvcEvent->getParam('ZF\MvcAuth\Identity', false);
+        $received = $mvcEvent->getParam('Laminas\ApiTools\MvcAuth\Identity', false);
         $this->assertSame($identity, $received);
     }
 
@@ -208,7 +210,7 @@ class DefaultAuthenticationListenerTest extends TestCase
      */
     public function testListenerPullsDigestUsernameFromAuthenticationIdentityWhenCreatingAuthenticatedIdentityInstance()
     {
-        $httpAuth = $this->getMockBuilder('Zend\Authentication\Adapter\Http')
+        $httpAuth = $this->getMockBuilder('Laminas\Authentication\Adapter\Http')
             ->disableOriginalConstructor()
             ->getMock();
         $resultIdentity = new AuthenticationResult(AuthenticationResult::SUCCESS, array(
@@ -233,7 +235,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         );
 
         $identity = $this->listener->__invoke($this->mvcAuthEvent);
-        $this->assertInstanceOf('ZF\MvcAuth\Identity\AuthenticatedIdentity', $identity);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity', $identity);
         $this->assertEquals('user', $identity->getRoleId());
     }
 
@@ -312,7 +314,7 @@ class DefaultAuthenticationListenerTest extends TestCase
 
     public static function assertIdentityMatchesToken($token, $identity, $message = '')
     {
-        self::assertInstanceOf('ZF\MvcAuth\Identity\AuthenticatedIdentity', $identity, $message);
+        self::assertInstanceOf('Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity', $identity, $message);
         self::assertEquals($token['user_id'], $identity->getRoleId());
         self::assertEquals($token, $identity->getAuthenticationIdentity());
 

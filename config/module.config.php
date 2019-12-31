@@ -1,37 +1,39 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
 return array(
     'controller_plugins' => array(
         'invokables' => array(
-            'getidentity' => 'ZF\MvcAuth\Identity\IdentityPlugin',
+            'getidentity' => 'Laminas\ApiTools\MvcAuth\Identity\IdentityPlugin',
         ),
     ),
     'service_manager' => array(
         'aliases' => array(
-            'authentication' => 'ZF\MvcAuth\Authentication',
-            'authorization' => 'ZF\MvcAuth\Authorization\AuthorizationInterface',
-            'ZF\MvcAuth\Authorization\AuthorizationInterface' => 'ZF\MvcAuth\Authorization\AclAuthorization',
+            'authentication' => 'Laminas\ApiTools\MvcAuth\Authentication',
+            'authorization' => 'Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface',
+            'Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface' => 'Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization',
         ),
         'factories' => array(
-            'ZF\MvcAuth\Authentication' => 'ZF\MvcAuth\Factory\AuthenticationServiceFactory',
-            'ZF\MvcAuth\ApacheResolver' => 'ZF\MvcAuth\Factory\ApacheResolverFactory',
-            'ZF\MvcAuth\FileResolver' => 'ZF\MvcAuth\Factory\FileResolverFactory',
-            'ZF\MvcAuth\Authentication\DefaultAuthenticationListener' => 'ZF\MvcAuth\Factory\DefaultAuthenticationListenerFactory',
-            'ZF\MvcAuth\Authentication\AuthHttpAdapter' => 'ZF\MvcAuth\Factory\DefaultAuthHttpAdapterFactory',
-            'ZF\MvcAuth\Authorization\AclAuthorization' => 'ZF\MvcAuth\Factory\AclAuthorizationFactory',
-            'ZF\MvcAuth\Authorization\DefaultAuthorizationListener' => 'ZF\MvcAuth\Factory\DefaultAuthorizationListenerFactory',
-            'ZF\MvcAuth\Authorization\DefaultResourceResolverListener' => 'ZF\MvcAuth\Factory\DefaultResourceResolverListenerFactory',
+            'Laminas\ApiTools\MvcAuth\Authentication' => 'Laminas\ApiTools\MvcAuth\Factory\AuthenticationServiceFactory',
+            'Laminas\ApiTools\MvcAuth\ApacheResolver' => 'Laminas\ApiTools\MvcAuth\Factory\ApacheResolverFactory',
+            'Laminas\ApiTools\MvcAuth\FileResolver' => 'Laminas\ApiTools\MvcAuth\Factory\FileResolverFactory',
+            'Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener' => 'Laminas\ApiTools\MvcAuth\Factory\DefaultAuthenticationListenerFactory',
+            'Laminas\ApiTools\MvcAuth\Authentication\AuthHttpAdapter' => 'Laminas\ApiTools\MvcAuth\Factory\DefaultAuthHttpAdapterFactory',
+            'Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization' => 'Laminas\ApiTools\MvcAuth\Factory\AclAuthorizationFactory',
+            'Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener' => 'Laminas\ApiTools\MvcAuth\Factory\DefaultAuthorizationListenerFactory',
+            'Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener' => 'Laminas\ApiTools\MvcAuth\Factory\DefaultResourceResolverListenerFactory',
         ),
         'invokables' => array(
-            'ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener' => 'ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener',
-            'ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener' => 'ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener',
+            'Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener' => 'Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener',
+            'Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener' => 'Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener',
         ),
     ),
-    'zf-mvc-auth' => array(
+    'api-tools-mvc-auth' => array(
         'authentication' => array(
             /**
              *
