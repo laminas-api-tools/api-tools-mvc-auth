@@ -1,18 +1,20 @@
 <?php
-/**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2015 Zend Technologies USA Inc. (http://www.zend.com)
- */
-namespace ZF\MvcAuth\Factory;
 
+/**
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
+ */
+namespace Laminas\ApiTools\MvcAuth\Factory;
+
+use Laminas\ApiTools\OAuth2\Adapter\MongoAdapter;
+use Laminas\ApiTools\OAuth2\Adapter\PdoAdapter;
+use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 use MongoClient;
 use OAuth2\GrantType\AuthorizationCode;
 use OAuth2\GrantType\ClientCredentials;
 use OAuth2\Server as OAuth2Server;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\OAuth2\Adapter\MongoAdapter;
-use ZF\OAuth2\Adapter\PdoAdapter;
 
 final class OAuth2ServerFactory
 {

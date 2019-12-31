@@ -1,20 +1,22 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\OAuth2ServerFactory;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Factory\OAuth2ServerFactory;
 
 class OAuth2ServerFactoryTest extends TestCase
 {
     public function testRaisesExceptionIfAdapterIsMissing()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'storage adapter');
-        $services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'storage adapter');
+        $services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
         $config = array(
             'dsn' => 'sqlite::memory:',
         );
@@ -23,8 +25,8 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testRaisesExceptionCreatingPdoBackedServerIfDsnIsMissing()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'Missing DSN');
-        $services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'Missing DSN');
+        $services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
         $config = array(
             'adapter' => 'pdo',
             'username' => 'username',
@@ -36,7 +38,7 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testCanCreatePdoAdapterBackedServer()
     {
-        $services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
         $config = array(
             'adapter' => 'pdo',
             'dsn' => 'sqlite::memory:',
@@ -54,7 +56,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $mongoClient = $this->getMockBuilder('MongoDB')
             ->disableOriginalConstructor(true)
             ->getMock();
-        $services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
         $services->expects($this->atLeastOnce())
             ->method('has')
             ->with($this->equalTo('MongoService'))
@@ -74,12 +76,12 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testRaisesExceptionCreatingMongoBackedServerIfDatabaseIsMissing()
     {
-        $services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
         $config = array(
             'adapter' => 'mongo',
         );
 
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'database');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'database');
         $server = OAuth2ServerFactory::factory($config, $services);
     }
 
@@ -89,10 +91,10 @@ class OAuth2ServerFactoryTest extends TestCase
             $this->markTestSkipped('Mongo extension is required for this test');
         }
 
-        $services = $this->getMock('Zend\ServiceManager\ServiceLocatorInterface');
+        $services = $this->getMock('Laminas\ServiceManager\ServiceLocatorInterface');
         $config = array(
             'adapter' => 'mongo',
-            'database' => 'zf-mvc-auth-test',
+            'database' => 'api-tools-mvc-auth-test',
         );
         $server = OAuth2ServerFactory::factory($config, $services);
         $this->assertInstanceOf('OAuth2\Server', $server);
