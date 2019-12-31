@@ -1,16 +1,24 @@
 {
-    "name": "zfcampus/zf-mvc-auth",
-    "description": "ZF2 Module providing Authentication and Authorization events and infrastructure",
-    "type": "library",
+    "name": "laminas-api-tools/api-tools-mvc-auth",
+    "description": "Laminas Module providing Authentication and Authorization events and infrastructure",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
-        "zend",
+        "laminas",
+        "api-tools",
         "module"
     ],
-    "repositories": [
-        { "type": "composer", "url": "https://packages.zendframework.com" }
-    ],
+    "homepage": "https://api-tools.getlaminas.org",
+    "support": {
+        "docs": "https://api-tools.getlaminas.org/documentation",
+        "issues": "https://github.com/laminas-api-tools/api-tools-mvc-auth/issues",
+        "source": "https://github.com/laminas-api-tools/api-tools-mvc-auth",
+        "rss": "https://github.com/laminas-api-tools/api-tools-mvc-auth/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
+    },
+    "config": {
+        "sort-packages": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.2-dev",
@@ -19,27 +27,28 @@
     },
     "require": {
         "php": ">=5.3.23",
-        "zendframework/zend-authentication": ">=2.3,<2.5",
-        "zendframework/zend-eventmanager": ">=2.3,<2.5",
-        "zendframework/zend-http": ">=2.3,<2.5",
-        "zendframework/zend-mvc": ">=2.3,<2.5",
-        "zendframework/zend-permissions-acl": ">=2.3,<2.5",
-        "zendframework/zend-permissions-rbac": ">=2.3,<2.5",
-        "zendframework/zend-servicemanager": ">=2.3,<2.5",
-        "zendframework/zend-stdlib": ">=2.3,<2.5",
-        "zfcampus/zf-api-problem": "~1.0",
-        "zfcampus/zf-content-negotiation": "~1.0",
-        "zfcampus/zf-oauth2": "^1.1.1"
+        "laminas-api-tools/api-tools-api-problem": "~1.0",
+        "laminas-api-tools/api-tools-content-negotiation": "~1.0",
+        "laminas-api-tools/api-tools-oauth2": "^1.1.1",
+        "laminas/laminas-authentication": ">=2.3,<2.5",
+        "laminas/laminas-eventmanager": ">=2.3,<2.5",
+        "laminas/laminas-http": ">=2.3,<2.5",
+        "laminas/laminas-mvc": ">=2.3,<2.5",
+        "laminas/laminas-permissions-acl": ">=2.3,<2.5",
+        "laminas/laminas-permissions-rbac": ">=2.3,<2.5",
+        "laminas/laminas-servicemanager": ">=2.3,<2.5",
+        "laminas/laminas-stdlib": ">=2.3,<2.5",
+        "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
+        "laminas/laminas-loader": ">=2.3,<2.5",
+        "laminas/laminas-session": ">=2.3,<2.5",
         "phpunit/phpunit": "~4.7",
-        "squizlabs/php_codesniffer": "^2.3",
-        "zendframework/zend-loader": ">=2.3,<2.5",
-        "zendframework/zend-session": ">=2.3,<2.5"
+        "squizlabs/php_codesniffer": "^2.3"
     },
     "autoload": {
         "psr-4": {
-            "ZF\\MvcAuth\\": "src/"
+            "Laminas\\ApiTools\\MvcAuth\\": "src/"
         },
         "classmap": [
             "Module.php"
@@ -47,7 +56,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "ZFTest\\MvcAuth\\": "test/"
+            "LaminasTest\\ApiTools\\MvcAuth\\": "test/"
         }
+    },
+    "replace": {
+        "zfcampus/zf-mvc-auth": "self.version"
     }
 }

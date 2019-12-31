@@ -1,17 +1,19 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Authentication;
+namespace Laminas\ApiTools\MvcAuth\Authentication;
 
-use Zend\Authentication\Adapter\Http as HttpAuth;
-use Zend\Authentication\AuthenticationServiceInterface;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use ZF\MvcAuth\Identity;
-use ZF\MvcAuth\MvcAuthEvent;
+use Laminas\ApiTools\MvcAuth\Identity;
+use Laminas\ApiTools\MvcAuth\MvcAuthEvent;
+use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
 
 class HttpAdapter extends AbstractAdapter
 {
