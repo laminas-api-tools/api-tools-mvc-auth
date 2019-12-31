@@ -1,14 +1,16 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth;
+namespace Laminas\ApiTools\MvcAuth;
 
-use Zend\ModuleManager\ModuleEvent;
-use Zend\ModuleManager\ModuleManager;
-use Zend\Mvc\MvcEvent;
+use Laminas\ModuleManager\ModuleEvent;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\MvcEvent;
 
 class Module
 {
@@ -21,7 +23,7 @@ class Module
      */
     public function getAutoloaderConfig()
     {
-        return array('Zend\Loader\StandardAutoloader' => array('namespaces' => array(
+        return array('Laminas\Loader\StandardAutoloader' => array('namespaces' => array(
             __NAMESPACE__ => __DIR__ . '/src/',
         )));
     }
@@ -48,9 +50,9 @@ class Module
     }
 
     /**
-     * Override ZF\OAuth2\Service\OAuth2Server service
+     * Override Laminas\ApiTools\OAuth2\Service\OAuth2Server service
      *
-     * If the ZF\OAuth2\Service\OAuth2Server is defined, and set to the
+     * If the Laminas\ApiTools\OAuth2\Service\OAuth2Server is defined, and set to the
      * default, override it with the NamedOAuth2ServerFactory.
      *
      * @param ModuleEvent $e
@@ -59,8 +61,8 @@ class Module
     {
         $configListener = $e->getConfigListener();
         $config         = $configListener->getMergedConfig(false);
-        $service        = 'ZF\OAuth2\Service\OAuth2Server';
-        $default        = 'ZF\OAuth2\Factory\OAuth2ServerFactory';
+        $service        = 'Laminas\ApiTools\OAuth2\Service\OAuth2Server';
+        $default        = 'Laminas\ApiTools\OAuth2\Factory\OAuth2ServerFactory';
 
         if (! isset($config['service_manager']['factories'][$service])
             || $config['service_manager']['factories'][$service] !== $default
@@ -92,24 +94,24 @@ class Module
 
         $events->attach(
             MvcAuthEvent::EVENT_AUTHENTICATION,
-            $this->services->get('ZF\MvcAuth\Authentication\DefaultAuthenticationListener')
+            $this->services->get('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener')
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHENTICATION_POST,
-            $this->services->get('ZF\MvcAuth\Authentication\DefaultAuthenticationPostListener')
+            $this->services->get('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener')
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION,
-            $this->services->get('ZF\MvcAuth\Authorization\DefaultResourceResolverListener'),
+            $this->services->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener'),
             1000
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION,
-            $this->services->get('ZF\MvcAuth\Authorization\DefaultAuthorizationListener')
+            $this->services->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener')
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION_POST,
-            $this->services->get('ZF\MvcAuth\Authorization\DefaultAuthorizationPostListener')
+            $this->services->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener')
         );
 
         $events->attach(

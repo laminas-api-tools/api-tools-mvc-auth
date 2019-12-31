@@ -1,10 +1,10 @@
 <?php
 
-namespace ZFTest\MvcAuth;
+namespace LaminasTest\ApiTools\MvcAuth;
 
+use Laminas\ApiTools\MvcAuth\MvcRouteListener;
+use Laminas\EventManager\EventManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use ZF\MvcAuth\MvcRouteListener;
 
 class MvcRouteListenerTest extends TestCase
 {
@@ -12,11 +12,11 @@ class MvcRouteListenerTest extends TestCase
     {
         $this->events = new EventManager;
         $this->auth   = $this
-            ->getMockBuilder('Zend\Authentication\AuthenticationService')
+            ->getMockBuilder('Laminas\Authentication\AuthenticationService')
             ->disableOriginalConstructor()
             ->getMock();
         $this->event  = $this
-            ->getMockBuilder('ZF\MvcAuth\MvcAuthEvent')
+            ->getMockBuilder('Laminas\ApiTools\MvcAuth\MvcAuthEvent')
             ->disableOriginalConstructor()
             ->getMock();
 
@@ -31,7 +31,7 @@ class MvcRouteListenerTest extends TestCase
     {
         $found = false;
         foreach ($listeners as $listener) {
-            $this->assertInstanceOf('Zend\Stdlib\CallbackHandler', $listener);
+            $this->assertInstanceOf('Laminas\Stdlib\CallbackHandler', $listener);
             if ($listener->getMetadatum('priority') !== $priority) {
                 continue;
             }

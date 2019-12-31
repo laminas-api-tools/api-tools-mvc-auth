@@ -1,21 +1,23 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\OAuth2ServerFactory;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Factory\OAuth2ServerFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class OAuth2ServerFactoryTest extends TestCase
 {
     protected function getOAuth2Options()
     {
         return array(
-            'zf-oauth2' => array(
+            'api-tools-oauth2' => array(
                 'grant_types' => array(
                     'client_credentials' => true,
                     'authorization_code' => true,
@@ -36,7 +38,7 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testRaisesExceptionIfAdapterIsMissing()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'storage adapter');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'storage adapter');
         $services = $this->mockConfig(new ServiceManager());
         $config = array(
             'dsn' => 'sqlite::memory:',
@@ -46,7 +48,7 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testRaisesExceptionCreatingPdoBackedServerIfDsnIsMissing()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'Missing DSN');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'Missing DSN');
         $services = $this->mockConfig(new ServiceManager());
         $config = array(
             'adapter' => 'pdo',
@@ -95,7 +97,7 @@ class OAuth2ServerFactoryTest extends TestCase
             'adapter' => 'mongo',
         );
 
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'database');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'database');
         $server = OAuth2ServerFactory::factory($config, $services);
     }
 
@@ -108,7 +110,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $services = $this->mockConfig(new ServiceManager());
         $config = array(
             'adapter' => 'mongo',
-            'database' => 'zf-mvc-auth-test',
+            'database' => 'api-tools-mvc-auth-test',
         );
         $server = OAuth2ServerFactory::factory($config, $services);
         $this->assertInstanceOf('OAuth2\Server', $server);
