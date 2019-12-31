@@ -1,9 +1,9 @@
 <?php
 
-namespace ZFTest\MvcAuth\Authorization;
+namespace LaminasTest\ApiTools\MvcAuth\Authorization;
 
+use Laminas\ApiTools\MvcAuth\Authorization\AclAuthorizationFactory;
 use PHPUnit_Framework_TestCase as TestCase;
-use ZF\MvcAuth\Authorization\AclAuthorizationFactory;
 
 class AclAuthorizationFactoryTest extends TestCase
 {
@@ -11,23 +11,23 @@ class AclAuthorizationFactoryTest extends TestCase
     {
         $config = [
             [
-                'resource' => 'ZendCon\V1\Rest\Session\Controller::collection',
+                'resource' => 'LaminasCon\V1\Rest\Session\Controller::collection',
                 'privileges' => ['POST'],
             ],
             [
-                'resource' => 'ZendCon\V1\Rest\Session\Controller::entity',
+                'resource' => 'LaminasCon\V1\Rest\Session\Controller::entity',
                 'privileges' => ['PATCH', 'DELETE'],
             ],
             [
-                'resource' => 'ZendCon\V1\Rpc\Message\Controller::message',
+                'resource' => 'LaminasCon\V1\Rpc\Message\Controller::message',
                 'privileges' => ['POST'],
             ],
         ];
 
         $acl = AclAuthorizationFactory::factory($config);
 
-        $this->assertInstanceOf('ZF\MvcAuth\Authorization\AclAuthorization', $acl);
-        $this->assertInstanceOf('Zend\Permissions\Acl\Acl', $acl);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization', $acl);
+        $this->assertInstanceOf('Laminas\Permissions\Acl\Acl', $acl);
         $this->assertTrue($acl->hasRole('guest'));
         $this->assertFalse($acl->hasRole('authenticated'));
 
@@ -35,22 +35,22 @@ class AclAuthorizationFactoryTest extends TestCase
         $acl->addRole('authenticated');
 
         // Test access to a collection that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::collection', 'POST'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::collection', 'POST'));
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::collection', 'GET'));
-        $this->assertTrue($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::collection', 'GET'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
+        $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
 
         // Test access to a resource that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::entity', 'PATCH'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::entity', 'PATCH'));
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::entity', 'DELETE'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::entity', 'DELETE'));
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::entity', 'GET'));
-        $this->assertTrue($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::entity', 'GET'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::entity', 'PATCH'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::entity', 'PATCH'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::entity', 'DELETE'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::entity', 'DELETE'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::entity', 'GET'));
+        $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::entity', 'GET'));
 
         // Test access to an RPC service that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rpc\Message\Controller::message', 'POST'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rpc\Message\Controller::message', 'POST'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rpc\Message\Controller::message', 'POST'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rpc\Message\Controller::message', 'POST'));
     }
 
     public function testFactoryGeneratesBlacklistAclFromConfiguration()
@@ -58,23 +58,23 @@ class AclAuthorizationFactoryTest extends TestCase
         $config = [
             'deny_by_default' => true,
             [
-                'resource' => 'ZendCon\V1\Rest\Session\Controller::collection',
+                'resource' => 'LaminasCon\V1\Rest\Session\Controller::collection',
                 'privileges' => ['GET'],
             ],
             [
-                'resource' => 'ZendCon\V1\Rest\Session\Controller::entity',
+                'resource' => 'LaminasCon\V1\Rest\Session\Controller::entity',
                 'privileges' => ['GET'],
             ],
             [
-                'resource' => 'ZendCon\V1\Rpc\Message\Controller::message',
+                'resource' => 'LaminasCon\V1\Rpc\Message\Controller::message',
                 'privileges' => ['GET'],
             ],
         ];
 
         $acl = AclAuthorizationFactory::factory($config);
 
-        $this->assertInstanceOf('ZF\MvcAuth\Authorization\AclAuthorization', $acl);
-        $this->assertInstanceOf('Zend\Permissions\Acl\Acl', $acl);
+        $this->assertInstanceOf('Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization', $acl);
+        $this->assertInstanceOf('Laminas\Permissions\Acl\Acl', $acl);
         $this->assertTrue($acl->hasRole('guest'));
         $this->assertFalse($acl->hasRole('authenticated'));
 
@@ -82,21 +82,21 @@ class AclAuthorizationFactoryTest extends TestCase
         $acl->addRole('authenticated');
 
         // Test access to a collection that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::collection', 'POST'));
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::collection', 'GET'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::collection', 'POST'));
-        $this->assertTrue($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::collection', 'GET'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
+        $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
 
         // Test access to a resource that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::entity', 'PATCH'));
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rest\Session\Controller::entity', 'GET'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::entity', 'POST'));
-        $this->assertTrue($acl->isAllowed('guest', 'ZendCon\V1\Rest\Session\Controller::entity', 'GET'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::entity', 'PATCH'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::entity', 'GET'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::entity', 'POST'));
+        $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::entity', 'GET'));
 
         // Test access to an RPC service that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rpc\Message\Controller::message', 'POST'));
-        $this->assertTrue($acl->isAllowed('authenticated', 'ZendCon\V1\Rpc\Message\Controller::message', 'GET'));
-        $this->assertFalse($acl->isAllowed('guest', 'ZendCon\V1\Rpc\Message\Controller::message', 'POST'));
-        $this->assertTrue($acl->isAllowed('guest', 'ZendCon\V1\Rpc\Message\Controller::message', 'GET'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rpc\Message\Controller::message', 'POST'));
+        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rpc\Message\Controller::message', 'GET'));
+        $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rpc\Message\Controller::message', 'POST'));
+        $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rpc\Message\Controller::message', 'GET'));
     }
 }

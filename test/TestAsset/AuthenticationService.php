@@ -1,6 +1,6 @@
 <?php
 
-namespace ZFTest\MvcAuth\TestAsset;
+namespace LaminasTest\ApiTools\MvcAuth\TestAsset;
 
 class AuthenticationService
 {

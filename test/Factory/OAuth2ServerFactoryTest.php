@@ -1,22 +1,24 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZFTest\MvcAuth\Factory;
+namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
+use Laminas\ApiTools\MvcAuth\Factory\OAuth2ServerFactory;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
-use ZF\MvcAuth\Factory\OAuth2ServerFactory;
-use Zend\ServiceManager\ServiceManager;
 
 class OAuth2ServerFactoryTest extends TestCase
 {
     protected function getOAuth2Options()
     {
         return [
-            'zf-oauth2' => [
+            'api-tools-oauth2' => [
                 'grant_types' => [
                     'client_credentials' => true,
                     'authorization_code' => true,
@@ -37,7 +39,7 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testRaisesExceptionIfAdapterIsMissing()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'storage adapter');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'storage adapter');
         $services = $this->mockConfig(new ServiceManager());
         $config = [
             'dsn' => 'sqlite::memory:',
@@ -47,7 +49,7 @@ class OAuth2ServerFactoryTest extends TestCase
 
     public function testRaisesExceptionCreatingPdoBackedServerIfDsnIsMissing()
     {
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'Missing DSN');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'Missing DSN');
         $services = $this->mockConfig(new ServiceManager());
         $config = [
             'adapter' => 'pdo',
@@ -96,7 +98,7 @@ class OAuth2ServerFactoryTest extends TestCase
             'adapter' => 'mongo',
         ];
 
-        $this->setExpectedException('Zend\ServiceManager\Exception\ServiceNotCreatedException', 'database');
+        $this->setExpectedException('Laminas\ServiceManager\Exception\ServiceNotCreatedException', 'database');
         $server = OAuth2ServerFactory::factory($config, $services);
     }
 
@@ -109,7 +111,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $services = $this->mockConfig(new ServiceManager());
         $config = [
             'adapter' => 'mongo',
-            'database' => 'zf-mvc-auth-test',
+            'database' => 'api-tools-mvc-auth-test',
         ];
         $server = OAuth2ServerFactory::factory($config, $services);
         $this->assertInstanceOf('OAuth2\Server', $server);
@@ -133,8 +135,8 @@ class OAuth2ServerFactoryTest extends TestCase
     public function testServerCreatedHasDefaultGrantTypesAsDefinedByOAuth2Module($disable)
     {
         $options  = $this->getOAuth2Options();
-        $options['zf-oauth2']['grant_types'][$disable] = false;
-        $options['zf-oauth2']['storage_settings'] = [
+        $options['api-tools-oauth2']['grant_types'][$disable] = false;
+        $options['api-tools-oauth2']['storage_settings'] = [
             'client_table'        => 'CLIENTS',
             'code_table'          => 'AUTHORIZATION_CODES',
             'user_table'          => 'USERS',
@@ -153,7 +155,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $this->assertInstanceOf('OAuth2\Server', $server);
 
         $grantTypes = $server->getGrantTypes();
-        foreach ($options['zf-oauth2']['grant_types'] as $type => $enabled) {
+        foreach ($options['api-tools-oauth2']['grant_types'] as $type => $enabled) {
             // jwt is hinted differently in OAuth2\Server
             if ($type === 'jwt') {
                 $type = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
@@ -200,7 +202,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $r = new ReflectionProperty($storage, 'config');
         $r->setAccessible(true);
         $storageConfig = $r->getValue($storage);
-        foreach ($options['zf-oauth2']['storage_settings'] as $key => $value) {
+        foreach ($options['api-tools-oauth2']['storage_settings'] as $key => $value) {
             $this->assertArrayHasKey($key, $storageConfig);
             $this->assertEquals($value, $storageConfig[$key]);
         }

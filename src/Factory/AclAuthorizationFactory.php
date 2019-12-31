@@ -1,15 +1,17 @@
 <?php
+
 /**
- * @license   http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
- * @copyright Copyright (c) 2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
+ * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZF\MvcAuth\Factory;
+namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Zend\Http\Request;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use ZF\MvcAuth\Authorization\AclAuthorizationFactory as AclFactory;
+use Laminas\ApiTools\MvcAuth\Authorization\AclAuthorizationFactory as AclFactory;
+use Laminas\Http\Request;
+use Laminas\ServiceManager\FactoryInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Factory for creating an AclAuthorization instance from configuration
@@ -31,7 +33,7 @@ class AclAuthorizationFactory implements FactoryInterface
      * Create the DefaultAuthorizationListener
      *
      * @param ServiceLocatorInterface $services
-     * @return \ZF\MvcAuth\Authorization\AuthorizationInterface
+     * @return \Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface
      */
     public function createService(ServiceLocatorInterface $services)
     {
@@ -44,22 +46,22 @@ class AclAuthorizationFactory implements FactoryInterface
     }
 
     /**
-     * Generate the ACL instance based on the zf-mvc-auth "authorization" configuration
+     * Generate the ACL instance based on the api-tools-mvc-auth "authorization" configuration
      *
      * Consumes the AclFactory in order to create the AclAuthorization instance.
      *
      * @param array $config
-     * @return \ZF\MvcAuth\Authorization\AclAuthorization
+     * @return \Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization
      */
     protected function createAclFromConfig(array $config)
     {
         $aclConfig     = [];
         $denyByDefault = false;
 
-        if (isset($config['zf-mvc-auth'])
-            && isset($config['zf-mvc-auth']['authorization'])
+        if (isset($config['api-tools-mvc-auth'])
+            && isset($config['api-tools-mvc-auth']['authorization'])
         ) {
-            $config = $config['zf-mvc-auth']['authorization'];
+            $config = $config['api-tools-mvc-auth']['authorization'];
 
             if (array_key_exists('deny_by_default', $config)) {
                 $denyByDefault = $aclConfig['deny_by_default'] = (bool) $config['deny_by_default'];

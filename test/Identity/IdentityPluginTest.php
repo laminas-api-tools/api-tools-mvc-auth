@@ -1,11 +1,11 @@
 <?php
 
-namespace ZFTest\MvcAuth\Identity;
+namespace LaminasTest\ApiTools\MvcAuth\Identity;
 
+use Laminas\ApiTools\MvcAuth\Identity\AuthenticatedIdentity;
+use Laminas\ApiTools\MvcAuth\Identity\IdentityPlugin;
+use Laminas\Mvc\MvcEvent;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\MvcEvent;
-use ZF\MvcAuth\Identity\AuthenticatedIdentity;
-use ZF\MvcAuth\Identity\IdentityPlugin;
 
 class IdentityPluginTest extends TestCase
 {
@@ -13,7 +13,7 @@ class IdentityPluginTest extends TestCase
     {
         $this->event = $event = new MvcEvent();
 
-        $controller = $this->getMock('Zend\Mvc\Controller\AbstractController');
+        $controller = $this->getMock('Laminas\Mvc\Controller\AbstractController');
         $controller->expects($this->any())
             ->method('getEvent')
             ->will($this->returnCallback(function () use ($event) {
@@ -27,16 +27,16 @@ class IdentityPluginTest extends TestCase
     public function testMissingIdentityParamInEventCausesPluginToYieldGuestIdentity()
     {
         $this->assertInstanceOf(
-            'ZF\MvcAuth\Identity\GuestIdentity',
+            'Laminas\ApiTools\MvcAuth\Identity\GuestIdentity',
             $this->plugin->__invoke()
         );
     }
 
     public function testInvalidTypeInEventIdentityParamCausesPluginToYieldGuestIdentity()
     {
-        $this->event->setParam('ZF\MvcAuth\Identity', (object) ['foo' => 'bar']);
+        $this->event->setParam('Laminas\ApiTools\MvcAuth\Identity', (object) ['foo' => 'bar']);
         $this->assertInstanceOf(
-            'ZF\MvcAuth\Identity\GuestIdentity',
+            'Laminas\ApiTools\MvcAuth\Identity\GuestIdentity',
             $this->plugin->__invoke()
         );
     }
@@ -44,7 +44,7 @@ class IdentityPluginTest extends TestCase
     public function testValidIdentityInEventIsReturnedByPlugin()
     {
         $identity = new AuthenticatedIdentity('mwop');
-        $this->event->setParam('ZF\MvcAuth\Identity', $identity);
+        $this->event->setParam('Laminas\ApiTools\MvcAuth\Identity', $identity);
         $this->assertSame($identity, $this->plugin->__invoke());
     }
 }
