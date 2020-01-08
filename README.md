@@ -1,7 +1,7 @@
 Laminas MVC Auth
 ===========
 
-[![Build Status](https://travis-ci.org/laminas-api-tools/api-tools-mvc-auth.svg?branch=master)](https://travis-ci.org/laminas-api-tools/api-tools-mvc-auth)
+[![Build Status](https://travis-ci.com/laminas-api-tools/api-tools-mvc-auth.svg?branch=master)](https://travis-ci.com/laminas-api-tools/api-tools-mvc-auth)
 [![Coverage Status](https://coveralls.io/repos/github/laminas-api-tools/api-tools-mvc-auth/badge.svg?branch=master)](https://coveralls.io/github/laminas-api-tools/api-tools-mvc-auth?branch=master)
 
 Introduction
