@@ -69,6 +69,6 @@
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
     "replace": {
-        "zfcampus/zf-mvc-auth": "self.version"
+        "zfcampus/zf-mvc-auth": "^1.5.1"
     }
 }
