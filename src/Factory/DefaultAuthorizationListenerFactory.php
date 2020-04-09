@@ -26,7 +26,7 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
      * @param ContainerInterface $container
      * @param string             $requestedName
      * @param null|array         $options
-     * @return DefaultAuthorizationListenerFactory
+     * @return DefaultAuthorizationListener
      * @throws ServiceNotCreatedException if the AuthorizationInterface service is missing.
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
@@ -41,7 +41,11 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
             ));
         }
 
-        return new DefaultAuthorizationListener($container->has(AuthorizationInterface::class) ? $container->get(AuthorizationInterface::class) : $container->get(\ZF\MvcAuth\Authorization\AuthorizationInterface::class));
+        $authorization = $container->has(AuthorizationInterface::class)
+            ? $container->get(AuthorizationInterface::class)
+            : $container->get(\ZF\MvcAuth\Authorization\AuthorizationInterface::class);
+
+        return new DefaultAuthorizationListener($authorization);
     }
 
     /**
@@ -50,7 +54,7 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
      * Provided for backwards compatibility; proxies to __invoke().
      *
      * @param ServiceLocatorInterface $container
-     * @return DefaultAuthorizationListenerFactory
+     * @return DefaultAuthorizationListener
      */
     public function createService(ServiceLocatorInterface $container)
     {
