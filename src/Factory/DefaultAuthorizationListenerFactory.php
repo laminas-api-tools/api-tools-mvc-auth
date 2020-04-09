@@ -41,11 +41,9 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
             ));
         }
 
-        if ($container->has(AuthorizationInterface::class)) {
-            $authorization = $container->get(AuthorizationInterface::class);
-        } else {
-            $authorization = $container->get(\ZF\MvcAuth\Authorization\AuthorizationInterface::class);
-        }
+        $authorization = $container->has(AuthorizationInterface::class)
+            ? $container->get(AuthorizationInterface::class)
+            : $container->get(\ZF\MvcAuth\Authorization\AuthorizationInterface::class);
 
         return new DefaultAuthorizationListener($authorization);
     }
