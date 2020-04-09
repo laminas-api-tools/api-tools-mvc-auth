@@ -37,7 +37,9 @@ class AclAuthorizationFactoryTest extends TestCase
         $acl->addRole('authenticated');
 
         // Test access to a collection that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
+        $this->assertTrue(
+            $acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST')
+        );
         $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
         $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
         $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
@@ -84,7 +86,9 @@ class AclAuthorizationFactoryTest extends TestCase
         $acl->addRole('authenticated');
 
         // Test access to a collection that has ACLs in place
-        $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
+        $this->assertTrue(
+            $acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST')
+        );
         $this->assertTrue($acl->isAllowed('authenticated', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));
         $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'POST'));
         $this->assertTrue($acl->isAllowed('guest', 'LaminasCon\V1\Rest\Session\Controller::collection', 'GET'));

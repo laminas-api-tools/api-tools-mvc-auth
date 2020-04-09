@@ -43,7 +43,8 @@ class DefaultResourceResolverListenerTest extends TestCase
     public function createMvcAuthEvent(MvcEvent $mvcEvent)
     {
         $this->authentication = new TestAsset\AuthenticationService();
-        $this->authorization  = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface')->getMock();
+        $this->authorization  = $this->getMockBuilder('Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface')
+            ->getMock();
         return new MvcAuthEvent($mvcEvent, $this->authentication, $this->authorization);
     }
 
