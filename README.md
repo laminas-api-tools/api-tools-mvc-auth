@@ -273,6 +273,26 @@ Example:
 > ],
 > ```
 
+##### deny_by_default with api-tools-oauth2 on apache2
+
+If you deploy your project on apache2 and have enabled `deny_by_default` and use `bshaffer/oauth2-server-php` library you can be faced with "403 Forbidden" responses from your API. The issue is related to this [https://github.com/bshaffer/oauth2-server-php/issues/503](https://github.com/bshaffer/oauth2-server-php/issues/503)  bug of `bshaffer/oauth2-server-php` library. So the solution is to add to the `.htaccess` file this line:
+
+```php
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+```
+
+You can find the example of `.htaccess` file with this line of code in file [https://github.com/bshaffer/oauth2-server-php/blob/develop/src/OAuth2/Request.php](https://github.com/bshaffer/oauth2-server-php/blob/develop/src/OAuth2/Request.php) (please, search phrase "HTTP_AUTHORIZATION"):
+
+```php
+* A sample .htaccess file:
+* RewriteEngine On
+* RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+* RewriteCond %{REQUEST_FILENAME} !-f
+* RewriteRule ^(.*)$ app.php [QSA,L]
+```
+
+If you deploy your project on nginx (listen 80 port) and proxy to apache2 (listen 88 port or 8888 etc.) you shouldn't face with the issue above.
+
 #### Sub-Key: Controller Service Name
 
 Under the `authorization` key is an array of _controller service name_ keyed authorization
