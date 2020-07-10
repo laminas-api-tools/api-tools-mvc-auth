@@ -273,6 +273,21 @@ Example:
 > ],
 > ```
 
+##### deny_by_default on apache2
+
+If you deploy your project on Apache 2 and have enabled `deny_by_default`, you
+may observe "403 Forbidden" responses from your API. This is due to
+[issue bshaffer/oauth2-server-php#503](https://github.com/bshaffer/oauth2-server-php/issues/503),
+an upstream library api-tools-mvc-auth depends upon.  The solution is to add the
+following line to either your `.htaccess` file or Apache configuration:
+
+```php
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+```
+
+If you deploy your project on nginx or your Apache 2 instance sits behind a
+reverse proxy, you will not be affected by this issue.
+
 #### Sub-Key: Controller Service Name
 
 Under the `authorization` key is an array of _controller service name_ keyed authorization
