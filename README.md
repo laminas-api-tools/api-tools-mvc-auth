@@ -273,25 +273,20 @@ Example:
 > ],
 > ```
 
-##### deny_by_default with api-tools-oauth2 on apache2
+##### deny_by_default on apache2
 
-If you deploy your project on apache2 and have enabled `deny_by_default` and use `bshaffer/oauth2-server-php` library you can be faced with "403 Forbidden" responses from your API. The issue is related to this [https://github.com/bshaffer/oauth2-server-php/issues/503](https://github.com/bshaffer/oauth2-server-php/issues/503)  bug of `bshaffer/oauth2-server-php` library. So the solution is to add to the `.htaccess` file this line:
+If you deploy your project on Apache 2 and have enabled `deny_by_default`, you
+may observe "403 Forbidden" responses from your API. This is due to
+[issue bshaffer/oauth2-server-php#503](https://github.com/bshaffer/oauth2-server-php/issues/503),
+an upstream library api-tools-mvc-auth depends upon.  The solution is to add the
+following line to either your `.htaccess` file or Apache configuration:
 
 ```php
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 ```
 
-You can find the example of `.htaccess` file with this line of code in file [https://github.com/bshaffer/oauth2-server-php/blob/develop/src/OAuth2/Request.php](https://github.com/bshaffer/oauth2-server-php/blob/develop/src/OAuth2/Request.php) (please, search phrase "HTTP_AUTHORIZATION"):
-
-```php
-* A sample .htaccess file:
-* RewriteEngine On
-* RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
-* RewriteCond %{REQUEST_FILENAME} !-f
-* RewriteRule ^(.*)$ app.php [QSA,L]
-```
-
-If you deploy your project on nginx (listen 80 port) and proxy to apache2 (listen 88 port or 8888 etc.) you shouldn't face with the issue above.
+If you deploy your project on nginx or your Apache 2 instance sits behind a
+reverse proxy, you will not be affected by this issue.
 
 #### Sub-Key: Controller Service Name
 
