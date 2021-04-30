@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultAuthenticationPostListenerTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $response = new HttpResponse();
         $mvcEvent = new MvcEvent();

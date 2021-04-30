@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class OAuth2AdapterTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->oauthServer = $this->getMockBuilder(OAuth2Server::class)->getMock();
         $this->adapter     = new OAuth2Adapter($this->oauthServer);

@@ -7,7 +7,7 @@ use Laminas\Mvc\InjectApplicationEventInterface;
 
 class IdentityPlugin extends AbstractPlugin
 {
-    /** @return IdentityInterface */
+    /** @return GuestIdentity|IdentityInterface */
     public function __invoke()
     {
         $controller = $this->getController();

@@ -12,11 +12,11 @@ use Laminas\Http\Request as HttpRequest;
 use Laminas\ModuleManager\ModuleEvent;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\Mvc\MvcEvent;
-use Psr\Container\ContainerInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
 
 class Module
 {
-    /** @var null|ContainerInterface */
+    /** @var null|ServiceLocatorInterface */
     protected $container;
 
     /** @var null|MvcRouteListener */

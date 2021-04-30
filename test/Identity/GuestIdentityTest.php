@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class GuestIdentityTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->identity = new GuestIdentity();
     }

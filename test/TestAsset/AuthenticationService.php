@@ -2,18 +2,20 @@
 
 namespace LaminasTest\ApiTools\MvcAuth\TestAsset;
 
+use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;
+
 class AuthenticationService
 {
-    /** @var mixed */
+    /** @var IdentityInterface */
     protected $identity;
 
-    /** @param mixed $identity */
+    /** @param IdentityInterface $identity */
     public function setIdentity($identity): void
     {
         $this->identity = $identity;
     }
 
-    /** @return mixed */
+    /** @return IdentityInterface */
     public function getIdentity()
     {
         return $this->identity;
@@ -25,7 +27,7 @@ class AuthenticationService
         return $this;
     }
 
-    /** @param mixed $identity */
+    /** @param IdentityInterface $identity */
     public function write($identity): void
     {
         $this->setIdentity($identity);

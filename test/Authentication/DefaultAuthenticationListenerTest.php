@@ -23,6 +23,7 @@ use Laminas\Stdlib\Request;
 use LaminasTest\ApiTools\MvcAuth\RouteMatchFactoryTrait;
 use OAuth2\Request as OAuth2Request;
 use OAuth2\Server as OAuth2Server;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 use function array_merge;
@@ -40,7 +41,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     /** @var AuthenticationService */
     protected $authentication;
 
-    /** @var AuthorizationInterface */
+    /** @var AuthorizationInterface&MockObject */
     protected $authorization;
 
     /** @var array */
@@ -55,7 +56,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     /** @var Config */
     protected $configuration;
 
-    public function setUp()
+    public function setUp(): void
     {
         // authentication service
         $this->authentication = new AuthenticationService(new NonPersistent());
@@ -170,7 +171,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $authHeaders = $this->response->getHeaders()->get('WWW-Authenticate');
         $authHeader  = $authHeaders[0];
         $this->assertInstanceOf(HttpHeaderInterface::class, $authHeader);
-        $this->assertRegexp(
+        $this->assertMatchesRegularExpression(
             '#^Digest realm="User Area", domain="/", '
             . 'nonce="[a-f0-9]{32}", '
             . 'opaque="cbf8b7892feb4d4aaacecc4e4fb12f83", '
@@ -181,6 +182,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     }
 
     /**
+     * @param array $params
      * @depends testInvokeForBasicAuthSetsIdentityWhenValid
      * @psalm-param array{identity: array, mvc_event: MvcEvent} $params
      */
@@ -194,6 +196,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     }
 
     /**
+     * @param array $params
      * @depends testInvokeForBasicAuthSetsGuestIdentityWhenValid
      * @psalm-param array{identity: array, mvc_event: MvcEvent} $params
      */

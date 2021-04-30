@@ -45,7 +45,7 @@ class OAuth2Adapter extends AbstractAdapter
         'OPTIONS',
     ];
 
-    /** @psalm-param null|string[] $types */
+    /** @psalm-param null|string|string[] $types */
     public function __construct(OAuth2Server $oauth2Server, $types = null)
     {
         $this->oauth2Server = $oauth2Server;

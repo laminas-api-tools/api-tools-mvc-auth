@@ -27,7 +27,7 @@ class MvcRouteListenerTest extends TestCase
     /** @var MvcRouteListener */
     private $listener;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->events = new EventManager();
         $this->auth   = $this

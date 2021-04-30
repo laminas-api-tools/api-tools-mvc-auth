@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class AuthenticationOAuth2AdapterFactoryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->services = $this->getMockBuilder(ServiceLocatorInterface::class)->getMock();
     }
