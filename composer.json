@@ -1,29 +1,13 @@
 {
     "name": "laminas-api-tools/api-tools-mvc-auth",
     "description": "Laminas Module providing Authentication and Authorization events and infrastructure",
-    "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "api-tools",
         "module"
     ],
     "homepage": "https://api-tools.getlaminas.org",
-    "support": {
-        "docs": "https://api-tools.getlaminas.org/documentation",
-        "issues": "https://github.com/laminas-api-tools/api-tools-mvc-auth/issues",
-        "source": "https://github.com/laminas-api-tools/api-tools-mvc-auth",
-        "rss": "https://github.com/laminas-api-tools/api-tools-mvc-auth/releases.atom",
-        "chat": "https://laminas.dev/chat",
-        "forum": "https://discourse.laminas.dev"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "laminas": {
-            "module": "Laminas\\ApiTools\\MvcAuth"
-        }
-    },
+    "license": "BSD-3-Clause",
     "require": {
         "php": "^5.6 || ^7.0",
         "laminas-api-tools/api-tools-api-problem": "^1.2.1",
@@ -39,10 +23,21 @@
         "laminas/laminas-stdlib": "^2.7.7 || ^3.0.1",
         "laminas/laminas-zendframework-bridge": "^1.0"
     },
+    "replace": {
+        "zfcampus/zf-mvc-auth": "^1.5.1"
+    },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
         "laminas/laminas-session": "^2.8.5",
         "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.5"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laminas": {
+            "module": "Laminas\\ApiTools\\MvcAuth"
+        }
     },
     "autoload": {
         "psr-4": {
@@ -64,7 +59,12 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
-    "replace": {
-        "zfcampus/zf-mvc-auth": "^1.5.1"
+    "support": {
+        "issues": "https://github.com/laminas-api-tools/api-tools-mvc-auth/issues",
+        "forum": "https://discourse.laminas.dev",
+        "chat": "https://laminas.dev/chat",
+        "source": "https://github.com/laminas-api-tools/api-tools-mvc-auth",
+        "docs": "https://api-tools.getlaminas.org/documentation",
+        "rss": "https://github.com/laminas-api-tools/api-tools-mvc-auth/releases.atom"
     }
 }
