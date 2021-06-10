@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
 use ArrayIterator;
@@ -24,7 +18,7 @@ class OAuth2AdapterTest extends TestCase
     public function setUp()
     {
         $this->oauthServer = $this->getMockBuilder(OAuth2Server::class)->getMock();
-        $this->adapter = new OAuth2Adapter($this->oauthServer);
+        $this->adapter     = new OAuth2Adapter($this->oauthServer);
     }
 
     /**
@@ -53,7 +47,7 @@ class OAuth2AdapterTest extends TestCase
             ->expects($this->once())
             ->method('getAccessTokenData')
             ->with($this->callback(function ($subject) {
-                return ($subject instanceof OAuth2Request);
+                return $subject instanceof OAuth2Request;
             }))
             ->willReturn(null);
 
@@ -66,7 +60,7 @@ class OAuth2AdapterTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
+        $result = $this->adapter->authenticate(new HttpRequest(), new HttpResponse(), $mvcAuthEvent);
         $this->assertInstanceOf(HttpResponse::class, $result);
         $this->assertEquals(401, $result->getStatusCode());
     }
@@ -97,7 +91,7 @@ class OAuth2AdapterTest extends TestCase
             ->expects($this->once())
             ->method('getAccessTokenData')
             ->with($this->callback(function ($subject) {
-                return ($subject instanceof OAuth2Request);
+                return $subject instanceof OAuth2Request;
             }))
             ->willReturn(null);
 
@@ -110,7 +104,7 @@ class OAuth2AdapterTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
+        $result = $this->adapter->authenticate(new HttpRequest(), new HttpResponse(), $mvcAuthEvent);
         $this->assertInstanceOf(HttpResponse::class, $result);
         $this->assertEquals(403, $result->getStatusCode());
     }
@@ -136,7 +130,7 @@ class OAuth2AdapterTest extends TestCase
             ->expects($this->once())
             ->method('getAccessTokenData')
             ->with($this->callback(function ($subject) {
-                return ($subject instanceof OAuth2Request);
+                return $subject instanceof OAuth2Request;
             }))
             ->willReturn(null);
 
@@ -149,7 +143,7 @@ class OAuth2AdapterTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
+        $result = $this->adapter->authenticate(new HttpRequest(), new HttpResponse(), $mvcAuthEvent);
         $this->assertInstanceOf(GuestIdentity::class, $result);
     }
 
@@ -164,7 +158,7 @@ class OAuth2AdapterTest extends TestCase
             . 'error="unauthorized", '
             . 'error_description="User has insufficient privileges"',
         ];
-        $oauth2Response = $this->getMockBuilder(OAuth2Response::class)
+        $oauth2Response  = $this->getMockBuilder(OAuth2Response::class)
             ->disableOriginalConstructor()
             ->getMock();
         $oauth2Response
@@ -185,7 +179,7 @@ class OAuth2AdapterTest extends TestCase
             ->expects($this->once())
             ->method('getAccessTokenData')
             ->with($this->callback(function ($subject) {
-                return ($subject instanceof OAuth2Request);
+                return $subject instanceof OAuth2Request;
             }))
             ->willReturn(null);
 
@@ -198,7 +192,7 @@ class OAuth2AdapterTest extends TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $result = $this->adapter->authenticate(new HttpRequest, new HttpResponse, $mvcAuthEvent);
+        $result = $this->adapter->authenticate(new HttpRequest(), new HttpResponse(), $mvcAuthEvent);
         $this->assertInstanceOf(HttpResponse::class, $result);
 
         $headers = $result->getHeaders();
@@ -208,7 +202,7 @@ class OAuth2AdapterTest extends TestCase
             if ($header instanceof ArrayIterator) {
                 $found = false;
                 foreach ($header as $instance) {
-                    if ($instance->getFieldValue() == $value) {
+                    if ($instance->getFieldValue() === $value) {
                         $found = true;
                         break;
                     }

@@ -12,15 +12,13 @@ use PHPUnit\Framework\TestCase;
 
 class MvcAuthEventTest extends TestCase
 {
-    /**
-     * @var MvcAuthEvent
-     */
-    protected $mvcAuthEvent = null;
+    /** @var MvcAuthEvent */
+    protected $mvcAuthEvent;
 
     public function setup()
     {
-        $mvcEvent = new MvcEvent();
-        $this->mvcAuthEvent = new MvcAuthEvent($mvcEvent, new AuthenticationService(), new Acl);
+        $mvcEvent           = new MvcEvent();
+        $this->mvcAuthEvent = new MvcAuthEvent($mvcEvent, new AuthenticationService(), new Acl());
     }
 
     public function testGetAuthenticationService()

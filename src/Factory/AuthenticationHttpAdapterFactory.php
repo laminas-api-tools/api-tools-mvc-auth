@@ -1,15 +1,12 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+
+use function is_array;
 
 final class AuthenticationHttpAdapterFactory
 {
@@ -26,7 +23,6 @@ final class AuthenticationHttpAdapterFactory
      *
      * @param string $type The base "type" the adapter will provide
      * @param array $config
-     * @param ContainerInterface $container
      * @return HttpAdapter
      */
     public static function factory($type, array $config, ContainerInterface $container)

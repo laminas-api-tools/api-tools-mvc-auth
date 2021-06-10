@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth;
 
 use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
@@ -28,11 +22,13 @@ use Laminas\Stdlib\RequestInterface;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
+use function method_exists;
+
 class ModuleTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    protected function createApplication(ServiceManager $services, EventManagerInterface $events)
+    protected function createApplication(ServiceManager $services, EventManagerInterface $events): Application
     {
         $r = new ReflectionMethod(Application::class, '__construct');
         if ($r->getNumberOfRequiredParameters() === 2) {
@@ -44,7 +40,8 @@ class ModuleTest extends TestCase
         return new Application($services, $events);
     }
 
-    protected function createServiceManager(array $config)
+    /** @psalm-param array<string, mixed> $config */
+    protected function createServiceManager(array $config): ServiceManager
     {
         if (method_exists(ServiceManager::class, 'configure')) { // v3
             // laminas-servicemanager v3
@@ -59,20 +56,28 @@ class ModuleTest extends TestCase
     public function testOnBootstrapReturnsEarlyForNonHttpEvents()
     {
         $mvcEvent = $this->prophesize(MvcEvent::class);
-        $module = new Module();
+        $module   = new Module();
 
         $request = $this->prophesize(RequestInterface::class)->reveal();
         $mvcEvent->getRequest()->willReturn($request);
         $module->onBootstrap($mvcEvent->reveal());
 
-        $this->assertAttributeEmpty('container', $module);
+        $this->assertNull($module->getContainer());
     }
 
-    public function expectedListeners()
+    /**
+     * @psalm-return array<string, array{
+     *     0: callable(MvcEvent|MvcAuthEvent):null|Response,
+     *     1: int,
+     *     2: MvcEvent::EVENT_*|MvcAuthEvent::EVENT_*
+     *     3: EventManager
+     * }>
+     */
+    public function expectedListeners(): array
     {
-        $module = new Module();
-        $config = $module->getConfig();
-        $request = $this->prophesize(Request::class)->reveal();
+        $module   = new Module();
+        $config   = $module->getConfig();
+        $request  = $this->prophesize(Request::class)->reveal();
         $response = $this->prophesize(Response::class)->reveal();
 
         $services = $this->createServiceManager($config);
@@ -91,27 +96,33 @@ class ModuleTest extends TestCase
 
         $module->onBootstrap($mvcEvent);
 
-        // @codingStandardsIgnoreStart
+        // phpcs:disable Generic.Files.LineLength.TooLong
         return [
-            'mvc-route-authentication'         => [[$module->getMvcRouteListener(), 'authentication'],        -50, MvcEvent::EVENT_ROUTE,                   $events],
-            'mvc-route-authentication-post'    => [[$module->getMvcRouteListener(), 'authenticationPost'],    -51, MvcEvent::EVENT_ROUTE,                   $events],
-            'mvc-route-authorization'          => [[$module->getMvcRouteListener(), 'authorization'],        -600, MvcEvent::EVENT_ROUTE,                   $events],
-            'mvc-route-authorization-post'     => [[$module->getMvcRouteListener(), 'authorizationPost'],    -601, MvcEvent::EVENT_ROUTE,                   $events],
+            'mvc-route-authentication'         => [[$module->getMvcRouteListener(), 'authentication'], -50, MvcEvent::EVENT_ROUTE, $events],
+            'mvc-route-authentication-post'    => [[$module->getMvcRouteListener(), 'authenticationPost'], -51, MvcEvent::EVENT_ROUTE, $events],
+            'mvc-route-authorization'          => [[$module->getMvcRouteListener(), 'authorization'], -600, MvcEvent::EVENT_ROUTE, $events],
+            'mvc-route-authorization-post'     => [[$module->getMvcRouteListener(), 'authorizationPost'], -601, MvcEvent::EVENT_ROUTE, $events],
             'authentication'                   => [$services->get(DefaultAuthenticationListener::class),        1, MvcAuthEvent::EVENT_AUTHENTICATION,      $events],
             'authentication-post'              => [$services->get(DefaultAuthenticationPostListener::class),    1, MvcAuthEvent::EVENT_AUTHENTICATION_POST, $events],
             'resource-resoolver-authorization' => [$services->get(DefaultResourceResolverListener::class),   1000, MvcAuthEvent::EVENT_AUTHORIZATION,       $events],
             'authorization'                    => [$services->get(DefaultAuthorizationListener::class),         1, MvcAuthEvent::EVENT_AUTHORIZATION,       $events],
             'authorization-post'               => [$services->get(DefaultAuthorizationPostListener::class),     1, MvcAuthEvent::EVENT_AUTHORIZATION_POST,  $events],
-            'module-authentication-post'       => [[$module, 'onAuthenticationPost'],                          -1, MvcAuthEvent::EVENT_AUTHENTICATION_POST, $events],
+            'module-authentication-post'       => [[$module, 'onAuthenticationPost'], -1, MvcAuthEvent::EVENT_AUTHENTICATION_POST, $events],
         ];
-        // @codingStandardsIgnoreEnd
+        // phpcs:enable
     }
 
     /**
      * @dataProvider expectedListeners
+     * @psalm-param callable(MvcEvent|MvcAuthEvent):null|Response $listener
+     * @psalm-param MvcEvent::EVENT_*|MvcAuthEvent::EVENT_* $event
      */
-    public function testOnBootstrapAttachesListeners(callable $listener, $priority, $event, EventManager $events)
-    {
+    public function testOnBootstrapAttachesListeners(
+        callable $listener,
+        int $priority,
+        string $event,
+        EventManager $events
+    ): void {
         $this->assertListenerAtPriority(
             $listener,
             $priority,

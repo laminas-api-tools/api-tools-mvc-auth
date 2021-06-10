@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -12,6 +7,7 @@ use Laminas\ApiTools\OAuth2\Adapter\MongoAdapter;
 use Laminas\ApiTools\OAuth2\Adapter\PdoAdapter;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use MongoClient;
+use MongoDB;
 use OAuth2\GrantType\AuthorizationCode;
 use OAuth2\GrantType\ClientCredentials;
 use OAuth2\GrantType\JwtBearer;
@@ -19,6 +15,12 @@ use OAuth2\GrantType\RefreshToken;
 use OAuth2\GrantType\UserCredentials;
 use OAuth2\OpenID\GrantType\AuthorizationCode as OpenIDAuthorizationCodeGrantType;
 use OAuth2\Server as OAuth2Server;
+
+use function array_key_exists;
+use function array_merge;
+use function is_array;
+use function is_string;
+use function strtolower;
 
 final class OAuth2ServerFactory
 {
@@ -33,13 +35,12 @@ final class OAuth2ServerFactory
      * Create and return a fully configured OAuth2 server instance.
      *
      * @param array $config
-     * @param ContainerInterface $container
-     * @return \OAuth2\Server
+     * @return OAuth2Server
      */
     public static function factory(array $config, ContainerInterface $container)
     {
         $allConfig    = $container->get('config');
-        $oauth2Config = isset($allConfig['api-tools-oauth2']) ? $allConfig['api-tools-oauth2'] : [];
+        $oauth2Config = $allConfig['api-tools-oauth2'] ?? [];
         $options      = self::marshalOptions($oauth2Config);
 
         $oauth2Server = new OAuth2Server(
@@ -54,7 +55,6 @@ final class OAuth2ServerFactory
      * Create and return an OAuth2 storage adapter instance.
      *
      * @param array $config
-     * @param ContainerInterface $container
      * @return array|MongoAdapter|PdoAdapter A PdoAdapter, MongoAdapter, or array of storage instances.
      */
     private static function createStorage(array $config, ContainerInterface $container)
@@ -63,7 +63,8 @@ final class OAuth2ServerFactory
             return self::createStorageFromAdapter($config['adapter'], $config, $container);
         }
 
-        if (isset($config['storage'])
+        if (
+            isset($config['storage'])
             && (is_string($config['storage']) || is_array($config['storage']))
         ) {
             return self::createStorageFromServices($config['storage'], $container);
@@ -77,7 +78,6 @@ final class OAuth2ServerFactory
      *
      * @param string $adapter One of "pdo" or "mongo".
      * @param array $config
-     * @param ContainerInterface $container
      * @return MongoAdapter|PdoAdapter
      */
     private static function createStorageFromAdapter($adapter, array $config, ContainerInterface $container)
@@ -96,7 +96,6 @@ final class OAuth2ServerFactory
      * Creates the OAuth2 storage from services.
      *
      * @param string|string[] $storage A string or an array of strings; each MUST be a valid service.
-     * @param ContainerInterface $container
      * @return array
      */
     private static function createStorageFromServices($storage, ContainerInterface $container)
@@ -136,7 +135,6 @@ final class OAuth2ServerFactory
      * Create and return an OAuth2 Mongo adapter.
      *
      * @param array $config
-     * @param ContainerInterface $container
      * @return MongoAdapter
      */
     private static function createMongoAdapter(array $config, ContainerInterface $container)
@@ -161,9 +159,9 @@ final class OAuth2ServerFactory
             );
         }
 
-        $username = isset($config['username']) ? $config['username'] : null;
-        $password = isset($config['password']) ? $config['password'] : null;
-        $options  = isset($config['options']) ? $config['options'] : [];
+        $username = $config['username'] ?? null;
+        $password = $config['password'] ?? null;
+        $options  = $config['options'] ?? [];
 
         return [
             'dsn'      => $config['dsn'],
@@ -177,14 +175,11 @@ final class OAuth2ServerFactory
      * Create and return a Mongo database instance.
      *
      * @param array $config
-     * @param ContainerInterface $container
-     * @return \MongoDB
+     * @return MongoDB
      */
     private static function createMongoDatabase(array $config, ContainerInterface $container)
     {
-        $dbLocatorName = isset($config['locator_name'])
-            ? $config['locator_name']
-            : 'MongoDB';
+        $dbLocatorName = $config['locator_name'] ?? 'MongoDB';
 
         if ($container->has($dbLocatorName)) {
             return $container->get($dbLocatorName);
@@ -196,21 +191,19 @@ final class OAuth2ServerFactory
             );
         }
 
-        $options = isset($config['options']) ? $config['options'] : [];
+        $options            = $config['options'] ?? [];
         $options['connect'] = false;
-        $server  = isset($config['dsn']) ? $config['dsn'] : null;
-        $mongo   = new MongoClient($server, $options);
+        $server             = $config['dsn'] ?? null;
+        $mongo              = new MongoClient($server, $options);
         return $mongo->{$config['database']};
     }
 
     /**
      * Retrieve oauth2-server-php storage settings configuration.
      *
-     * @param $config
-     *
-     * @return array
+     * @param array|ArrayAccess $config
      */
-    private static function getOAuth2ServerConfig($config)
+    private static function getOAuth2ServerConfig($config): array
     {
         $oauth2ServerConfig = [];
         if (isset($config['storage_settings']) && is_array($config['storage_settings'])) {
@@ -228,23 +221,15 @@ final class OAuth2ServerFactory
      */
     private static function marshalOptions(array $config)
     {
-        $enforceState = array_key_exists('enforce_state', $config)
+        $enforceState   = array_key_exists('enforce_state', $config)
             ? $config['enforce_state']
             : true;
-        $allowImplicit = isset($config['allow_implicit'])
-            ? $config['allow_implicit']
-            : false;
-        $accessLifetime = isset($config['access_lifetime'])
-            ? $config['access_lifetime']
-            : 3600;
-        $audience = isset($config['audience'])
-            ? $config['audience']
-            : '';
-        $options = isset($config['options'])
-            ? $config['options']
-            : [];
+        $allowImplicit  = $config['allow_implicit'] ?? false;
+        $accessLifetime = $config['access_lifetime'] ?? 3600;
+        $audience       = $config['audience'] ?? '';
+        $options        = $config['options'] ?? [];
 
-        return  array_merge([
+        return array_merge([
             'access_lifetime' => $accessLifetime,
             'allow_implicit'  => $allowImplicit,
             'audience'        => $audience,
@@ -256,14 +241,14 @@ final class OAuth2ServerFactory
      * Inject grant types into the OAuth2\Server instance, based on api-tools-oauth2
      * configuration.
      *
-     * @param OAuth2Server $server
      * @param array $availableGrantTypes
      * @param array $options
      * @return OAuth2Server
      */
     private static function injectGrantTypes(OAuth2Server $server, array $availableGrantTypes, array $options)
     {
-        if (array_key_exists('client_credentials', $availableGrantTypes)
+        if (
+            array_key_exists('client_credentials', $availableGrantTypes)
             && $availableGrantTypes['client_credentials'] === true
         ) {
             $clientOptions = [];
@@ -275,7 +260,8 @@ final class OAuth2ServerFactory
             $server->addGrantType(new ClientCredentials($server->getStorage('client_credentials'), $clientOptions));
         }
 
-        if (array_key_exists('authorization_code', $availableGrantTypes)
+        if (
+            array_key_exists('authorization_code', $availableGrantTypes)
             && $availableGrantTypes['authorization_code'] === true
         ) {
             $authCodeClass = array_key_exists('use_openid_connect', $options) && $options['use_openid_connect'] === true

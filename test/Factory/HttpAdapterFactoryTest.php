@@ -1,16 +1,10 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
 use Laminas\ApiTools\MvcAuth\Factory\HttpAdapterFactory;
-use Laminas\Authentication\Adapter\Http\ApacheResolver;
 use Laminas\Authentication\Adapter\Http as HttpBasic;
+use Laminas\Authentication\Adapter\Http\ApacheResolver;
 use Laminas\Authentication\Adapter\Http\FileResolver;
 use Laminas\Authentication\Adapter\Http\ResolverInterface;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
@@ -19,7 +13,10 @@ use PHPUnit\Framework\TestCase;
 
 class HttpAdapterFactoryTest extends TestCase
 {
+    /** @var string */
     private $htpasswd;
+
+    /** @var string */
     private $htdigest;
 
     public function setUp()
@@ -35,25 +32,27 @@ class HttpAdapterFactoryTest extends TestCase
         HttpAdapterFactory::factory([]);
     }
 
-    public function invalidAcceptSchemes()
+    /** @psalm-return array<string, array{0: mixed}> */
+    public function invalidAcceptSchemes(): array
     {
         return [
-            'null' => [null],
-            'true' => [true],
-            'false' => [false],
-            'zero' => [0],
-            'int' => [1],
+            'null'      => [null],
+            'true'      => [true],
+            'false'     => [false],
+            'zero'      => [0],
+            'int'       => [1],
             'zerofloat' => [0.0],
-            'float' => [1.1],
-            'string' => ['basic'],
-            'object' => [(object) ['basic']],
+            'float'     => [1.1],
+            'string'    => ['basic'],
+            'object'    => [(object) ['basic']],
         ];
     }
 
     /**
      * @dataProvider invalidAcceptSchemes
+     * @param mixed $acceptSchemes
      */
-    public function testFactoryRaisesExceptionWhenAcceptSchemesIsNotAnArray($acceptSchemes)
+    public function testFactoryRaisesExceptionWhenAcceptSchemesIsNotAnArray($acceptSchemes): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('accept_schemes');
@@ -75,8 +74,8 @@ class HttpAdapterFactoryTest extends TestCase
         $this->expectExceptionMessage('digest_domains');
         HttpAdapterFactory::factory([
             'accept_schemes' => ['digest'],
-            'realm' => 'api',
-            'nonce_timeout' => 3600,
+            'realm'          => 'api',
+            'nonce_timeout'  => 3600,
         ]);
     }
 
@@ -86,37 +85,45 @@ class HttpAdapterFactoryTest extends TestCase
         $this->expectExceptionMessage('digest_domains');
         HttpAdapterFactory::factory([
             'accept_schemes' => ['digest'],
-            'realm' => 'api',
+            'realm'          => 'api',
             'digest_domains' => 'https://example.com',
         ]);
     }
 
-    public function validConfigWithoutResolvers()
+    /** @psalm-return array<string, array{0: array<string, mixed>}> */
+    public function validConfigWithoutResolvers(): array
     {
         return [
-            'basic' => [[
-                'accept_schemes' => ['basic'],
-                'realm' => 'api',
-            ]],
-            'digest' => [[
-                'accept_schemes' => ['digest'],
-                'realm' => 'api',
-                'digest_domains' => 'https://example.com',
-                'nonce_timeout' => 3600,
-            ]],
-            'both' => [[
-                'accept_schemes' => ['basic', 'digest'],
-                'realm' => 'api',
-                'digest_domains' => 'https://example.com',
-                'nonce_timeout' => 3600,
-            ]],
+            'basic'  => [
+                [
+                    'accept_schemes' => ['basic'],
+                    'realm'          => 'api',
+                ],
+            ],
+            'digest' => [
+                [
+                    'accept_schemes' => ['digest'],
+                    'realm'          => 'api',
+                    'digest_domains' => 'https://example.com',
+                    'nonce_timeout'  => 3600,
+                ],
+            ],
+            'both'   => [
+                [
+                    'accept_schemes' => ['basic', 'digest'],
+                    'realm'          => 'api',
+                    'digest_domains' => 'https://example.com',
+                    'nonce_timeout'  => 3600,
+                ],
+            ],
         ];
     }
 
     /**
      * @dataProvider validConfigWithoutResolvers
+     * @psalm-param array<string, mixed> $config
      */
-    public function testCanReturnAdapterWithNoResolvers($config)
+    public function testCanReturnAdapterWithNoResolvers(array $config): void
     {
         $adapter = HttpAdapterFactory::factory($config);
         $this->assertInstanceOf(HttpBasic::class, $adapter);
@@ -128,8 +135,8 @@ class HttpAdapterFactoryTest extends TestCase
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes' => ['basic'],
-            'realm' => 'api',
-            'htpasswd' => $this->htpasswd,
+            'realm'          => 'api',
+            'htpasswd'       => $this->htpasswd,
         ]);
 
         $this->assertInstanceOf(HttpBasic::class, $adapter);
@@ -141,10 +148,10 @@ class HttpAdapterFactoryTest extends TestCase
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes' => ['digest'],
-            'realm' => 'api',
+            'realm'          => 'api',
             'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'htdigest' => $this->htdigest,
+            'nonce_timeout'  => 3600,
+            'htdigest'       => $this->htdigest,
         ]);
 
         $this->assertInstanceOf(HttpBasic::class, $adapter);
@@ -156,11 +163,11 @@ class HttpAdapterFactoryTest extends TestCase
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes' => ['basic', 'digest'],
-            'realm' => 'api',
+            'realm'          => 'api',
             'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'htpasswd' => $this->htpasswd,
-            'htdigest' => $this->htdigest,
+            'nonce_timeout'  => 3600,
+            'htpasswd'       => $this->htpasswd,
+            'htdigest'       => $this->htdigest,
         ]);
 
         $this->assertInstanceOf(HttpBasic::class, $adapter);
@@ -187,11 +194,11 @@ class HttpAdapterFactoryTest extends TestCase
             ->will($this->returnValue($resolver));
 
         $adapter = HttpAdapterFactory::factory([
-            'accept_schemes' => ['basic', 'digest'],
-            'realm' => 'api',
-            'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'htpasswd' => $this->htpasswd,
+            'accept_schemes'         => ['basic', 'digest'],
+            'realm'                  => 'api',
+            'digest_domains'         => 'https://example.com',
+            'nonce_timeout'          => 3600,
+            'htpasswd'               => $this->htpasswd,
             'basic_resolver_factory' => $keyForServiceManager,
         ], $serviceManager);
 
@@ -219,11 +226,11 @@ class HttpAdapterFactoryTest extends TestCase
             ->will($this->returnValue($resolver));
 
         $adapter = HttpAdapterFactory::factory([
-            'accept_schemes' => ['basic', 'digest'],
-            'realm' => 'api',
-            'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'htdigest' => $this->htdigest,
+            'accept_schemes'          => ['basic', 'digest'],
+            'realm'                   => 'api',
+            'digest_domains'          => 'https://example.com',
+            'nonce_timeout'           => 3600,
+            'htdigest'                => $this->htdigest,
             'digest_resolver_factory' => $keyForServiceManager,
         ], $serviceManager);
 
@@ -235,11 +242,11 @@ class HttpAdapterFactoryTest extends TestCase
     public function testCanReturnAdapterWithNoResolversAndInvalidServiceManager()
     {
         $adapter = HttpAdapterFactory::factory([
-            'accept_schemes' => ['basic', 'digest'],
-            'realm' => 'api',
-            'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'basic_resolver_factory' => 'uselessKeyDueToMissingServiceManager',
+            'accept_schemes'          => ['basic', 'digest'],
+            'realm'                   => 'api',
+            'digest_domains'          => 'https://example.com',
+            'nonce_timeout'           => 3600,
+            'basic_resolver_factory'  => 'uselessKeyDueToMissingServiceManager',
             'digest_resolver_factory' => 'uselessKeyDueToMissingServiceManager',
         ]);
 
@@ -254,11 +261,11 @@ class HttpAdapterFactoryTest extends TestCase
         $serviceManager->expects($this->never())->method('has');
 
         $adapter = HttpAdapterFactory::factory([
-            'accept_schemes' => ['basic', 'digest'],
-            'realm' => 'api',
-            'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'basic_resolver_factory' => null,
+            'accept_schemes'          => ['basic', 'digest'],
+            'realm'                   => 'api',
+            'digest_domains'          => 'https://example.com',
+            'nonce_timeout'           => 3600,
+            'basic_resolver_factory'  => null,
             'digest_resolver_factory' => [],
         ], $serviceManager);
 
@@ -282,11 +289,11 @@ class HttpAdapterFactoryTest extends TestCase
             ->method('get');
 
         $adapter = HttpAdapterFactory::factory([
-            'accept_schemes' => ['basic', 'digest'],
-            'realm' => 'api',
-            'digest_domains' => 'https://example.com',
-            'nonce_timeout' => 3600,
-            'basic_resolver_factory' => $missingKeyForServiceManager,
+            'accept_schemes'          => ['basic', 'digest'],
+            'realm'                   => 'api',
+            'digest_domains'          => 'https://example.com',
+            'nonce_timeout'           => 3600,
+            'basic_resolver_factory'  => $missingKeyForServiceManager,
             'digest_resolver_factory' => $missingKeyForServiceManager,
         ], $serviceManager);
 

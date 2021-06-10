@@ -13,15 +13,15 @@ class AclAuthorizationFactoryTest extends TestCase
     {
         $config = [
             [
-                'resource' => 'LaminasCon\V1\Rest\Session\Controller::collection',
+                'resource'   => 'LaminasCon\V1\Rest\Session\Controller::collection',
                 'privileges' => ['POST'],
             ],
             [
-                'resource' => 'LaminasCon\V1\Rest\Session\Controller::entity',
+                'resource'   => 'LaminasCon\V1\Rest\Session\Controller::entity',
                 'privileges' => ['PATCH', 'DELETE'],
             ],
             [
-                'resource' => 'LaminasCon\V1\Rpc\Message\Controller::message',
+                'resource'   => 'LaminasCon\V1\Rpc\Message\Controller::message',
                 'privileges' => ['POST'],
             ],
         ];
@@ -62,15 +62,15 @@ class AclAuthorizationFactoryTest extends TestCase
         $config = [
             'deny_by_default' => true,
             [
-                'resource' => 'LaminasCon\V1\Rest\Session\Controller::collection',
+                'resource'   => 'LaminasCon\V1\Rest\Session\Controller::collection',
                 'privileges' => ['GET'],
             ],
             [
-                'resource' => 'LaminasCon\V1\Rest\Session\Controller::entity',
+                'resource'   => 'LaminasCon\V1\Rest\Session\Controller::entity',
                 'privileges' => ['GET'],
             ],
             [
-                'resource' => 'LaminasCon\V1\Rpc\Message\Controller::message',
+                'resource'   => 'LaminasCon\V1\Rpc\Message\Controller::message',
                 'privileges' => ['GET'],
             ],
         ];

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth;
 
 use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;
@@ -15,33 +9,26 @@ use Laminas\Mvc\MvcEvent;
 
 class MvcAuthEvent extends Event
 {
-    const EVENT_AUTHENTICATION = 'authentication';
-    const EVENT_AUTHENTICATION_POST = 'authentication.post';
-    const EVENT_AUTHORIZATION = 'authorization';
-    const EVENT_AUTHORIZATION_POST = 'authorization.post';
+    public const EVENT_AUTHENTICATION      = 'authentication';
+    public const EVENT_AUTHENTICATION_POST = 'authentication.post';
+    public const EVENT_AUTHORIZATION       = 'authorization';
+    public const EVENT_AUTHORIZATION_POST  = 'authorization.post';
 
-    /**
-     * @var MvcEvent
-     */
+    /** @var MvcEvent */
     protected $mvcEvent;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     protected $authentication;
 
-    /**
-     * @var Result
-     */
-    protected $authenticationResult = null;
+    /** @var Result */
+    protected $authenticationResult;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     protected $authorization;
 
     /**
      * Whether or not authorization has completed/succeeded
+     *
      * @var bool
      */
     protected $authorized = false;
@@ -54,7 +41,6 @@ class MvcAuthEvent extends Event
     protected $resource;
 
     /**
-     * @param MvcEvent $mvcEvent
      * @param mixed    $authentication
      * @param mixed    $authorization
      */
@@ -78,11 +64,10 @@ class MvcAuthEvent extends Event
      */
     public function hasAuthenticationResult()
     {
-        return ($this->authenticationResult !== null);
+        return $this->authenticationResult !== null;
     }
 
     /**
-     * @param  Result $result
      * @return self
      */
     public function setAuthenticationResult(Result $result)
@@ -124,7 +109,6 @@ class MvcAuthEvent extends Event
     }
 
     /**
-     * @param IdentityInterface $identity
      * @return $this
      */
     public function setIdentity(IdentityInterface $identity)

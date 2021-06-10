@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
 use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
@@ -21,8 +15,8 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
         $this->services = $this->getMockBuilder(ServiceLocatorInterface::class)->getMock();
     }
 
-
-    public function invalidConfiguration()
+    /** @psalm-return array<string, array{0: array<array-key, mixed>}> */
+    public function invalidConfiguration(): array
     {
         return [
             'empty'  => [[]],
@@ -37,8 +31,9 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidConfiguration
+     * @psalm-param array<array-key, mixed> $config
      */
-    public function testRaisesExceptionForMissingOrInvalidStorage(array $config)
+    public function testRaisesExceptionForMissingOrInvalidStorage(array $config): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('Missing storage');
@@ -51,7 +46,7 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
             'adapter' => 'pdo',
             'storage' => [
                 'adapter' => 'pdo',
-                'dsn' => 'sqlite::memory:',
+                'dsn'     => 'sqlite::memory:',
             ],
         ];
 
@@ -60,7 +55,7 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
             ->with($this->stringContains('Config'))
             ->will($this->returnValue([
                 'api-tools-oauth2' => [
-                    'grant_types' => [
+                    'grant_types'                => [
                         'client_credentials' => true,
                         'authorization_code' => true,
                         'password'           => true,

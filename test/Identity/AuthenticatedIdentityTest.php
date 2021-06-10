@@ -15,7 +15,7 @@ class AuthenticatedIdentityTest extends TestCase
         $this->authIdentity = (object) [
             'name' => 'foo',
         ];
-        $this->identity = new AuthenticatedIdentity($this->authIdentity);
+        $this->identity     = new AuthenticatedIdentity($this->authIdentity);
     }
 
     public function testAuthenticatedIsAnIdentityType()

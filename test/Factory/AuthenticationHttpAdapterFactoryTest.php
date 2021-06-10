@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
 use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
@@ -34,7 +28,8 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
         AuthenticationHttpAdapterFactory::factory('foo', [], $this->services);
     }
 
-    public function invalidConfiguration()
+    /** @psalm-return array<string, array{0: array<array-key, mixed>}> */
+    public function invalidConfiguration(): array
     {
         return [
             'empty'  => [[]],
@@ -49,8 +44,9 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
 
     /**
      * @dataProvider invalidConfiguration
+     * @psalm-param array<string, mixed> $config
      */
-    public function testRaisesExceptionIfMissingConfigurationOptions($config)
+    public function testRaisesExceptionIfMissingConfigurationOptions(array $config): void
     {
         $this->services->expects($this->atLeastOnce())
             ->method('has')
@@ -62,36 +58,53 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
         AuthenticationHttpAdapterFactory::factory('foo', $config, $this->services);
     }
 
-    public function validConfiguration()
+    /**
+     * @psalm-return array<string, array{
+     *     0: array<string, mixed>
+     *     1: string[]
+     * }>
+     */
+    public function validConfiguration(): array
     {
         return [
-            'basic' => [[
-                'accept_schemes' => ['basic'],
-                'realm' => 'api',
-                'htpasswd' => __DIR__ . '/../TestAsset/htpasswd',
-            ], ['foo-basic']],
-            'digest' => [[
-                'accept_schemes' => ['digest'],
-                'realm' => 'api',
-                'digest_domains' => 'https://example.com',
-                'nonce_timeout' => 3600,
-                'htdigest' => __DIR__ . '/../TestAsset/htdigest',
-            ], ['foo-digest']],
-            'both' => [[
-                'accept_schemes' => ['basic', 'digest'],
-                'realm' => 'api',
-                'digest_domains' => 'https://example.com',
-                'nonce_timeout' => 3600,
-                'htpasswd' => __DIR__ . '/../TestAsset/htpasswd',
-                'htdigest' => __DIR__ . '/../TestAsset/htdigest',
-            ], ['foo-basic', 'foo-digest']],
+            'basic'  => [
+                [
+                    'accept_schemes' => ['basic'],
+                    'realm'          => 'api',
+                    'htpasswd'       => __DIR__ . '/../TestAsset/htpasswd',
+                ],
+                ['foo-basic'],
+            ],
+            'digest' => [
+                [
+                    'accept_schemes' => ['digest'],
+                    'realm'          => 'api',
+                    'digest_domains' => 'https://example.com',
+                    'nonce_timeout'  => 3600,
+                    'htdigest'       => __DIR__ . '/../TestAsset/htdigest',
+                ],
+                ['foo-digest'],
+            ],
+            'both'   => [
+                [
+                    'accept_schemes' => ['basic', 'digest'],
+                    'realm'          => 'api',
+                    'digest_domains' => 'https://example.com',
+                    'nonce_timeout'  => 3600,
+                    'htpasswd'       => __DIR__ . '/../TestAsset/htpasswd',
+                    'htdigest'       => __DIR__ . '/../TestAsset/htdigest',
+                ],
+                ['foo-basic', 'foo-digest'],
+            ],
         ];
     }
 
     /**
      * @dataProvider validConfiguration
+     * @psalm-param array<string, mixed> $options
+     * @psalm-param string[] $provides
      */
-    public function testCreatesHttpAdapterWhenConfigurationIsValid(array $options, array $provides)
+    public function testCreatesHttpAdapterWhenConfigurationIsValid(array $options, array $provides): void
     {
         $authService = $this->getMockBuilder(AuthenticationService::class)->getMock();
         $this->services->expects($this->atLeastOnce())

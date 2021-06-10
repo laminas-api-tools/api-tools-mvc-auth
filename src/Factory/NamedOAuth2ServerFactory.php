@@ -1,15 +1,9 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\OAuth2\Factory\OAuth2ServerInstanceFactory;
-use RuntimeException;
 
 /**
  * Override factory for the Laminas\ApiTools\OAuth2\Service\OAuth2Server service.
@@ -22,17 +16,14 @@ use RuntimeException;
 class NamedOAuth2ServerFactory
 {
     /**
-     * @param ContainerInterface $container
      * @return callable
      */
     public function __invoke(ContainerInterface $container)
     {
         $config = $container->get('config');
 
-        $oauth2Config  = isset($config['api-tools-oauth2']) ? $config['api-tools-oauth2'] : [];
-        $mvcAuthConfig = isset($config['api-tools-mvc-auth']['authentication']['adapters'])
-            ? $config['api-tools-mvc-auth']['authentication']['adapters']
-            : [];
+        $oauth2Config  = $config['api-tools-oauth2'] ?? [];
+        $mvcAuthConfig = $config['api-tools-mvc-auth']['authentication']['adapters'] ?? [];
 
         $servers = (object) ['application' => null, 'api' => []];
         return function ($type = null) use ($oauth2Config, $mvcAuthConfig, $container, $servers) {
@@ -41,7 +32,7 @@ class NamedOAuth2ServerFactory
                 if ($servers->application) {
                     return $servers->application;
                 }
-                $factory = new OAuth2ServerInstanceFactory($oauth2Config, $container);
+                $factory                     = new OAuth2ServerInstanceFactory($oauth2Config, $container);
                 return $servers->application = $factory();
             }
 
@@ -72,7 +63,7 @@ class NamedOAuth2ServerFactory
             if ($servers->application) {
                 return $servers->application;
             }
-            $factory = new OAuth2ServerInstanceFactory($oauth2Config, $container);
+            $factory                     = new OAuth2ServerInstanceFactory($oauth2Config, $container);
             return $servers->application = $factory();
         };
     }

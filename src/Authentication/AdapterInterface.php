@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Authentication;
 
 use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;
@@ -35,7 +29,6 @@ interface AdapterInterface
      * Allows an adapter to have custom logic for detecting if a request
      * might be providing credentials it's interested in.
      *
-     * @param Request $request
      * @return false|string
      */
     public function getTypeFromRequest(Request $request);
@@ -45,8 +38,6 @@ interface AdapterInterface
      *
      * Use case would be for providing authentication challenge headers.
      *
-     * @param Request $request
-     * @param Response $response
      * @return void|Response
      */
     public function preAuth(Request $request, Response $response);
@@ -54,9 +45,6 @@ interface AdapterInterface
     /**
      * Attempt to authenticate the current request.
      *
-     * @param Request $request
-     * @param Response $response
-     * @param MvcAuthEvent $mvcAuthEvent
      * @return false|IdentityInterface False on failure, IdentityInterface
      *     otherwise
      */

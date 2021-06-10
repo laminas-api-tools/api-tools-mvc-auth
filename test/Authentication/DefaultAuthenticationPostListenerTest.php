@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
 use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener;
@@ -22,15 +16,15 @@ class DefaultAuthenticationPostListenerTest extends TestCase
 {
     public function setUp()
     {
-        $response   = new HttpResponse();
-        $mvcEvent   = new MvcEvent();
+        $response = new HttpResponse();
+        $mvcEvent = new MvcEvent();
         $mvcEvent->setResponse($response);
         $this->mvcAuthEvent = $this->createMvcAuthEvent($mvcEvent);
 
         $this->listener = new DefaultAuthenticationPostListener();
     }
 
-    public function createMvcAuthEvent(MvcEvent $mvcEvent)
+    public function createMvcAuthEvent(MvcEvent $mvcEvent): MvcAuthEvent
     {
         $this->authentication = new TestAsset\AuthenticationService();
         $this->authorization  = $this->getMockBuilder(AuthorizationInterface::class)->getMock();
@@ -54,7 +48,7 @@ class DefaultAuthenticationPostListenerTest extends TestCase
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->setAuthenticationResult(new AuthenticationResult(0, 'foo'));
-        $response = new Response;
+        $response = new Response();
         $this->mvcAuthEvent->getMvcEvent()->setResponse($response);
         $this->assertSame($response, $listener($this->mvcAuthEvent));
     }

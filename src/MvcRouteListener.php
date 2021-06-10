@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth;
 
 use Laminas\Authentication\AuthenticationService;
@@ -16,28 +10,19 @@ use Laminas\Http\Request as HttpRequest;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Stdlib\ResponseInterface as Response;
 
+use function is_bool;
+
 class MvcRouteListener extends AbstractListenerAggregate
 {
-    /**
-     * @var AuthenticationService
-     */
+    /** @var AuthenticationService */
     protected $authentication;
 
-    /**
-     * @var EventManagerInterface
-     */
+    /** @var EventManagerInterface */
     protected $events;
 
-    /**
-     * @var MvcAuthEvent
-     */
+    /** @var MvcAuthEvent */
     protected $mvcAuthEvent;
 
-    /**
-     * @param MvcAuthEvent $mvcAuthEvent
-     * @param EventManagerInterface $events
-     * @param AuthenticationService $authentication
-     */
     public function __construct(
         MvcAuthEvent $mvcAuthEvent,
         EventManagerInterface $events,
@@ -53,7 +38,7 @@ class MvcRouteListener extends AbstractListenerAggregate
     /**
      * Attach listeners
      *
-     * @param EventManagerInterface $events
+     * @param int $priority
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
@@ -66,12 +51,12 @@ class MvcRouteListener extends AbstractListenerAggregate
     /**
      * Trigger the authentication event
      *
-     * @param MvcEvent $mvcEvent
      * @return null|Response
      */
     public function authentication(MvcEvent $mvcEvent)
     {
-        if (! $mvcEvent->getRequest() instanceof HttpRequest
+        if (
+            ! $mvcEvent->getRequest() instanceof HttpRequest
             || $mvcEvent->getRequest()->isOptions()
         ) {
             return;
@@ -79,11 +64,10 @@ class MvcRouteListener extends AbstractListenerAggregate
 
         $mvcAuthEvent = $this->mvcAuthEvent;
         $mvcAuthEvent->setName($mvcAuthEvent::EVENT_AUTHENTICATION);
-        $responses    = $this->events->triggerEventUntil(function ($r) {
-            return ($r instanceof Identity\IdentityInterface
+        $responses = $this->events->triggerEventUntil(function ($r) {
+            return $r instanceof Identity\IdentityInterface
                 || $r instanceof Result
-                || $r instanceof Response
-            );
+                || $r instanceof Response;
         }, $mvcAuthEvent);
 
         $result  = $responses->last();
@@ -100,7 +84,8 @@ class MvcRouteListener extends AbstractListenerAggregate
         }
 
         // If we have a Result, we create an AuthenticatedIdentity from it
-        if ($result instanceof Result
+        if (
+            $result instanceof Result
             && $result->isValid()
         ) {
             $mvcAuthEvent->setAuthenticationResult($result);
@@ -115,7 +100,8 @@ class MvcRouteListener extends AbstractListenerAggregate
             return;
         }
 
-        if ($mvcAuthEvent->hasAuthenticationResult()
+        if (
+            $mvcAuthEvent->hasAuthenticationResult()
             && $mvcAuthEvent->getAuthenticationResult()->isValid()
         ) {
             $mvcAuthEvent->setIdentity(
@@ -140,12 +126,12 @@ class MvcRouteListener extends AbstractListenerAggregate
     /**
      * Trigger the authentication.post event
      *
-     * @param MvcEvent $mvcEvent
      * @return Response|mixed
      */
     public function authenticationPost(MvcEvent $mvcEvent)
     {
-        if (! $mvcEvent->getRequest() instanceof HttpRequest
+        if (
+            ! $mvcEvent->getRequest() instanceof HttpRequest
             || $mvcEvent->getRequest()->isOptions()
         ) {
             return;
@@ -155,7 +141,7 @@ class MvcRouteListener extends AbstractListenerAggregate
         $mvcAuthEvent->setName($mvcAuthEvent::EVENT_AUTHENTICATION_POST);
 
         $responses = $this->events->triggerEventUntil(function ($r) {
-            return ($r instanceof Response);
+            return $r instanceof Response;
         }, $mvcAuthEvent);
 
         return $responses->last();
@@ -164,12 +150,12 @@ class MvcRouteListener extends AbstractListenerAggregate
     /**
      * Trigger the authorization event
      *
-     * @param MvcEvent $mvcEvent
      * @return null|Response
      */
     public function authorization(MvcEvent $mvcEvent)
     {
-        if (! $mvcEvent->getRequest() instanceof HttpRequest
+        if (
+            ! $mvcEvent->getRequest() instanceof HttpRequest
             || $mvcEvent->getRequest()->isOptions()
         ) {
             return;
@@ -179,7 +165,7 @@ class MvcRouteListener extends AbstractListenerAggregate
         $mvcAuthEvent->setName($mvcAuthEvent::EVENT_AUTHORIZATION);
 
         $responses = $this->events->triggerEventUntil(function ($r) {
-            return (is_bool($r) || $r instanceof Response);
+            return is_bool($r) || $r instanceof Response;
         }, $mvcAuthEvent);
 
         $result = $responses->last();
@@ -197,12 +183,12 @@ class MvcRouteListener extends AbstractListenerAggregate
     /**
      * Trigger the authorization.post event
      *
-     * @param MvcEvent $mvcEvent
      * @return null|Response
      */
     public function authorizationPost(MvcEvent $mvcEvent)
     {
-        if (! $mvcEvent->getRequest() instanceof HttpRequest
+        if (
+            ! $mvcEvent->getRequest() instanceof HttpRequest
             || $mvcEvent->getRequest()->isOptions()
         ) {
             return;
@@ -212,7 +198,7 @@ class MvcRouteListener extends AbstractListenerAggregate
         $mvcAuthEvent->setName($mvcAuthEvent::EVENT_AUTHORIZATION_POST);
 
         $responses = $this->events->triggerEventUntil(function ($r) {
-            return ($r instanceof Response);
+            return $r instanceof Response;
         }, $mvcAuthEvent);
 
         return $responses->last();

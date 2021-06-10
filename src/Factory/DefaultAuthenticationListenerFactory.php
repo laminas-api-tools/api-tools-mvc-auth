@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -13,10 +7,13 @@ use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
 use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
 use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
 use Laminas\ApiTools\OAuth2\Factory\OAuth2ServerFactory as LaminasOAuth2ServerFactory;
-use Laminas\Authentication\Adapter\Http as HttpAuth;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use RuntimeException;
+
+use function is_array;
+use function is_string;
+use function strpos;
 
 /**
  * Factory for creating the DefaultAuthenticationListener from configuration.
@@ -26,12 +23,11 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
     /**
      * Create and return a DefaultAuthenticationListener.
      *
-     * @param ContainerInterface $container
      * @param string             $requestedName
      * @param null|array         $options
      * @return DefaultAuthenticationListener
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $listener = new DefaultAuthenticationListener();
 
@@ -60,7 +56,6 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ServiceLocatorInterface $container
      * @return DefaultAuthenticationListener
      */
     public function createService(ServiceLocatorInterface $container)
@@ -84,7 +79,8 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         // We must abort if no resolver was provided
-        if (! $httpAdapter->getBasicResolver()
+        if (
+            ! $httpAdapter->getBasicResolver()
             && ! $httpAdapter->getDigestResolver()
         ) {
             return false;
@@ -98,7 +94,6 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
     /**
      * Create an OAuth2 server by introspecting the config service
      *
-     * @param ContainerInterface $container
      * @return false|OAuth2Adapter
      */
     protected function createOAuth2Server(ContainerInterface $container)
@@ -109,7 +104,8 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config['api-tools-oauth2']['storage'])
+        if (
+            ! isset($config['api-tools-oauth2']['storage'])
             || ! is_string($config['api-tools-oauth2']['storage'])
             || ! $container->has($config['api-tools-oauth2']['storage'])
         ) {
@@ -149,7 +145,6 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
     /**
      * Retrieve custom authentication types
      *
-     * @param ContainerInterface $container
      * @return array|false
      */
     protected function getAuthenticationTypes(ContainerInterface $container)
@@ -159,7 +154,8 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config['api-tools-mvc-auth']['authentication']['types'])
+        if (
+            ! isset($config['api-tools-mvc-auth']['authentication']['types'])
             || ! is_array($config['api-tools-mvc-auth']['authentication']['types'])
         ) {
             return false;
@@ -169,7 +165,6 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
     }
 
     /**
-     * @param ContainerInterface $container
      * @return array
      */
     protected function getAuthenticationMap(ContainerInterface $container)
@@ -179,7 +174,8 @@ class DefaultAuthenticationListenerFactory implements FactoryInterface
         }
 
         $config = $container->get('config');
-        if (! isset($config['api-tools-mvc-auth']['authentication']['map'])
+        if (
+            ! isset($config['api-tools-mvc-auth']['authentication']['map'])
             || ! is_array($config['api-tools-mvc-auth']['authentication']['map'])
         ) {
             return [];
