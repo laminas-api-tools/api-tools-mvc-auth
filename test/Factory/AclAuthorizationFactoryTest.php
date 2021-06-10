@@ -18,7 +18,7 @@ class AclAuthorizationFactoryTest extends TestCase
     /** @var ServiceManager */
     private $services;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->services = new ServiceManager();
         $this->factory  = new AclAuthorizationFactory();

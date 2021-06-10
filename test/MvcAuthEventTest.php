@@ -15,7 +15,7 @@ class MvcAuthEventTest extends TestCase
     /** @var MvcAuthEvent */
     protected $mvcAuthEvent;
 
-    public function setup()
+    public function setUp(): void
     {
         $mvcEvent           = new MvcEvent();
         $this->mvcAuthEvent = new MvcAuthEvent($mvcEvent, new AuthenticationService(), new Acl());

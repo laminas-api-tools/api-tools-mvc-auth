@@ -41,7 +41,7 @@ class DefaultAuthorizationListenerTest extends TestCase
     /** @var MvcAuthEvent */
     protected $mvcAuthEvent;
 
-    public function setUp()
+    public function setUp(): void
     {
         // authentication service
         $this->authentication = new AuthenticationService();

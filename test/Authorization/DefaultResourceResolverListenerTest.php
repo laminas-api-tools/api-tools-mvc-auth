@@ -16,7 +16,7 @@ class DefaultResourceResolverListenerTest extends TestCase
 {
     use RouteMatchFactoryTrait;
 
-    public function setUp()
+    public function setUp(): void
     {
         $routeMatch = $this->createRouteMatch([]);
         $request    = new HttpRequest();

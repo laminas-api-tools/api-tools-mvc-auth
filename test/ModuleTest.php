@@ -20,6 +20,7 @@ use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\RequestInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use ReflectionMethod;
 
 use function method_exists;
@@ -27,6 +28,7 @@ use function method_exists;
 class ModuleTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
+    use ProphecyTrait;
 
     protected function createApplication(ServiceManager $services, EventManagerInterface $events): Application
     {

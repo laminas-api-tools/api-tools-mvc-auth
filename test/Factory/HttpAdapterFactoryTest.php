@@ -19,7 +19,7 @@ class HttpAdapterFactoryTest extends TestCase
     /** @var string */
     private $htdigest;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->htpasswd = __DIR__ . '/../TestAsset/htpasswd';
         $this->htdigest = __DIR__ . '/../TestAsset/htdigest';
@@ -120,6 +120,7 @@ class HttpAdapterFactoryTest extends TestCase
     }
 
     /**
+     * @param array $config
      * @dataProvider validConfigWithoutResolvers
      * @psalm-param array<string, mixed> $config
      */

@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class NamedOAuth2ServerFactoryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->services = $this->setUpConfig(new ServiceManager());
         $this->factory  = new NamedOAuth2ServerFactory();

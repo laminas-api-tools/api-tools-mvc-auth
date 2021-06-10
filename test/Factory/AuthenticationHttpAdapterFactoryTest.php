@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class AuthenticationHttpAdapterFactoryTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         $this->services = $this->getMockBuilder(ServiceLocatorInterface::class)->getMock();
     }
@@ -43,6 +43,7 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
     }
 
     /**
+     * @param array $config
      * @dataProvider invalidConfiguration
      * @psalm-param array<string, mixed> $config
      */

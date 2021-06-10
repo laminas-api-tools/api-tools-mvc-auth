@@ -19,7 +19,7 @@ class DefaultAuthorizationPostListenerTest extends TestCase
     /** @var MvcAuthEvent */
     private $mvcAuthEvent;
 
-    public function setUp()
+    public function setUp(): void
     {
         $response = new HttpResponse();
         $mvcEvent = new MvcEvent();

@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class HttpAdapterTest extends TestCase
 {
-    public function setUp()
+    public function setUp(): void
     {
         // authentication service
         $this->authentication = new AuthenticationService(new NonPersistent());

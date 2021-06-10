@@ -17,7 +17,7 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
     /** @var ServiceManager */
     private $services;
 
-    public function setUp()
+    public function setUp(): void
     {
         // Actual service manager instance, as multiple services may be
         // requested; simplifies testing.

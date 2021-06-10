@@ -24,11 +24,25 @@
             "module": "Laminas\\ApiTools\\MvcAuth"
         }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/eimkua1/api-tools-api-problem.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/eimkua1/api-tools-content-negotiation.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/eimkua1/api-tools-oauth2.git"
+        }
+    ],
     "require": {
-        "php": "^7.3",
-        "laminas-api-tools/api-tools-api-problem": "^1.2.1",
-        "laminas-api-tools/api-tools-content-negotiation": "^1.2.1",
-        "laminas-api-tools/api-tools-oauth2": "^1.4",
+        "php": "^7.3 || ~8.0.0",
+        "laminas-api-tools/api-tools-api-problem": "^1.4.0",
+        "laminas-api-tools/api-tools-content-negotiation": "^1.5.0",
+        "laminas-api-tools/api-tools-oauth2": "^1.7",
         "laminas/laminas-authentication": "^2.5.3",
         "laminas/laminas-eventmanager": "^3.2",
         "laminas/laminas-http": "^2.5.4",
@@ -42,7 +56,8 @@
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.2.0",
         "laminas/laminas-session": "^2.8.5",
-        "phpunit/phpunit": "^7.5.15"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "phpunit/phpunit": "^9.3"
     },
     "autoload": {
         "psr-4": {
