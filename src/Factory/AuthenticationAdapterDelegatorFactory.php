@@ -59,16 +59,13 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
 
     /**
      * Attach an adaper to the listener as described by $type and $data.
-     *
-     * @param string $type
-     * @param array $adapterConfig
      */
     private function attachAdapterOfType(
-        $type,
+        string $type,
         array $adapterConfig,
         ContainerInterface $container,
         DefaultAuthenticationListener $listener
-    ) {
+    ): void {
         if (
             ! isset($adapterConfig['adapter'])
             || ! is_string($adapterConfig['adapter'])

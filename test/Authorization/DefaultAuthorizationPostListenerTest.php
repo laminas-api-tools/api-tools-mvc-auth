@@ -36,14 +36,14 @@ class DefaultAuthorizationPostListenerTest extends TestCase
         return new MvcAuthEvent($mvcEvent, $this->authentication, $this->authorization);
     }
 
-    public function testReturnsNullWhenEventIsAuthorized()
+    public function testReturnsNullWhenEventIsAuthorized(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->setIsAuthorized(true);
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testResetsResponseStatusTo200WhenEventIsAuthorized()
+    public function testResetsResponseStatusTo200WhenEventIsAuthorized(): void
     {
         $listener = $this->listener;
         $response = $this->mvcAuthEvent->getMvcEvent()->getResponse();
@@ -53,7 +53,7 @@ class DefaultAuthorizationPostListenerTest extends TestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function testReturnsComposedEventResponseWhenNotAuthorizedButNotAnHttpResponse()
+    public function testReturnsComposedEventResponseWhenNotAuthorizedButNotAnHttpResponse(): void
     {
         $listener = $this->listener;
         $response = new Response();
@@ -61,7 +61,7 @@ class DefaultAuthorizationPostListenerTest extends TestCase
         $this->assertSame($response, $listener($this->mvcAuthEvent));
     }
 
-    public function testReturns403ResponseWhenNotAuthorizedAndHttpResponseComposed()
+    public function testReturns403ResponseWhenNotAuthorizedAndHttpResponseComposed(): void
     {
         $listener = $this->listener;
         $response = $this->mvcAuthEvent->getMvcEvent()->getResponse();

@@ -55,7 +55,7 @@ class ModuleTest extends TestCase
         return new ServiceManager($servicesConfig);
     }
 
-    public function testOnBootstrapReturnsEarlyForNonHttpEvents()
+    public function testOnBootstrapReturnsEarlyForNonHttpEvents(): void
     {
         $mvcEvent = $this->prophesize(MvcEvent::class);
         $module   = new Module();

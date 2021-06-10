@@ -34,6 +34,8 @@ class Module
 
     /**
      * Register a listener for the mergeConfig event.
+     *
+     * @return void
      */
     public function init(ModuleManager $moduleManager)
     {
@@ -46,6 +48,8 @@ class Module
      *
      * If the Laminas\ApiTools\OAuth2\Service\OAuth2Server is defined, and set to the
      * default, override it with the NamedOAuth2ServerFactory.
+     *
+     * @return void
      */
     public function onMergeConfig(ModuleEvent $e)
     {
@@ -65,6 +69,9 @@ class Module
         $configListener->setMergedConfig($config);
     }
 
+    /**
+     * @return void
+     */
     public function onBootstrap(MvcEvent $mvcEvent)
     {
         if (! $mvcEvent->getRequest() instanceof HttpRequest) {
@@ -112,6 +119,9 @@ class Module
         );
     }
 
+    /**
+     * @return void
+     */
     public function onAuthenticationPost(MvcAuthEvent $e)
     {
         if ($this->container->has('api-identity')) {
@@ -131,7 +141,7 @@ class Module
         return $this->mvcRouteListener;
     }
 
-    public function getContainer(): ?ContainerInterface
+    public function getContainer(): ?ServiceLocatorInterface
     {
         return $this->container;
     }

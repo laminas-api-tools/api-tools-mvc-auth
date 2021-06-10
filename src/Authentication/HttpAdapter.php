@@ -93,6 +93,8 @@ class HttpAdapter extends AbstractAdapter
      * Perform pre-flight authentication operations.
      *
      * If invoked, issues a client challenge.
+     *
+     * @return void
      */
     public function preAuth(Request $request, Response $response)
     {

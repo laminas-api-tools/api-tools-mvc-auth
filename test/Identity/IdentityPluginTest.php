@@ -26,18 +26,18 @@ class IdentityPluginTest extends TestCase
         $this->plugin->setController($controller);
     }
 
-    public function testMissingIdentityParamInEventCausesPluginToYieldGuestIdentity()
+    public function testMissingIdentityParamInEventCausesPluginToYieldGuestIdentity(): void
     {
         $this->assertInstanceOf(GuestIdentity::class, $this->plugin->__invoke());
     }
 
-    public function testInvalidTypeInEventIdentityParamCausesPluginToYieldGuestIdentity()
+    public function testInvalidTypeInEventIdentityParamCausesPluginToYieldGuestIdentity(): void
     {
         $this->event->setParam('Laminas\ApiTools\MvcAuth\Identity', (object) ['foo' => 'bar']);
         $this->assertInstanceOf(GuestIdentity::class, $this->plugin->__invoke());
     }
 
-    public function testValidIdentityInEventIsReturnedByPlugin()
+    public function testValidIdentityInEventIsReturnedByPlugin(): void
     {
         $identity = new AuthenticatedIdentity('mwop');
         $this->event->setParam('Laminas\ApiTools\MvcAuth\Identity', $identity);

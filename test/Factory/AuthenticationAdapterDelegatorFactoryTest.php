@@ -24,12 +24,12 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
         $this->services = new ServiceManager();
         $this->factory  = new AuthenticationAdapterDelegatorFactory();
         $this->listener = $listener = new DefaultAuthenticationListener();
-        $this->callback = function () use ($listener) {
+        $this->callback = function () use ($listener): DefaultAuthenticationListener {
             return $listener;
         };
     }
 
-    public function testReturnsListenerWithNoAdaptersWhenNoAdaptersAreInConfiguration()
+    public function testReturnsListenerWithNoAdaptersWhenNoAdaptersAreInConfiguration(): void
     {
         $config = [];
         $this->services->setService('config', $config);
@@ -45,7 +45,7 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
         $this->assertEquals([], $listener->getAuthenticationTypes());
     }
 
-    public function testReturnsListenerWithConfiguredAdapters()
+    public function testReturnsListenerWithConfiguredAdapters(): void
     {
         $config = [
             // ensure top-level api-tools-oauth2 are available

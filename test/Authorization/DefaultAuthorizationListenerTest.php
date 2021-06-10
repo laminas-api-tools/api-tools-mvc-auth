@@ -94,21 +94,21 @@ class DefaultAuthorizationListenerTest extends TestCase
         return new Application($container);
     }
 
-    public function testBailsEarlyOnInvalidRequest()
+    public function testBailsEarlyOnInvalidRequest(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->getMvcEvent()->setRequest(new Request());
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testBailsEarlyOnInvalidResponse()
+    public function testBailsEarlyOnInvalidResponse(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->getMvcEvent()->setResponse(new Response());
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testBailsEarlyOnMissingRouteMatch()
+    public function testBailsEarlyOnMissingRouteMatch(): void
     {
         $listener = $this->listener;
 
@@ -122,13 +122,13 @@ class DefaultAuthorizationListenerTest extends TestCase
         $this->assertNull($listener($mvcAuthEvent));
     }
 
-    public function testBailsEarlyOnMissingIdentity()
+    public function testBailsEarlyOnMissingIdentity(): void
     {
         $listener = $this->listener;
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testBailsEarlyIfMvcAuthEventIsAuthorizedAlready()
+    public function testBailsEarlyIfMvcAuthEventIsAuthorizedAlready(): void
     {
         $listener = $this->listener;
         // Setting identity to ensure we don't get a false positive
@@ -137,7 +137,7 @@ class DefaultAuthorizationListenerTest extends TestCase
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testReturnsTrueIfIdentityPassesAcls()
+    public function testReturnsTrueIfIdentityPassesAcls(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->getMvcEvent()->getRouteMatch()->setParam('controller', 'Foo\Bar\Controller');
@@ -146,7 +146,7 @@ class DefaultAuthorizationListenerTest extends TestCase
         $this->assertTrue($listener($this->mvcAuthEvent));
     }
 
-    public function testReturnsFalseIfIdentityFailsAcls()
+    public function testReturnsFalseIfIdentityFailsAcls(): void
     {
         $listener = $this->listener;
         $this->authorization->addResource('Foo\Bar\Controller::index');

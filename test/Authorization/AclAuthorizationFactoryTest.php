@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 class AclAuthorizationFactoryTest extends TestCase
 {
-    public function testFactoryGeneratesAclFromConfiguration()
+    public function testFactoryGeneratesAclFromConfiguration(): void
     {
         $config = [
             [
@@ -57,7 +57,7 @@ class AclAuthorizationFactoryTest extends TestCase
         $this->assertFalse($acl->isAllowed('guest', 'LaminasCon\V1\Rpc\Message\Controller::message', 'POST'));
     }
 
-    public function testFactoryGeneratesBlacklistAclFromConfiguration()
+    public function testFactoryGeneratesBlacklistAclFromConfiguration(): void
     {
         $config = [
             'deny_by_default' => true,

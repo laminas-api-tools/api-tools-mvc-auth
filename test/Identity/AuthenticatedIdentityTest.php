@@ -18,29 +18,29 @@ class AuthenticatedIdentityTest extends TestCase
         $this->identity     = new AuthenticatedIdentity($this->authIdentity);
     }
 
-    public function testAuthenticatedIsAnIdentityType()
+    public function testAuthenticatedIsAnIdentityType(): void
     {
         $this->assertInstanceOf(IdentityInterface::class, $this->identity);
     }
 
-    public function testAuthenticatedImplementsAclRole()
+    public function testAuthenticatedImplementsAclRole(): void
     {
         $this->assertInstanceOf(AclRoleInterface::class, $this->identity);
     }
 
-    public function testAuthenticatedImplementsRbacRole()
+    public function testAuthenticatedImplementsRbacRole(): void
     {
         $this->assertInstanceOf(RbacRoleInterface::class, $this->identity);
     }
 
-    public function testAuthenticatedAllowsSettingName()
+    public function testAuthenticatedAllowsSettingName(): void
     {
         $this->identity->setName($this->authIdentity->name);
         $this->assertEquals($this->authIdentity->name, $this->identity->getName());
         $this->assertEquals($this->authIdentity->name, $this->identity->getRoleId());
     }
 
-    public function testAuthenticatedComposesAuthenticatedIdentity()
+    public function testAuthenticatedComposesAuthenticatedIdentity(): void
     {
         $this->assertSame($this->authIdentity, $this->identity->getAuthenticationIdentity());
     }

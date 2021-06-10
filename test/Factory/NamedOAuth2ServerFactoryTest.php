@@ -63,21 +63,21 @@ class NamedOAuth2ServerFactoryTest extends TestCase
         return $services;
     }
 
-    public function testCallingReturnedFactoryMultipleTimesWithNoArgumentReturnsSameServerInstance()
+    public function testCallingReturnedFactoryMultipleTimesWithNoArgumentReturnsSameServerInstance(): void
     {
         $factory = $this->factory->__invoke($this->services, 'NamedOAuth2Server');
         $server  = $factory();
         $this->assertSame($server, $factory());
     }
 
-    public function testCallingReturnedFactoryMultipleTimesWithSameArgumentReturnsSameServerInstance()
+    public function testCallingReturnedFactoryMultipleTimesWithSameArgumentReturnsSameServerInstance(): void
     {
         $factory = $this->factory->__invoke($this->services, 'NamedOAuth2Server');
         $server  = $factory('test');
         $this->assertSame($server, $factory('test'));
     }
 
-    public function testCallingReturnedFactoryMultipleTimesWithDifferentArgumentsReturnsDifferentInstances()
+    public function testCallingReturnedFactoryMultipleTimesWithDifferentArgumentsReturnsDifferentInstances(): void
     {
         $factory = $this->factory->__invoke($this->services, 'NamedOAuth2Server');
         $server  = $factory('test');
@@ -85,7 +85,7 @@ class NamedOAuth2ServerFactoryTest extends TestCase
         $this->assertNotSame($server, $factory('test2'));
     }
 
-    public function testCallingReturnedFactoryWithUnrecognizedArgumentReturnsApplicationWideInstance()
+    public function testCallingReturnedFactoryWithUnrecognizedArgumentReturnsApplicationWideInstance(): void
     {
         $factory = $this->factory->__invoke($this->services, 'NamedOAuth2Server');
         $server  = $factory();

@@ -16,7 +16,7 @@ class AuthenticationHttpAdapterFactoryTest extends TestCase
         $this->services = $this->getMockBuilder(ServiceLocatorInterface::class)->getMock();
     }
 
-    public function testRaisesExceptionIfNoAuthenticationServicePresent()
+    public function testRaisesExceptionIfNoAuthenticationServicePresent(): void
     {
         $this->services->expects($this->atLeastOnce())
             ->method('has')

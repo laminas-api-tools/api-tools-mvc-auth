@@ -45,7 +45,7 @@ class OAuth2ServerFactoryTest extends TestCase
         return $services;
     }
 
-    public function testRaisesExceptionIfAdapterIsMissing()
+    public function testRaisesExceptionIfAdapterIsMissing(): void
     {
         $services = $this->mockConfig(new ServiceManager());
         $config   = [
@@ -58,7 +58,7 @@ class OAuth2ServerFactoryTest extends TestCase
         OAuth2ServerFactory::factory($config, $services);
     }
 
-    public function testRaisesExceptionCreatingPdoBackedServerIfDsnIsMissing()
+    public function testRaisesExceptionCreatingPdoBackedServerIfDsnIsMissing(): void
     {
         $services = $this->mockConfig(new ServiceManager());
         $config   = [
@@ -73,7 +73,7 @@ class OAuth2ServerFactoryTest extends TestCase
         OAuth2ServerFactory::factory($config, $services);
     }
 
-    public function testCanCreatePdoAdapterBackedServer()
+    public function testCanCreatePdoAdapterBackedServer(): void
     {
         $services = $this->mockConfig(new ServiceManager());
         $config   = [
@@ -84,7 +84,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $this->assertInstanceOf(OAuth2Server::class, $server);
     }
 
-    public function testCanCreateMongoBackedServerUsingMongoFromServices()
+    public function testCanCreateMongoBackedServerUsingMongoFromServices(): void
     {
         if (! class_exists(MongoDB::class)) {
             $this->markTestSkipped('Mongo extension is required for this test');
@@ -104,7 +104,7 @@ class OAuth2ServerFactoryTest extends TestCase
         $this->assertInstanceOf(OAuth2Server::class, $server);
     }
 
-    public function testRaisesExceptionCreatingMongoBackedServerIfDatabaseIsMissing()
+    public function testRaisesExceptionCreatingMongoBackedServerIfDatabaseIsMissing(): void
     {
         $services = $this->mockConfig(new ServiceManager());
         $config   = [
@@ -114,10 +114,10 @@ class OAuth2ServerFactoryTest extends TestCase
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('database');
 
-        $server = OAuth2ServerFactory::factory($config, $services);
+        OAuth2ServerFactory::factory($config, $services);
     }
 
-    public function testCanCreateMongoAdapterBackedServer()
+    public function testCanCreateMongoAdapterBackedServer(): void
     {
         if (! class_exists(MongoDB::class)) {
             $this->markTestSkipped('Mongo extension is required for this test');
@@ -224,7 +224,7 @@ class OAuth2ServerFactoryTest extends TestCase
         }
     }
 
-    public function testAllowsUsingOpenIDConnectGrantTypeViaConfiguration()
+    public function testAllowsUsingOpenIDConnectGrantTypeViaConfiguration(): void
     {
         $options = $this->getOAuth2Options();
         $options['api-tools-oauth2']['options']['use_openid_connect'] = true;

@@ -36,7 +36,7 @@ class HttpAdapterTest extends TestCase
         );
     }
 
-    public function testAuthenticateReturnsGuestIdentityIfNoAuthorizationHeaderProvided()
+    public function testAuthenticateReturnsGuestIdentityIfNoAuthorizationHeaderProvided(): void
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
@@ -51,7 +51,7 @@ class HttpAdapterTest extends TestCase
         $this->assertInstanceOf(GuestIdentity::class, $result);
     }
 
-    public function testAuthenticateReturnsFalseIfInvalidCredentialsProvidedInAuthorizationHeader()
+    public function testAuthenticateReturnsFalseIfInvalidCredentialsProvidedInAuthorizationHeader(): void
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
@@ -68,7 +68,7 @@ class HttpAdapterTest extends TestCase
         $this->assertFalse($adapter->authenticate($this->request, $this->response, $this->event));
     }
 
-    public function testAuthenticateReturnsAuthenticatedIdentityIfValidCredentialsProvidedInAuthorizationHeader()
+    public function testAuthenticateReturnsAuthenticatedIdentityIfValidCredentialsProvidedInAuthorizationHeader(): void
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
