@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Authorization;
 
 use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;
@@ -17,14 +11,9 @@ use Laminas\Router\RouteMatch;
 
 class DefaultAuthorizationListener
 {
-    /**
-     * @var AuthorizationInterface
-     */
+    /** @var AuthorizationInterface */
     protected $authorization;
 
-    /**
-     * @param AuthorizationInterface $authorization
-     */
     public function __construct(AuthorizationInterface $authorization)
     {
         $this->authorization = $authorization;
@@ -33,7 +22,6 @@ class DefaultAuthorizationListener
     /**
      * Attempt to authorize the discovered identity based on the ACLs present
      *
-     * @param MvcAuthEvent $mvcAuthEvent
      * @return bool
      */
     public function __invoke(MvcAuthEvent $mvcAuthEvent)
@@ -44,12 +32,12 @@ class DefaultAuthorizationListener
 
         $mvcEvent = $mvcAuthEvent->getMvcEvent();
 
-        $request  = $mvcEvent->getRequest();
+        $request = $mvcEvent->getRequest();
         if (! $request instanceof Request) {
             return;
         }
 
-        $response  = $mvcEvent->getResponse();
+        $response = $mvcEvent->getResponse();
         if (! $response instanceof Response) {
             return;
         }

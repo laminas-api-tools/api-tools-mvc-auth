@@ -1,17 +1,18 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
-use Laminas\Authentication\Adapter\Http\ApacheResolver;
 use Laminas\Authentication\Adapter\Http as HttpAuth;
+use Laminas\Authentication\Adapter\Http\ApacheResolver;
 use Laminas\Authentication\Adapter\Http\FileResolver;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+
+use function array_merge;
+use function implode;
+use function in_array;
+use function is_array;
+use function is_string;
 
 /**
  * Create and return a Laminas\Authentication\Adapter\Http instance based on the
@@ -30,10 +31,9 @@ final class HttpAdapterFactory
      * Create an HttpAuth instance based on the configuration passed.
      *
      * @param array $config
-     * @param null|ContainerInterface $container
      * @return HttpAuth
      */
-    public static function factory(array $config, ContainerInterface $container = null)
+    public static function factory(array $config, ?ContainerInterface $container = null)
     {
         if (! isset($config['accept_schemes']) || ! is_array($config['accept_schemes'])) {
             throw new ServiceNotCreatedException(
@@ -48,7 +48,8 @@ final class HttpAdapterFactory
         }
 
         if (in_array('digest', $config['accept_schemes'])) {
-            if (! isset($config['digest_domains'])
+            if (
+                ! isset($config['digest_domains'])
                 || ! isset($config['nonce_timeout'])
             ) {
                 throw new ServiceNotCreatedException(
@@ -61,12 +62,13 @@ final class HttpAdapterFactory
         $httpAdapter = new HttpAuth(array_merge(
             $config,
             [
-                'accept_schemes' => implode(' ', $config['accept_schemes'])
+                'accept_schemes' => implode(' ', $config['accept_schemes']),
             ]
         ));
 
         if (in_array('basic', $config['accept_schemes'])) {
-            if (isset($config['basic_resolver_factory'])
+            if (
+                isset($config['basic_resolver_factory'])
                 && self::containerHasKey($container, $config['basic_resolver_factory'])
             ) {
                 $httpAdapter->setBasicResolver($container->get($config['basic_resolver_factory']));
@@ -76,7 +78,8 @@ final class HttpAdapterFactory
         }
 
         if (in_array('digest', $config['accept_schemes'])) {
-            if (isset($config['digest_resolver_factory'])
+            if (
+                isset($config['digest_resolver_factory'])
                 && self::containerHasKey($container, $config['digest_resolver_factory'])
             ) {
                 $httpAdapter->setDigestResolver($container->get($config['digest_resolver_factory']));
@@ -89,11 +92,10 @@ final class HttpAdapterFactory
     }
 
     /**
-     * @param ContainerInterface $container
      * @param null $key
      * @return bool
      */
-    private static function containerHasKey(ContainerInterface $container = null, $key = null)
+    private static function containerHasKey(?ContainerInterface $container = null, $key = null)
     {
         if (! $container instanceof ContainerInterface) {
             return false;

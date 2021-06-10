@@ -1,22 +1,25 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth;
 
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
+use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener;
+use Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener;
+use Laminas\ApiTools\OAuth2\Factory\OAuth2ServerFactory;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\ModuleManager\ModuleEvent;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\Mvc\MvcEvent;
+use Psr\Container\ContainerInterface;
 
 class Module
 {
+    /** @var null|ContainerInterface */
     protected $container;
 
+    /** @var null|MvcRouteListener */
     protected $mvcRouteListener;
 
     /**
@@ -31,8 +34,6 @@ class Module
 
     /**
      * Register a listener for the mergeConfig event.
-     *
-     * @param ModuleManager $moduleManager
      */
     public function init(ModuleManager $moduleManager)
     {
@@ -45,17 +46,16 @@ class Module
      *
      * If the Laminas\ApiTools\OAuth2\Service\OAuth2Server is defined, and set to the
      * default, override it with the NamedOAuth2ServerFactory.
-     *
-     * @param ModuleEvent $e
      */
     public function onMergeConfig(ModuleEvent $e)
     {
         $configListener = $e->getConfigListener();
         $config         = $configListener->getMergedConfig(false);
         $service        = 'Laminas\ApiTools\OAuth2\Service\OAuth2Server';
-        $default        = 'Laminas\ApiTools\OAuth2\Factory\OAuth2ServerFactory';
+        $default        = OAuth2ServerFactory::class;
 
-        if (! isset($config['service_manager']['factories'][$service])
+        if (
+            ! isset($config['service_manager']['factories'][$service])
             || $config['service_manager']['factories'][$service] !== $default
         ) {
             return;
@@ -71,12 +71,12 @@ class Module
             return;
         }
 
-        $app      = $mvcEvent->getApplication();
-        $events   = $app->getEventManager();
+        $app             = $mvcEvent->getApplication();
+        $events          = $app->getEventManager();
         $this->container = $app->getServiceManager();
 
-        $authentication = $this->container->get('authentication');
-        $mvcAuthEvent   = new MvcAuthEvent(
+        $authentication         = $this->container->get('authentication');
+        $mvcAuthEvent           = new MvcAuthEvent(
             $mvcEvent,
             $authentication,
             $this->container->get('authorization')
@@ -85,24 +85,24 @@ class Module
 
         $events->attach(
             MvcAuthEvent::EVENT_AUTHENTICATION,
-            $this->container->get('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener')
+            $this->container->get(DefaultAuthenticationListener::class)
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHENTICATION_POST,
-            $this->container->get('Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationPostListener')
+            $this->container->get(DefaultAuthenticationPostListener::class)
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION,
-            $this->container->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener'),
+            $this->container->get(DefaultResourceResolverListener::class),
             1000
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION,
-            $this->container->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener')
+            $this->container->get(DefaultAuthorizationListener::class)
         );
         $events->attach(
             MvcAuthEvent::EVENT_AUTHORIZATION_POST,
-            $this->container->get('Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationPostListener')
+            $this->container->get(DefaultAuthorizationPostListener::class)
         );
 
         $events->attach(
@@ -129,5 +129,10 @@ class Module
     public function getMvcRouteListener()
     {
         return $this->mvcRouteListener;
+    }
+
+    public function getContainer(): ?ContainerInterface
+    {
+        return $this->container;
     }
 }

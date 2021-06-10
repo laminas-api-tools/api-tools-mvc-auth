@@ -1,13 +1,11 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Authorization;
 
+use function array_key_exists;
+use function is_array;
+
+// phpcs:ignore WebimpressCodingStandard.NamingConventions.AbstractClass.Prefix
 abstract class AclAuthorizationFactory
 {
     /**
@@ -26,7 +24,7 @@ abstract class AclAuthorizationFactory
         }
 
         // By default, create an open ACL
-        $acl = new AclAuthorization;
+        $acl = new AclAuthorization();
         $acl->addRole('guest');
         $acl->allow();
 
@@ -46,7 +44,6 @@ abstract class AclAuthorizationFactory
     /**
      * Inject the ACL with the grants specified in the collection of rules.
      *
-     * @param AclAuthorization $acl
      * @param string $grantType Either "allow" or "deny".
      * @param array $rules
      * @return AclAuthorization
@@ -67,7 +64,6 @@ abstract class AclAuthorizationFactory
     /**
      * Inject the ACL with the grant specified by a single rule set.
      *
-     * @param AclAuthorization $acl
      * @param string $grantType
      * @param array $ruleSet
      * @return void
@@ -79,7 +75,7 @@ abstract class AclAuthorizationFactory
         $acl->addResource($ruleSet['resource']);
 
         // Deny guest specified privileges to resource
-        $privileges = isset($ruleSet['privileges']) ? $ruleSet['privileges'] : null;
+        $privileges = $ruleSet['privileges'] ?? null;
 
         // null privileges means no permissions were setup; nothing to do
         if (null === $privileges) {

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -15,6 +9,8 @@ use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
+use function sprintf;
+
 /**
  * Factory for creating the DefaultAuthorizationListener from configuration.
  */
@@ -23,15 +19,15 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
     /**
      * Create and return the default authorization listener.
      *
-     * @param ContainerInterface $container
      * @param string             $requestedName
      * @param null|array         $options
      * @return DefaultAuthorizationListener
-     * @throws ServiceNotCreatedException if the AuthorizationInterface service is missing.
+     * @throws ServiceNotCreatedException If the AuthorizationInterface service is missing.
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
-        if (! $container->has(AuthorizationInterface::class)
+        if (
+            ! $container->has(AuthorizationInterface::class)
             && ! $container->has(\ZF\MvcAuth\Authorization\AuthorizationInterface::class)
         ) {
             throw new ServiceNotCreatedException(sprintf(
@@ -53,7 +49,6 @@ class DefaultAuthorizationListenerFactory implements FactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ServiceLocatorInterface $container
      * @return DefaultAuthorizationListener
      */
     public function createService(ServiceLocatorInterface $container)

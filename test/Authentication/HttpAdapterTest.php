@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
 use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
@@ -46,9 +40,9 @@ class HttpAdapterTest extends TestCase
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
-            'realm' => 'My Web Site',
+            'realm'          => 'My Web Site',
             'digest_domains' => '/',
-            'nonce_timeout' => 3600,
+            'nonce_timeout'  => 3600,
         ]);
         $httpAuth->setBasicResolver(new HttpAuth\ApacheResolver(__DIR__ . '/../TestAsset/htpasswd'));
 
@@ -61,9 +55,9 @@ class HttpAdapterTest extends TestCase
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
-            'realm' => 'My Web Site',
+            'realm'          => 'My Web Site',
             'digest_domains' => '/',
-            'nonce_timeout' => 3600,
+            'nonce_timeout'  => 3600,
         ]);
         $httpAuth->setBasicResolver(new HttpAuth\ApacheResolver(__DIR__ . '/../TestAsset/htpasswd'));
 
@@ -78,16 +72,16 @@ class HttpAdapterTest extends TestCase
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
-            'realm' => 'My Web Site',
+            'realm'          => 'My Web Site',
             'digest_domains' => '/',
-            'nonce_timeout' => 3600,
+            'nonce_timeout'  => 3600,
         ]);
         $httpAuth->setBasicResolver(new HttpAuth\ApacheResolver(__DIR__ . '/../TestAsset/htpasswd'));
 
         $adapter = new HttpAdapter($httpAuth, $this->authentication);
 
         $this->request->getHeaders()->addHeaderLine('Authorization: Basic dXNlcjp1c2Vy');
-        $result  = $adapter->authenticate($this->request, $this->response, $this->event);
+        $result = $adapter->authenticate($this->request, $this->response, $this->event);
         $this->assertInstanceOf(AuthenticatedIdentity::class, $result);
     }
 }

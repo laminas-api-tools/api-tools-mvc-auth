@@ -1,14 +1,14 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Authentication;
 
 use Laminas\Http\Request;
+
+use function in_array;
+use function preg_split;
+use function strpos;
+use function strtolower;
+use function trim;
 
 abstract class AbstractAdapter implements AdapterInterface
 {
@@ -23,19 +23,18 @@ abstract class AbstractAdapter implements AdapterInterface
      * Determine if the incoming request provides either basic or digest
      * credentials
      *
-     * @param Request $request
      * @return false|string
      */
     public function getTypeFromRequest(Request $request)
     {
-        $headers = $request->getHeaders();
+        $headers       = $request->getHeaders();
         $authorization = $request->getHeader('Authorization');
         if (! $authorization) {
             return false;
         }
 
         $authorization = trim($authorization->getFieldValue());
-        $type = $this->getTypeFromAuthorizationHeader($authorization);
+        $type          = $this->getTypeFromAuthorizationHeader($authorization);
 
         if (! in_array($type, $this->authorizationTokenTypes)) {
             return false;
@@ -57,7 +56,7 @@ abstract class AbstractAdapter implements AdapterInterface
             return false;
         }
 
-        list($type, $credential) = preg_split('# #', $header, 2);
+        [$type, $credential] = preg_split('# #', $header, 2);
 
         return strtolower($type);
     }

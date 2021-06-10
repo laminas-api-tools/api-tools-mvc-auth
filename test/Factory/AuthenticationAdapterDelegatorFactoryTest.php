@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
 use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
@@ -18,13 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class AuthenticationAdapterDelegatorFactoryTest extends TestCase
 {
-    /**
-     * @var AuthenticationAdapterDelegatorFactory
-     */
+    /** @var AuthenticationAdapterDelegatorFactory */
     private $factory;
-    /**
-     * @var ServiceManager
-     */
+    /** @var ServiceManager */
     private $services;
 
     public function setUp()
@@ -55,13 +45,12 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
         $this->assertEquals([], $listener->getAuthenticationTypes());
     }
 
-
     public function testReturnsListenerWithConfiguredAdapters()
     {
         $config = [
             // ensure top-level api-tools-oauth2 are available
-            'api-tools-oauth2' => [
-                'grant_types' => [
+            'api-tools-oauth2'   => [
+                'grant_types'                => [
                     'client_credentials' => true,
                     'authorization_code' => true,
                     'password'           => true,
@@ -77,15 +66,15 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
                             'adapter' => HttpAdapter::class,
                             'options' => [
                                 'accept_schemes' => ['basic'],
-                                'realm' => 'api',
-                                'htpasswd' => __DIR__ . '/../TestAsset/htpasswd',
+                                'realm'          => 'api',
+                                'htpasswd'       => __DIR__ . '/../TestAsset/htpasswd',
                             ],
                         ],
                         'bar' => [
                             'adapter' => OAuth2Adapter::class,
                             'storage' => [
                                 'adapter' => 'pdo',
-                                'dsn' => 'sqlite::memory:',
+                                'dsn'     => 'sqlite::memory:',
                             ],
                         ],
                         'baz' => [
@@ -114,7 +103,7 @@ class AuthenticationAdapterDelegatorFactoryTest extends TestCase
         $this->assertSame($this->listener, $listener);
         $this->assertEquals([
             'foo-basic',
-            'bar'
+            'bar',
         ], $listener->getAuthenticationTypes());
     }
 }

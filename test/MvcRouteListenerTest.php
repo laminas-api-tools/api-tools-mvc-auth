@@ -8,17 +8,28 @@ use Laminas\Authentication\AuthenticationService;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\Test\EventListenerIntrospectionTrait;
 use Laminas\Mvc\MvcEvent;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class MvcRouteListenerTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
+    /** @var AuthenticationService&MockObject */
+    private $auth;
+
+    /** @var MvcAuthEvent&MockObject */
+    private $event;
+
+    /** @var EventManager */
+    private $events;
+
+    /** @var MvcRouteListener */
     private $listener;
 
     public function setUp()
     {
-        $this->events = new EventManager;
+        $this->events = new EventManager();
         $this->auth   = $this
             ->getMockBuilder(AuthenticationService::class)
             ->disableOriginalConstructor()

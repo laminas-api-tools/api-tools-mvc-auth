@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -21,12 +15,11 @@ class DefaultAuthHttpAdapterFactory implements FactoryInterface
     /**
      * Create an object
      *
-     * @param ContainerInterface $container
      * @param string             $requestedName
      * @param null|array         $options
      * @return HttpAuth
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         // If no configuration present, nothing to create
         if (! $container->has('config')) {
@@ -48,7 +41,6 @@ class DefaultAuthHttpAdapterFactory implements FactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ServiceLocatorInterface $container
      * @return HttpAuth
      */
     public function createService(ServiceLocatorInterface $container)

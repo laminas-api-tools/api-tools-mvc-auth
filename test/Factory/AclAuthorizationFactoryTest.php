@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Factory;
 
 use Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization;
@@ -13,9 +7,15 @@ use Laminas\ApiTools\MvcAuth\Factory\AclAuthorizationFactory;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 
+use function array_key_exists;
+use function strtr;
+
 class AclAuthorizationFactoryTest extends TestCase
 {
+    /** @var AclAuthorizationFactory */
     private $factory;
+
+    /** @var ServiceManager */
     private $services;
 
     public function setUp()
@@ -24,9 +24,10 @@ class AclAuthorizationFactoryTest extends TestCase
         $this->factory  = new AclAuthorizationFactory();
     }
 
-    public function whitelistAclProvider()
+    /** @psalm-return iterable<string, array{0: array<string, mixed>}> */
+    public function whitelistAclProvider(): iterable
     {
-        $entityConfig = [
+        $entityConfig     = [
             'GET'    => false,
             'POST'   => false,
             'PUT'    => true,
@@ -40,7 +41,7 @@ class AclAuthorizationFactoryTest extends TestCase
             'PATCH'  => false,
             'DELETE' => false,
         ];
-        $rpcConfig = [
+        $rpcConfig        = [
             'GET'    => false,
             'POST'   => true,
             'PUT'    => false,
@@ -49,17 +50,23 @@ class AclAuthorizationFactoryTest extends TestCase
         ];
 
         foreach (['Foo\Bar\\', 'Foo-Bar-'] as $namespace) {
-            yield $namespace => [['api-tools-mvc-auth' => ['authorization' => [
-                $namespace . 'RestController' => [
-                    'entity' => $entityConfig,
-                    'collection' => $collectionConfig,
-                ],
-                $namespace . 'RpcController' => [
-                    'actions' => [
-                        'do' => $rpcConfig,
+            yield $namespace => [
+                [
+                    'api-tools-mvc-auth' => [
+                        'authorization' => [
+                            $namespace . 'RestController' => [
+                                'entity'     => $entityConfig,
+                                'collection' => $collectionConfig,
+                            ],
+                            $namespace . 'RpcController'  => [
+                                'actions' => [
+                                    'do' => $rpcConfig,
+                                ],
+                            ],
+                        ],
                     ],
                 ],
-            ]]]];
+            ];
         }
     }
 
@@ -83,19 +90,19 @@ class AclAuthorizationFactoryTest extends TestCase
             // ensure we test against those specifically.
             $resource = strtr($resource, '-', '\\');
             switch (true) {
-                case (array_key_exists('entity', $rules)):
+                case array_key_exists('entity', $rules):
                     foreach ($rules['entity'] as $method => $expected) {
                         $assertion = 'assert' . ($expected ? 'False' : 'True');
                         $this->$assertion($acl->isAllowed('guest', $resource . '::entity', $method));
                     }
                     break;
-                case (array_key_exists('collection', $rules)):
+                case array_key_exists('collection', $rules):
                     foreach ($rules['collection'] as $method => $expected) {
                         $assertion = 'assert' . ($expected ? 'False' : 'True');
                         $this->$assertion($acl->isAllowed('guest', $resource . '::collection', $method));
                     }
                     break;
-                case (array_key_exists('actions', $rules)):
+                case array_key_exists('actions', $rules):
                     foreach ($rules['actions'] as $action => $actionRules) {
                         foreach ($actionRules as $method => $expected) {
                             $assertion = 'assert' . ($expected ? 'False' : 'True');
@@ -109,36 +116,40 @@ class AclAuthorizationFactoryTest extends TestCase
 
     public function testBlacklistAclSpecificationHonorsBooleansSetForMethods()
     {
-        $config = ['api-tools-mvc-auth' => ['authorization' => [
-            'deny_by_default' => true,
-            'Foo\Bar\RestController' => [
-                'entity' => [
-                    'GET'    => false,
-                    'POST'   => false,
-                    'PUT'    => true,
-                    'PATCH'  => true,
-                    'DELETE' => true,
-                ],
-                'collection' => [
-                    'GET'    => false,
-                    'POST'   => true,
-                    'PUT'    => false,
-                    'PATCH'  => false,
-                    'DELETE' => false,
-                ],
-            ],
-            'Foo\Bar\RpcController' => [
-                'actions' => [
-                    'do' => [
-                        'GET'    => false,
-                        'POST'   => true,
-                        'PUT'    => false,
-                        'PATCH'  => false,
-                        'DELETE' => false,
+        $config = [
+            'api-tools-mvc-auth' => [
+                'authorization' => [
+                    'deny_by_default'        => true,
+                    'Foo\Bar\RestController' => [
+                        'entity'     => [
+                            'GET'    => false,
+                            'POST'   => false,
+                            'PUT'    => true,
+                            'PATCH'  => true,
+                            'DELETE' => true,
+                        ],
+                        'collection' => [
+                            'GET'    => false,
+                            'POST'   => true,
+                            'PUT'    => false,
+                            'PATCH'  => false,
+                            'DELETE' => false,
+                        ],
+                    ],
+                    'Foo\Bar\RpcController'  => [
+                        'actions' => [
+                            'do' => [
+                                'GET'    => false,
+                                'POST'   => true,
+                                'PUT'    => false,
+                                'PATCH'  => false,
+                                'DELETE' => false,
+                            ],
+                        ],
                     ],
                 ],
             ],
-        ]]];
+        ];
         $this->services->setService('config', $config);
 
         $factory = $this->factory;
@@ -152,19 +163,19 @@ class AclAuthorizationFactoryTest extends TestCase
 
         foreach ($authorizations as $resource => $rules) {
             switch (true) {
-                case (array_key_exists('entity', $rules)):
+                case array_key_exists('entity', $rules):
                     foreach ($rules['entity'] as $method => $expected) {
                         $assertion = 'assert' . ($expected ? 'False' : 'True');
                         $this->$assertion($acl->isAllowed('guest', $resource . '::entity', $method));
                     }
                     break;
-                case (array_key_exists('collection', $rules)):
+                case array_key_exists('collection', $rules):
                     foreach ($rules['collection'] as $method => $expected) {
                         $assertion = 'assert' . ($expected ? 'False' : 'True');
                         $this->$assertion($acl->isAllowed('guest', $resource . '::collection', $method));
                     }
                     break;
-                case (array_key_exists('actions', $rules)):
+                case array_key_exists('actions', $rules):
                     foreach ($rules['actions'] as $action => $actionRules) {
                         foreach ($actionRules as $method => $expected) {
                             $assertion = 'assert' . ($expected ? 'False' : 'True');
@@ -178,31 +189,35 @@ class AclAuthorizationFactoryTest extends TestCase
 
     public function testBlacklistAclsDenyByDefaultForUnspecifiedHttpMethods()
     {
-        $config = ['api-tools-mvc-auth' => ['authorization' => [
-            'deny_by_default' => true,
-            'Foo\Bar\RestController' => [
-                'entity' => [
-                    'GET'    => false,
-                    'POST'   => false,
-                ],
-                'collection' => [
-                    'GET'    => false,
-                    'PUT'    => false,
-                    'PATCH'  => false,
-                    'DELETE' => false,
-                ],
-            ],
-            'Foo\Bar\RpcController' => [
-                'actions' => [
-                    'do' => [
-                        'GET'    => false,
-                        'PUT'    => false,
-                        'PATCH'  => false,
-                        'DELETE' => false,
+        $config = [
+            'api-tools-mvc-auth' => [
+                'authorization' => [
+                    'deny_by_default'        => true,
+                    'Foo\Bar\RestController' => [
+                        'entity'     => [
+                            'GET'  => false,
+                            'POST' => false,
+                        ],
+                        'collection' => [
+                            'GET'    => false,
+                            'PUT'    => false,
+                            'PATCH'  => false,
+                            'DELETE' => false,
+                        ],
+                    ],
+                    'Foo\Bar\RpcController'  => [
+                        'actions' => [
+                            'do' => [
+                                'GET'    => false,
+                                'PUT'    => false,
+                                'PATCH'  => false,
+                                'DELETE' => false,
+                            ],
+                        ],
                     ],
                 ],
             ],
-        ]]];
+        ];
         $this->services->setService('config', $config);
 
         $factory = $this->factory;
@@ -235,19 +250,23 @@ class AclAuthorizationFactoryTest extends TestCase
 
     public function testRpcActionsAreNormalizedWhenCreatingAcl()
     {
-        $config = ['api-tools-mvc-auth' => ['authorization' => [
-            'Foo\Bar\RpcController' => [
-                'actions' => [
-                    'Do' => [
-                        'GET'    => false,
-                        'POST'   => true,
-                        'PUT'    => false,
-                        'PATCH'  => false,
-                        'DELETE' => false,
+        $config = [
+            'api-tools-mvc-auth' => [
+                'authorization' => [
+                    'Foo\Bar\RpcController' => [
+                        'actions' => [
+                            'Do' => [
+                                'GET'    => false,
+                                'POST'   => true,
+                                'PUT'    => false,
+                                'PATCH'  => false,
+                                'DELETE' => false,
+                            ],
+                        ],
                     ],
                 ],
             ],
-        ]]];
+        ];
         $this->services->setService('config', $config);
 
         $factory = $this->factory;

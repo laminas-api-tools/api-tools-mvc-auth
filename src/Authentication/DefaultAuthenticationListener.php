@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Authentication;
 
 use InvalidArgumentException;
@@ -17,7 +11,17 @@ use Laminas\Http\Response as HttpResponse;
 use Laminas\Mvc\Router\RouteMatch as V2RouteMatch;
 use Laminas\Router\RouteMatch;
 use OAuth2\Server as OAuth2Server;
-use RuntimeException;
+
+use function array_merge;
+use function array_unique;
+use function count;
+use function get_class;
+use function gettype;
+use function is_object;
+use function rtrim;
+use function sprintf;
+use function strlen;
+use function strpos;
 
 class DefaultAuthenticationListener
 {
@@ -49,6 +53,7 @@ class DefaultAuthenticationListener
      * property nullified.
      *
      * @deprecated
+     *
      * @var null|HttpAuth
      */
     protected $httpAdapter;
@@ -58,12 +63,10 @@ class DefaultAuthenticationListener
      *
      * Adds the authentication adapter, and updates the list of supported
      * authentication types based on what the adapter provides.
-     *
-     * @param AdapterInterface $adapter
      */
     public function attach(AdapterInterface $adapter)
     {
-        $this->adapters[] = $adapter;
+        $this->adapters[]          = $adapter;
         $this->authenticationTypes = array_unique(array_merge($this->authenticationTypes, $adapter->provides()));
     }
 
@@ -113,7 +116,7 @@ class DefaultAuthenticationListener
      * This method is deprecated; create and attach an HttpAdapter instead.
      *
      * @deprecated
-     * @param HttpAuth $httpAdapter
+     *
      * @return self
      */
     public function setHttpAdapter(HttpAuth $httpAdapter)
@@ -128,7 +131,7 @@ class DefaultAuthenticationListener
      * This method is deprecated; create and attach an OAuth2Adapter instead.
      *
      * @deprecated
-     * @param  OAuth2Server $oauth2Server
+     *
      * @return self
      */
     public function setOauth2Server(OAuth2Server $oauth2Server)
@@ -150,7 +153,6 @@ class DefaultAuthenticationListener
     /**
      * Listen to the authentication event
      *
-     * @param MvcAuthEvent $mvcAuthEvent
      * @return null|Identity\IdentityInterface
      */
     public function __invoke(MvcAuthEvent $mvcAuthEvent)
@@ -161,7 +163,8 @@ class DefaultAuthenticationListener
         $request  = $mvcEvent->getRequest();
         $response = $mvcEvent->getResponse();
 
-        if (! $request instanceof HttpRequest
+        if (
+            ! $request instanceof HttpRequest
             || $request->isOptions()
         ) {
             return;
@@ -222,7 +225,7 @@ class DefaultAuthenticationListener
                 __METHOD__,
                 RouteMatch::class,
                 V2RouteMatch::class,
-                (is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch))
+                is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
             ));
         }
 
@@ -248,7 +251,6 @@ class DefaultAuthenticationListener
     /**
      * Determine the authentication type based on request information
      *
-     * @param HttpRequest $request
      * @return false|string
      */
     private function getTypeFromRequest(HttpRequest $request)
@@ -267,9 +269,6 @@ class DefaultAuthenticationListener
      *
      * This method is triggered if no authentication type was discovered in the
      * request.
-     *
-     * @param HttpRequest $request
-     * @param HttpResponse $response
      */
     private function triggerAdapterPreAuth(HttpRequest $request, HttpResponse $response)
     {
@@ -282,9 +281,6 @@ class DefaultAuthenticationListener
      * Invoke the adapter matching the given $type in order to peform authentication
      *
      * @param string $type
-     * @param HttpRequest $request
-     * @param HttpResponse $response
-     * @param MvcAuthEvent $mvcAuthEvent
      * @return false|Identity\IdentityInterface
      */
     private function authenticate($type, HttpRequest $request, HttpResponse $response, MvcAuthEvent $mvcAuthEvent)
@@ -307,7 +303,6 @@ class DefaultAuthenticationListener
      * AdapterInterface system, and will be removed in a future version.
      *
      * @deprecated
-     * @param MvcAuthEvent $mvcAuthEvent
      */
     private function attachHttpAdapter(MvcAuthEvent $mvcAuthEvent)
     {

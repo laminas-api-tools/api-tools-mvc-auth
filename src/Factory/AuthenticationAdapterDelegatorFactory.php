@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -14,6 +9,9 @@ use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
 use Laminas\ServiceManager\DelegatorFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 
+use function is_array;
+use function is_string;
+
 class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
 {
     /**
@@ -21,18 +19,17 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
      *
      * Attaches adapters as listeners if present in configuration.
      *
-     * @param  ContainerInterface $container
      * @param  string             $name
-     * @param  callable           $callback
      * @param  null|array         $options
      * @return DefaultAuthenticationListener
      */
-    public function __invoke(ContainerInterface $container, $name, callable $callback, array $options = null)
+    public function __invoke(ContainerInterface $container, $name, callable $callback, ?array $options = null)
     {
         $listener = $callback();
 
         $config = $container->get('config');
-        if (! isset($config['api-tools-mvc-auth']['authentication']['adapters'])
+        if (
+            ! isset($config['api-tools-mvc-auth']['authentication']['adapters'])
             || ! is_array($config['api-tools-mvc-auth']['authentication']['adapters'])
         ) {
             return $listener;
@@ -50,7 +47,6 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ServiceLocatorInterface $container
      * @param string $name
      * @param string $requestedName
      * @param callable $callback
@@ -66,8 +62,6 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
      *
      * @param string $type
      * @param array $adapterConfig
-     * @param ContainerInterface $container
-     * @param DefaultAuthenticationListener $listener
      */
     private function attachAdapterOfType(
         $type,
@@ -75,7 +69,8 @@ class AuthenticationAdapterDelegatorFactory implements DelegatorFactoryInterface
         ContainerInterface $container,
         DefaultAuthenticationListener $listener
     ) {
-        if (! isset($adapterConfig['adapter'])
+        if (
+            ! isset($adapterConfig['adapter'])
             || ! is_string($adapterConfig['adapter'])
         ) {
             return;

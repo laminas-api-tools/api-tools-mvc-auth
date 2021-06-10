@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -19,6 +13,7 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
  */
 class DefaultResourceResolverListenerFactory implements FactoryInterface
 {
+    /** @var array<Request::METHOD_*, bool> */
     protected $httpMethods = [
         Request::METHOD_DELETE => true,
         Request::METHOD_GET    => true,
@@ -30,12 +25,11 @@ class DefaultResourceResolverListenerFactory implements FactoryInterface
     /**
      * Create and return a DefaultResourceResolverListener instance.
      *
-     * @param ContainerInterface $container
      * @param string             $requestedName
      * @param null|array         $options
      * @return DefaultResourceResolverListener
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         $config = $container->has('config') ? $container->get('config') : [];
 
@@ -49,7 +43,6 @@ class DefaultResourceResolverListenerFactory implements FactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ServiceLocatorInterface $container
      * @return DefaultResourceResolverListener
      */
     public function createService(ServiceLocatorInterface $container)

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
 use Interop\Container\ContainerInterface;
@@ -19,12 +13,11 @@ class ApacheResolverFactory implements FactoryInterface
      *
      * If appropriate configuration is not found, returns boolean false.
      *
-     * @param ContainerInterface $container
      * @param string $requestedName
      * @param null|array $options
      * @return false|ApacheResolver
      */
-    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null)
     {
         if (false === $container->has('config')) {
             return false;
@@ -46,7 +39,6 @@ class ApacheResolverFactory implements FactoryInterface
      *
      * Exists for backwards compatibility only; proxies to __invoke().
      *
-     * @param  ServiceLocatorInterface $container
      * @return false|ApacheResolver
      */
     public function createService(ServiceLocatorInterface $container)

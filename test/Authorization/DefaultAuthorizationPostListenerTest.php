@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\ApiTools\MvcAuth\Authorization;
 
 use Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface;
@@ -19,17 +13,23 @@ use PHPUnit\Framework\TestCase;
 
 class DefaultAuthorizationPostListenerTest extends TestCase
 {
+    /** @var DefaultAuthorizationPostListener */
+    private $listener;
+
+    /** @var MvcAuthEvent */
+    private $mvcAuthEvent;
+
     public function setUp()
     {
-        $response   = new HttpResponse();
-        $mvcEvent   = new MvcEvent();
+        $response = new HttpResponse();
+        $mvcEvent = new MvcEvent();
         $mvcEvent->setResponse($response);
         $this->mvcAuthEvent = $this->createMvcAuthEvent($mvcEvent);
 
         $this->listener = new DefaultAuthorizationPostListener();
     }
 
-    public function createMvcAuthEvent(MvcEvent $mvcEvent)
+    public function createMvcAuthEvent(MvcEvent $mvcEvent): MvcAuthEvent
     {
         $this->authentication = new TestAsset\AuthenticationService();
         $this->authorization  = $this->getMockBuilder(AuthorizationInterface::class)->getMock();
@@ -56,7 +56,7 @@ class DefaultAuthorizationPostListenerTest extends TestCase
     public function testReturnsComposedEventResponseWhenNotAuthorizedButNotAnHttpResponse()
     {
         $listener = $this->listener;
-        $response = new Response;
+        $response = new Response();
         $this->mvcAuthEvent->getMvcEvent()->setResponse($response);
         $this->assertSame($response, $listener($this->mvcAuthEvent));
     }

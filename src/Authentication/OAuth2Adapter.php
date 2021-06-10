@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas-api-tools/api-tools-mvc-auth for the canonical source repository
- * @copyright https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas-api-tools/api-tools-mvc-auth/blob/master/LICENSE.md New BSD License
- */
-
 namespace Laminas\ApiTools\MvcAuth\Authentication;
 
 use Laminas\ApiTools\MvcAuth\Identity;
@@ -16,6 +10,11 @@ use OAuth2\Request as OAuth2Request;
 use OAuth2\Response as OAuth2Response;
 use OAuth2\Server as OAuth2Server;
 
+use function in_array;
+use function is_array;
+use function is_string;
+use function method_exists;
+
 class OAuth2Adapter extends AbstractAdapter
 {
     /**
@@ -25,9 +24,7 @@ class OAuth2Adapter extends AbstractAdapter
      */
     protected $authorizationTokenTypes = ['bearer'];
 
-    /**
-     * @var OAuth2Server
-     */
+    /** @var OAuth2Server */
     private $oauth2Server;
 
     /**
@@ -48,9 +45,7 @@ class OAuth2Adapter extends AbstractAdapter
         'OPTIONS',
     ];
 
-    /**
-     * @param OAuth2Server $oauth2Server
-     */
+    /** @psalm-param null|string[] $types */
     public function __construct(OAuth2Server $oauth2Server, $types = null)
     {
         $this->oauth2Server = $oauth2Server;
@@ -87,7 +82,6 @@ class OAuth2Adapter extends AbstractAdapter
     /**
      * Determine if the given request is a type (oauth2) that we recognize
      *
-     * @param Request $request
      * @return false|string
      */
     public function getTypeFromRequest(Request $request)
@@ -98,7 +92,8 @@ class OAuth2Adapter extends AbstractAdapter
             return 'oauth2';
         }
 
-        if (! in_array($request->getMethod(), $this->requestsWithoutBodies)
+        if (
+            ! in_array($request->getMethod(), $this->requestsWithoutBodies)
             && $request->getHeaders()->has('Content-Type')
             && $request->getHeaders()->get('Content-Type')->match('application/x-www-form-urlencoded')
             && $request->getPost('access_token')
@@ -117,9 +112,6 @@ class OAuth2Adapter extends AbstractAdapter
      * Perform pre-flight authentication operations.
      *
      * Performs a no-op; nothing needs to happen for this adapter.
-     *
-     * @param Request $request
-     * @param Response $response
      */
     public function preAuth(Request $request, Response $response)
     {
@@ -128,9 +120,6 @@ class OAuth2Adapter extends AbstractAdapter
     /**
      * Attempt to authenticate the current request.
      *
-     * @param Request $request
-     * @param Response $response
-     * @param MvcAuthEvent $mvcAuthEvent
      * @return false|Identity\IdentityInterface False on failure, IdentityInterface
      *     otherwise
      */
@@ -140,9 +129,9 @@ class OAuth2Adapter extends AbstractAdapter
             $request->getQuery()->toArray(),
             $request->getPost()->toArray(),
             [],
-            ($request->getCookie() ? $request->getCookie()->getArrayCopy() : []),
-            ($request->getFiles() ? $request->getFiles()->toArray() : []),
-            (method_exists($request, 'getServer') ? $request->getServer()->toArray() : $_SERVER),
+            $request->getCookie() ? $request->getCookie()->getArrayCopy() : [],
+            $request->getFiles() ? $request->getFiles()->toArray() : [],
+            method_exists($request, 'getServer') ? $request->getServer()->toArray() : $_SERVER,
             $request->getContent(),
             $request->getHeaders()->toArray()
         );
@@ -163,13 +152,12 @@ class OAuth2Adapter extends AbstractAdapter
     /**
      * Handle a invalid Token.
      *
-     * @param $response
      * @return Response|Identity\GuestIdentity
      */
-    private function processInvalidToken($response)
+    private function processInvalidToken(Response $response)
     {
         $oauth2Response = $this->oauth2Server->getResponse();
-        $status = $oauth2Response->getStatusCode();
+        $status         = $oauth2Response->getStatusCode();
 
         // 401 or 403 mean invalid credentials or unauthorized scopes; report those.
         if (in_array($status, [401, 403], true) && null !== $oauth2Response->getParameter('error')) {
@@ -187,8 +175,6 @@ class OAuth2Adapter extends AbstractAdapter
      * Merge the OAuth2\Response instance's status and headers into the current Laminas\Http\Response.
      *
      * @param int $status
-     * @param Response $response
-     * @param OAuth2Response $oauth2Response
      * @return Response
      */
     private function mergeOAuth2Response($status, Response $response, OAuth2Response $oauth2Response)
@@ -200,7 +186,6 @@ class OAuth2Adapter extends AbstractAdapter
     /**
      * Merge the OAuth2\Response headers into the current Laminas\Http\Response.
      *
-     * @param Response $response
      * @param array $oauth2Headers
      * @return Response
      */
