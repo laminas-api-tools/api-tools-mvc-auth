@@ -32,4 +32,4 @@ jobs:
         with:
           job: ${{ matrix.job }}
         env:
-          COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          COMPOSER_TOKEN: ${{ secrets.ORGANIZATION_READ_ONLY_TOKEN }}
