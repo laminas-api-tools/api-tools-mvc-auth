@@ -1,0 +1,1278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.7.3@38c452ae584467e939d55377aaf83b5a26f19dd1">
+  <file src="config/module.config.php">
+    <UndefinedClass occurrences="1">
+      <code>Authentication\AuthHttpAdapter</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Authentication/AbstractAdapter.php">
+    <MixedArgument occurrences="1">
+      <code>$authorization-&gt;getFieldValue()</code>
+    </MixedArgument>
+    <PossiblyInvalidMethodCall occurrences="1">
+      <code>getFieldValue</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyUndefinedMethod occurrences="1">
+      <code>getFieldValue</code>
+    </PossiblyUndefinedMethod>
+    <UnusedVariable occurrences="1">
+      <code>$credential</code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Authentication/DefaultAuthenticationListener.php">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>$response</code>
+      <code>$response</code>
+    </ArgumentTypeCoercion>
+    <DeprecatedMethod occurrences="1">
+      <code>attachHttpAdapter</code>
+    </DeprecatedMethod>
+    <DeprecatedProperty occurrences="2">
+      <code>$this-&gt;httpAdapter</code>
+      <code>$this-&gt;httpAdapter</code>
+    </DeprecatedProperty>
+    <MixedArgument occurrences="1">
+      <code>$mvcAuthEvent-&gt;getAuthenticationService()</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="1">
+      <code>string|false</code>
+    </MixedInferredReturnType>
+    <UndefinedDocblockClass occurrences="1">
+      <code>null|V2RouteMatch|RouteMatch</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Authentication/DefaultAuthenticationPostListener.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$response</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>null|HttpResponse</code>
+    </MoreSpecificReturnType>
+    <PossiblyNullReference occurrences="1">
+      <code>isValid</code>
+    </PossiblyNullReference>
+  </file>
+  <file src="src/Authentication/HttpAdapter.php">
+    <MixedArgument occurrences="2">
+      <code>$name</code>
+      <code>$resultIdentity</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="3">
+      <code>$name</code>
+      <code>$name</code>
+      <code>$resultIdentity</code>
+    </MixedAssignment>
+    <TooManyArguments occurrences="1">
+      <code>authenticate</code>
+    </TooManyArguments>
+  </file>
+  <file src="src/Authentication/OAuth2Adapter.php">
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>Identity\AuthenticatedIdentity|Identity\GuestIdentity|Response</code>
+    </ImplementedReturnTypeMismatch>
+    <MixedArgument occurrences="11">
+      <code>$oauth2Response</code>
+      <code>$oauth2Response-&gt;getHttpHeaders()</code>
+      <code>$request-&gt;getContent()</code>
+      <code>$request-&gt;getFiles() ? $request-&gt;getFiles()-&gt;toArray() : []</code>
+      <code>$request-&gt;getHeaders()-&gt;toArray()</code>
+      <code>$request-&gt;getPost()-&gt;toArray()</code>
+      <code>$request-&gt;getQuery()-&gt;toArray()</code>
+      <code>$token</code>
+      <code>$token['user_id']</code>
+      <code>$value</code>
+      <code>method_exists($request, 'getServer') ? $request-&gt;getServer()-&gt;toArray() : $_SERVER</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$header</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="1">
+      <code>$token['user_id']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="4">
+      <code>$oauth2Response</code>
+      <code>$status</code>
+      <code>$token</code>
+      <code>$value</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="8">
+      <code>getHttpHeaders</code>
+      <code>getParameter</code>
+      <code>getStatusCode</code>
+      <code>match</code>
+      <code>toArray</code>
+      <code>toArray</code>
+      <code>toArray</code>
+      <code>toArray</code>
+    </MixedMethodCall>
+    <PossiblyInvalidMethodCall occurrences="4">
+      <code>get</code>
+      <code>getArrayCopy</code>
+      <code>has</code>
+      <code>toArray</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyUndefinedMethod occurrences="3">
+      <code>get</code>
+      <code>has</code>
+      <code>toArray</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="src/Authorization/AclAuthorization.php">
+    <MixedArgument occurrences="4">
+      <code>$privilege</code>
+      <code>$resource</code>
+      <code>$resource</code>
+      <code>$resource</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Authorization/AclAuthorizationFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$ruleSet['resource']</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$privileges</code>
+      <code>$resource</code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Authorization/DefaultAuthorizationListener.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>bool</code>
+    </MixedInferredReturnType>
+    <UndefinedClass occurrences="1">
+      <code>V2RouteMatch</code>
+    </UndefinedClass>
+  </file>
+  <file src="src/Authorization/DefaultAuthorizationPostListener.php">
+    <LessSpecificReturnStatement occurrences="1">
+      <code>$response</code>
+    </LessSpecificReturnStatement>
+    <MoreSpecificReturnType occurrences="1">
+      <code>null|HttpResponse</code>
+    </MoreSpecificReturnType>
+  </file>
+  <file src="src/Authorization/DefaultResourceResolverListener.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>false|string</code>
+    </MixedInferredReturnType>
+    <PossiblyNullArgument occurrences="1">
+      <code>$routeMatch</code>
+    </PossiblyNullArgument>
+    <UndefinedDocblockClass occurrences="2">
+      <code>RouteMatch|V2RouteMatch</code>
+      <code>RouteMatch|V2RouteMatch</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Factory/AclAuthorizationFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>AclAuthorizationFactory</code>
+    </DeprecatedInterface>
+    <MixedArgument occurrences="5">
+      <code>$action</code>
+      <code>$methods</code>
+      <code>$privileges</code>
+      <code>$privileges['collection']</code>
+      <code>$privileges['entity']</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$controllerService</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['api-tools-mvc-auth']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="5">
+      <code>$action</code>
+      <code>$config</code>
+      <code>$flag</code>
+      <code>$methods</code>
+      <code>$privileges</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$config['api-tools-mvc-auth']['authorization']</code>
+    </MixedReturnStatement>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/ApacheResolverFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>ApacheResolverFactory</code>
+    </DeprecatedInterface>
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>false|ApacheResolver</code>
+    </ImplementedReturnTypeMismatch>
+    <MixedArgument occurrences="1">
+      <code>ApacheResolver::class</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['api-tools-mvc-auth']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="2">
+      <code>$config</code>
+      <code>$htpasswd</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>false|ApacheResolver</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>new ApacheResolver($htpasswd)</code>
+    </MixedReturnStatement>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+    <UndefinedClass occurrences="2">
+      <code>ApacheResolver</code>
+      <code>ApacheResolver</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>false|ApacheResolver</code>
+      <code>false|ApacheResolver</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Factory/AuthenticationAdapterDelegatorFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>AuthenticationAdapterDelegatorFactory</code>
+    </DeprecatedInterface>
+    <MixedArgument occurrences="3">
+      <code>$data</code>
+      <code>$listener</code>
+      <code>$type</code>
+      <code>$type</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="2">
+      <code>$config['api-tools-mvc-auth']['authentication']</code>
+      <code>$config['api-tools-mvc-auth']['authentication']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="3">
+      <code>$data</code>
+      <code>$listener</code>
+      <code>$type</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>DefaultAuthenticationListener</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="2">
+      <code>$listener</code>
+      <code>$listener</code>
+    </MixedReturnStatement>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/AuthenticationHttpAdapterFactory.php">
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get('authentication')</code>
+    </MixedArgument>
+  </file>
+  <file src="src/Factory/AuthenticationOAuth2AdapterFactory.php">
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$type</code>
+    </MixedArgumentTypeCoercion>
+  </file>
+  <file src="src/Factory/AuthenticationServiceFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>AuthenticationServiceFactory</code>
+    </DeprecatedInterface>
+    <MixedArgument occurrences="1">
+      <code>$container-&gt;get(NonPersistent::class)</code>
+    </MixedArgument>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/DefaultAuthHttpAdapterFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>DefaultAuthHttpAdapterFactory</code>
+    </DeprecatedInterface>
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>HttpAuth|false</code>
+    </ImplementedReturnTypeMismatch>
+    <MixedArgument occurrences="1">
+      <code>$config['api-tools-mvc-auth']['authentication']['http']</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['api-tools-mvc-auth']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$config</code>
+    </MixedAssignment>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/DefaultAuthenticationListenerFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>DefaultAuthenticationListenerFactory</code>
+    </DeprecatedInterface>
+    <MixedArgument occurrences="4">
+      <code>$authService</code>
+      <code>$config['api-tools-oauth2']['storage']</code>
+      <code>$factory()</code>
+      <code>$httpAdapter</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="6">
+      <code>$config['api-tools-mvc-auth']['authentication']</code>
+      <code>$config['api-tools-mvc-auth']['authentication']</code>
+      <code>$config['api-tools-mvc-auth']['authentication']</code>
+      <code>$config['api-tools-mvc-auth']['authentication']</code>
+      <code>$config['api-tools-oauth2']['storage']</code>
+      <code>$config['api-tools-oauth2']['storage']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="3">
+      <code>$authService</code>
+      <code>$factory</code>
+      <code>$httpAdapter</code>
+    </MixedAssignment>
+    <MixedFunctionCall occurrences="1">
+      <code>$factory()</code>
+    </MixedFunctionCall>
+    <MixedInferredReturnType occurrences="2">
+      <code>array</code>
+      <code>array|false</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="2">
+      <code>getBasicResolver</code>
+      <code>getDigestResolver</code>
+    </MixedMethodCall>
+    <MixedReturnStatement occurrences="2">
+      <code>$config['api-tools-mvc-auth']['authentication']['map']</code>
+      <code>$config['api-tools-mvc-auth']['authentication']['types']</code>
+    </MixedReturnStatement>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+    <TooManyArguments occurrences="1">
+      <code>$serverFactory</code>
+    </TooManyArguments>
+  </file>
+  <file src="src/Factory/DefaultAuthorizationListenerFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>DefaultAuthorizationListenerFactory</code>
+    </DeprecatedInterface>
+    <MixedArgument occurrences="1">
+      <code>$authorization</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="1">
+      <code>$authorization</code>
+    </MixedAssignment>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/DefaultResourceResolverListenerFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>DefaultResourceResolverListenerFactory</code>
+    </DeprecatedInterface>
+    <MixedArgument occurrences="1">
+      <code>$config</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$restConfig['route_identifier_name']</code>
+    </MixedArrayAccess>
+    <MixedArrayOffset occurrences="1">
+      <code>$restServices[$controllerService]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="4">
+      <code>$config</code>
+      <code>$controllerService</code>
+      <code>$restConfig</code>
+      <code>$restServices[$controllerService]</code>
+    </MixedAssignment>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/FileResolverFactory.php">
+    <DeprecatedInterface occurrences="1">
+      <code>FileResolverFactory</code>
+    </DeprecatedInterface>
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>false|FileResolver</code>
+    </ImplementedReturnTypeMismatch>
+    <MixedArgument occurrences="1">
+      <code>$htdigest</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['api-tools-mvc-auth']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="2">
+      <code>$config</code>
+      <code>$htdigest</code>
+    </MixedAssignment>
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Factory/HttpAdapterFactory.php">
+    <MixedArgument occurrences="9">
+      <code>$config['basic_resolver_factory']</code>
+      <code>$config['basic_resolver_factory']</code>
+      <code>$config['digest_resolver_factory']</code>
+      <code>$config['digest_resolver_factory']</code>
+      <code>$config['htdigest']</code>
+      <code>$config['htpasswd']</code>
+      <code>$container-&gt;get($config['basic_resolver_factory'])</code>
+      <code>$container-&gt;get($config['digest_resolver_factory'])</code>
+      <code>$key</code>
+    </MixedArgument>
+    <PossiblyNullReference occurrences="2">
+      <code>get</code>
+      <code>get</code>
+    </PossiblyNullReference>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>is_string($key)</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/Factory/NamedOAuth2ServerFactory.php">
+    <MissingClosureParamType occurrences="1">
+      <code>$type</code>
+    </MissingClosureParamType>
+    <MixedArgument occurrences="3">
+      <code>$adapterConfig['storage']</code>
+      <code>$oauth2Config</code>
+      <code>$oauth2Config</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="5">
+      <code>$adapterConfig['storage']</code>
+      <code>$adapterConfig['storage']</code>
+      <code>$config['api-tools-mvc-auth']</code>
+      <code>$config['api-tools-oauth2']</code>
+      <code>$servers-&gt;api[$type]</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="1">
+      <code>$servers-&gt;api[$type]</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="3">
+      <code>$servers-&gt;api[$type]</code>
+      <code>$servers-&gt;api[$type]</code>
+      <code>$servers-&gt;api[$type]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="5">
+      <code>$adapterConfig</code>
+      <code>$config</code>
+      <code>$mvcAuthConfig</code>
+      <code>$name</code>
+      <code>$oauth2Config</code>
+    </MixedAssignment>
+    <UnusedVariable occurrences="1">
+      <code>$name</code>
+    </UnusedVariable>
+  </file>
+  <file src="src/Factory/OAuth2ServerFactory.php">
+    <ArgumentTypeCoercion occurrences="4">
+      <code>$server-&gt;getStorage('client_credentials')</code>
+      <code>$server-&gt;getStorage('jwt_bearer')</code>
+      <code>$server-&gt;getStorage('refresh_token')</code>
+      <code>$server-&gt;getStorage('user_credentials')</code>
+    </ArgumentTypeCoercion>
+    <InvalidArgument occurrences="1">
+      <code>self::createPdoConfig($config)</code>
+    </InvalidArgument>
+    <InvalidCast occurrences="1">
+      <code>self::createPdoConfig($config)</code>
+    </InvalidCast>
+    <MixedArgument occurrences="5">
+      <code>$dbLocatorName</code>
+      <code>$oauth2Config</code>
+      <code>$oauth2Config['grant_types']</code>
+      <code>$options</code>
+      <code>$options['audience']</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$config['storage']</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="1">
+      <code>$allConfig['api-tools-oauth2']</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="1">
+      <code>$options['connect']</code>
+    </MixedArrayAssignment>
+    <MixedAssignment occurrences="19">
+      <code>$accessLifetime</code>
+      <code>$allConfig</code>
+      <code>$allowImplicit</code>
+      <code>$audience</code>
+      <code>$clientOptions['allow_credentials_in_request_body']</code>
+      <code>$dbLocatorName</code>
+      <code>$enforceState</code>
+      <code>$mongo</code>
+      <code>$oauth2Config</code>
+      <code>$options</code>
+      <code>$options</code>
+      <code>$options</code>
+      <code>$password</code>
+      <code>$refreshOptions['always_issue_new_refresh_token']</code>
+      <code>$refreshOptions['refresh_token_lifetime']</code>
+      <code>$refreshOptions['unset_refresh_token_after_use']</code>
+      <code>$server</code>
+      <code>$storage[$key]</code>
+      <code>$username</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="2">
+      <code>MongoDB</code>
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedPropertyFetch occurrences="1">
+      <code>$mongo-&gt;{$config['database']}</code>
+    </MixedPropertyFetch>
+    <MixedReturnStatement occurrences="2">
+      <code>$container-&gt;get($dbLocatorName)</code>
+      <code>$mongo-&gt;{$config['database']}</code>
+    </MixedReturnStatement>
+    <PossiblyNullArgument occurrences="4">
+      <code>$server-&gt;getStorage('client_credentials')</code>
+      <code>$server-&gt;getStorage('jwt_bearer')</code>
+      <code>$server-&gt;getStorage('refresh_token')</code>
+      <code>$server-&gt;getStorage('user_credentials')</code>
+    </PossiblyNullArgument>
+    <UndefinedClass occurrences="1">
+      <code>MongoClient</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="2">
+      <code>MongoDB</code>
+      <code>array|ArrayAccess</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Identity/AuthenticatedIdentity.php">
+    <ImplementedReturnTypeMismatch occurrences="1">
+      <code>null|string</code>
+    </ImplementedReturnTypeMismatch>
+    <PropertyNotSetInConstructor occurrences="1">
+      <code>AuthenticatedIdentity</code>
+    </PropertyNotSetInConstructor>
+  </file>
+  <file src="src/Identity/IdentityInterface.php">
+    <MissingReturnType occurrences="1">
+      <code>getAuthenticationIdentity</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Module.php">
+    <MixedArgument occurrences="6">
+      <code>$authentication</code>
+      <code>$this-&gt;container-&gt;get(DefaultAuthenticationListener::class)</code>
+      <code>$this-&gt;container-&gt;get(DefaultAuthenticationPostListener::class)</code>
+      <code>$this-&gt;container-&gt;get(DefaultAuthorizationListener::class)</code>
+      <code>$this-&gt;container-&gt;get(DefaultAuthorizationPostListener::class)</code>
+      <code>$this-&gt;container-&gt;get(DefaultResourceResolverListener::class)</code>
+    </MixedArgument>
+    <MixedArrayAssignment occurrences="1">
+      <code>$config['service_manager']['factories']</code>
+    </MixedArrayAssignment>
+    <MixedAssignment occurrences="1">
+      <code>$authentication</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>array</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>include __DIR__ . '/../config/module.config.php'</code>
+    </MixedReturnStatement>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$config</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullReference occurrences="2">
+      <code>getMergedConfig</code>
+      <code>has</code>
+    </PossiblyNullReference>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>setService</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="src/MvcAuthEvent.php">
+    <MixedMethodCall occurrences="3">
+      <code>getIdentity</code>
+      <code>getStorage</code>
+      <code>write</code>
+    </MixedMethodCall>
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$authenticationResult</code>
+      <code>MvcAuthEvent</code>
+      <code>MvcAuthEvent</code>
+    </PropertyNotSetInConstructor>
+    <RedundantCastGivenDocblockType occurrences="1">
+      <code>(bool) $flag</code>
+    </RedundantCastGivenDocblockType>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>$this-&gt;authenticationResult !== null</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/MvcRouteListener.php">
+    <MissingClosureParamType occurrences="4">
+      <code>$r</code>
+      <code>$r</code>
+      <code>$r</code>
+      <code>$r</code>
+    </MissingClosureParamType>
+    <MixedArgument occurrences="7">
+      <code>$identity</code>
+      <code>$mvcAuthEvent-&gt;getAuthenticationResult()-&gt;getIdentity()</code>
+      <code>$mvcAuthEvent::EVENT_AUTHENTICATION</code>
+      <code>$mvcAuthEvent::EVENT_AUTHENTICATION_POST</code>
+      <code>$mvcAuthEvent::EVENT_AUTHORIZATION</code>
+      <code>$mvcAuthEvent::EVENT_AUTHORIZATION_POST</code>
+      <code>$result-&gt;getIdentity()</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="2">
+      <code>$result</code>
+      <code>$result</code>
+    </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>null|Response</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>$responses-&gt;last()</code>
+    </MixedReturnStatement>
+    <PossiblyNullReference occurrences="2">
+      <code>getIdentity</code>
+      <code>isValid</code>
+    </PossiblyNullReference>
+    <UndefinedInterfaceMethod occurrences="4">
+      <code>isOptions</code>
+      <code>isOptions</code>
+      <code>isOptions</code>
+      <code>isOptions</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="test/Authentication/DefaultAuthenticationListenerTest.php">
+    <DeprecatedMethod occurrences="13">
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setHttpAdapter</code>
+      <code>setOauth2Server</code>
+      <code>setOauth2Server</code>
+      <code>setOauth2Server</code>
+    </DeprecatedMethod>
+    <MixedMethodCall occurrences="2">
+      <code>set</code>
+      <code>set</code>
+    </MixedMethodCall>
+    <PossiblyInvalidArgument occurrences="10">
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+    </PossiblyInvalidArgument>
+    <PossiblyInvalidArrayAccess occurrences="2">
+      <code>$authHeaders[0]</code>
+      <code>$authHeaders[0]</code>
+    </PossiblyInvalidArrayAccess>
+    <PossiblyInvalidMethodCall occurrences="12">
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+    </PossiblyInvalidMethodCall>
+    <PossiblyNullArgument occurrences="3">
+      <code>$identity</code>
+      <code>$identity</code>
+      <code>$identity</code>
+    </PossiblyNullArgument>
+    <PossiblyUndefinedMethod occurrences="14">
+      <code>$authHeaders</code>
+      <code>$authHeaders</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+    </PossiblyUndefinedMethod>
+  </file>
+  <file src="test/Authentication/DefaultAuthenticationPostListenerTest.php">
+    <MixedAssignment occurrences="5">
+      <code>$listener</code>
+      <code>$listener</code>
+      <code>$listener</code>
+      <code>$listener</code>
+      <code>$response</code>
+    </MixedAssignment>
+    <MixedFunctionCall occurrences="4">
+      <code>$listener($this-&gt;mvcAuthEvent)</code>
+      <code>$listener($this-&gt;mvcAuthEvent)</code>
+      <code>$listener($this-&gt;mvcAuthEvent)</code>
+      <code>$listener($this-&gt;mvcAuthEvent)</code>
+    </MixedFunctionCall>
+    <MixedMethodCall occurrences="9">
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getReasonPhrase</code>
+      <code>getResponse</code>
+      <code>getStatusCode</code>
+      <code>setAuthenticationResult</code>
+      <code>setAuthenticationResult</code>
+      <code>setAuthenticationResult</code>
+      <code>setResponse</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="4">
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authorization</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="8">
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Authentication/HttpAdapterTest.php">
+    <MixedArgument occurrences="12">
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;response</code>
+      <code>$this-&gt;response</code>
+      <code>$this-&gt;response</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="4">
+      <code>addHeaderLine</code>
+      <code>addHeaderLine</code>
+      <code>getHeaders</code>
+      <code>getHeaders</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="4">
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;response</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="12">
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;request</code>
+      <code>$this-&gt;response</code>
+      <code>$this-&gt;response</code>
+      <code>$this-&gt;response</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Authentication/OAuth2AdapterTest.php">
+    <MissingClosureParamType occurrences="4">
+      <code>$subject</code>
+      <code>$subject</code>
+      <code>$subject</code>
+      <code>$subject</code>
+    </MissingClosureParamType>
+    <MixedAssignment occurrences="1">
+      <code>$instance</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="33">
+      <code>authenticate</code>
+      <code>authenticate</code>
+      <code>authenticate</code>
+      <code>authenticate</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>getFieldValue</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>willReturn</code>
+      <code>with</code>
+      <code>with</code>
+      <code>with</code>
+      <code>with</code>
+    </MixedMethodCall>
+    <PossiblyInvalidMethodCall occurrences="1">
+      <code>getFieldValue</code>
+    </PossiblyInvalidMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;adapter</code>
+      <code>$this-&gt;oauthServer</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="8">
+      <code>$this-&gt;adapter</code>
+      <code>$this-&gt;adapter</code>
+      <code>$this-&gt;adapter</code>
+      <code>$this-&gt;adapter</code>
+      <code>$this-&gt;oauthServer</code>
+      <code>$this-&gt;oauthServer</code>
+      <code>$this-&gt;oauthServer</code>
+      <code>$this-&gt;oauthServer</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Authorization/DefaultAuthorizationListenerTest.php">
+    <InvalidArgument occurrences="2">
+      <code>$container</code>
+      <code>[]</code>
+    </InvalidArgument>
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>new AclAuthorization()</code>
+    </InvalidPropertyAssignmentValue>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$routeMatch</code>
+    </PossiblyInvalidArgument>
+    <PossiblyNullReference occurrences="1">
+      <code>setParam</code>
+    </PossiblyNullReference>
+    <UndefinedDocblockClass occurrences="3">
+      <code>$this-&gt;authorization</code>
+      <code>$this-&gt;authorization</code>
+      <code>Acl</code>
+    </UndefinedDocblockClass>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>setMethod</code>
+    </UndefinedInterfaceMethod>
+  </file>
+  <file src="test/Authorization/DefaultAuthorizationPostListenerTest.php">
+    <UndefinedInterfaceMethod occurrences="4">
+      <code>getReasonPhrase</code>
+      <code>getStatusCode</code>
+      <code>getStatusCode</code>
+      <code>setStatusCode</code>
+    </UndefinedInterfaceMethod>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authorization</code>
+    </UndefinedThisPropertyAssignment>
+  </file>
+  <file src="test/Authorization/DefaultResourceResolverListenerTest.php">
+    <MixedAssignment occurrences="18">
+      <code>$mvcEvent</code>
+      <code>$mvcEvent</code>
+      <code>$mvcEvent</code>
+      <code>$mvcEvent</code>
+      <code>$mvcEvent</code>
+      <code>$mvcEvent</code>
+      <code>$request</code>
+      <code>$request</code>
+      <code>$request</code>
+      <code>$request</code>
+      <code>$request</code>
+      <code>$request</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+      <code>$routeMatch</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="35">
+      <code>buildResourceString</code>
+      <code>buildResourceString</code>
+      <code>buildResourceString</code>
+      <code>buildResourceString</code>
+      <code>buildResourceString</code>
+      <code>buildResourceString</code>
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getMvcEvent</code>
+      <code>getQuery</code>
+      <code>getRequest</code>
+      <code>getRequest</code>
+      <code>getRequest</code>
+      <code>getRequest</code>
+      <code>getRequest</code>
+      <code>getRequest</code>
+      <code>getRouteMatch</code>
+      <code>getRouteMatch</code>
+      <code>getRouteMatch</code>
+      <code>getRouteMatch</code>
+      <code>getRouteMatch</code>
+      <code>getRouteMatch</code>
+      <code>set</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+      <code>setParam</code>
+    </MixedMethodCall>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$routeMatch</code>
+    </PossiblyInvalidArgument>
+    <UndefinedThisPropertyAssignment occurrences="5">
+      <code>$this-&gt;authentication</code>
+      <code>$this-&gt;authorization</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;restControllers</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="12">
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+      <code>$this-&gt;mvcAuthEvent</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Factory/AclAuthorizationFactoryTest.php">
+    <MixedArgument occurrences="7">
+      <code>$method</code>
+      <code>$method</code>
+      <code>$method</code>
+      <code>$resource</code>
+      <code>$rules</code>
+      <code>$rules</code>
+      <code>$rules</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$config['api-tools-mvc-auth']['authorization']</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="11">
+      <code>$action</code>
+      <code>$actionRules</code>
+      <code>$authorizations</code>
+      <code>$expected</code>
+      <code>$expected</code>
+      <code>$expected</code>
+      <code>$method</code>
+      <code>$method</code>
+      <code>$method</code>
+      <code>$resource</code>
+      <code>$rules</code>
+    </MixedAssignment>
+    <MixedOperand occurrences="1">
+      <code>$action</code>
+    </MixedOperand>
+  </file>
+  <file src="test/Factory/AuthenticationAdapterDelegatorFactoryTest.php">
+    <MixedArgument occurrences="2">
+      <code>$this-&gt;callback</code>
+      <code>$this-&gt;callback</code>
+    </MixedArgument>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;callback</code>
+      <code>$this-&gt;listener</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="4">
+      <code>$this-&gt;callback</code>
+      <code>$this-&gt;callback</code>
+      <code>$this-&gt;listener</code>
+      <code>$this-&gt;listener</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Factory/AuthenticationHttpAdapterFactoryTest.php">
+    <InvalidDocblock occurrences="1">
+      <code>public function validConfiguration(): array</code>
+    </InvalidDocblock>
+    <MixedArgument occurrences="3">
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+    </MixedArgument>
+    <MixedInferredReturnType occurrences="1"/>
+    <MixedMethodCall occurrences="16">
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>expects</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>method</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>will</code>
+      <code>with</code>
+      <code>with</code>
+      <code>with</code>
+      <code>with</code>
+    </MixedMethodCall>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>testRaisesExceptionIfMissingConfigurationOptions</code>
+    </PossiblyInvalidArgument>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;services</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="3">
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Factory/AuthenticationOAuth2AdapterFactoryTest.php">
+    <MixedArgument occurrences="2">
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+    </MixedArgument>
+    <MixedMethodCall occurrences="4">
+      <code>expects</code>
+      <code>method</code>
+      <code>will</code>
+      <code>with</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;services</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="2">
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Factory/DefaultAuthenticationListenerFactoryTest.php">
+    <MixedArgument occurrences="4">
+      <code>$adapters</code>
+      <code>ApacheResolver::class</code>
+      <code>AuthHttpAdapter::class</code>
+      <code>FileResolver::class</code>
+    </MixedArgument>
+    <MixedAssignment occurrences="9">
+      <code>$adapter</code>
+      <code>$adapters</code>
+      <code>$httpAdapter</code>
+      <code>$httpAdapter</code>
+      <code>$httpAdapter</code>
+      <code>$httpAdapter</code>
+      <code>$httpAdapter</code>
+      <code>$httpAdapter</code>
+      <code>$httpAdapter</code>
+    </MixedAssignment>
+    <UndefinedClass occurrences="3">
+      <code>ApacheResolver</code>
+      <code>AuthHttpAdapter</code>
+      <code>FileResolver</code>
+    </UndefinedClass>
+  </file>
+  <file src="test/Factory/NamedOAuth2ServerFactoryTest.php">
+    <MixedAssignment occurrences="8">
+      <code>$factory</code>
+      <code>$factory</code>
+      <code>$factory</code>
+      <code>$factory</code>
+      <code>$server</code>
+      <code>$server</code>
+      <code>$server</code>
+      <code>$server</code>
+    </MixedAssignment>
+    <MixedFunctionCall occurrences="9">
+      <code>$factory('test')</code>
+      <code>$factory('test')</code>
+      <code>$factory('test')</code>
+      <code>$factory('test2')</code>
+      <code>$factory('unknown')</code>
+      <code>$factory()</code>
+      <code>$factory()</code>
+      <code>$factory()</code>
+      <code>$factory()</code>
+    </MixedFunctionCall>
+    <MixedMethodCall occurrences="4">
+      <code>__invoke</code>
+      <code>__invoke</code>
+      <code>__invoke</code>
+      <code>__invoke</code>
+    </MixedMethodCall>
+    <TooManyArguments occurrences="1">
+      <code>disableOriginalConstructor</code>
+    </TooManyArguments>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;services</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="8">
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;factory</code>
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+      <code>$this-&gt;services</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Factory/OAuth2ServerFactoryTest.php">
+    <MixedArgument occurrences="2">
+      <code>$class</code>
+      <code>$storageConfig</code>
+    </MixedArgument>
+    <MixedArrayAccess occurrences="1">
+      <code>$storageConfig[$key]</code>
+    </MixedArrayAccess>
+    <MixedAssignment occurrences="1">
+      <code>$storageConfig</code>
+    </MixedAssignment>
+    <PossiblyNullArgument occurrences="1">
+      <code>$storage</code>
+    </PossiblyNullArgument>
+    <PossiblyUndefinedVariable occurrences="1">
+      <code>$class</code>
+    </PossiblyUndefinedVariable>
+    <TooManyArguments occurrences="1">
+      <code>disableOriginalConstructor</code>
+    </TooManyArguments>
+  </file>
+  <file src="test/Identity/AuthenticatedIdentityTest.php">
+    <InvalidArgument occurrences="1">
+      <code>$this-&gt;authIdentity</code>
+    </InvalidArgument>
+    <MixedMethodCall occurrences="4">
+      <code>getAuthenticationIdentity</code>
+      <code>getName</code>
+      <code>getRoleId</code>
+      <code>setName</code>
+    </MixedMethodCall>
+    <MixedPropertyFetch occurrences="1">
+      <code>$this-&gt;authIdentity-&gt;name</code>
+    </MixedPropertyFetch>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;authIdentity</code>
+      <code>$this-&gt;identity</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="7">
+      <code>$this-&gt;authIdentity</code>
+      <code>$this-&gt;authIdentity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Identity/GuestIdentityTest.php">
+    <MixedMethodCall occurrences="3">
+      <code>getAuthenticationIdentity</code>
+      <code>getName</code>
+      <code>getRoleId</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="1">
+      <code>$this-&gt;identity</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="6">
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+      <code>$this-&gt;identity</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/Identity/IdentityPluginTest.php">
+    <MixedMethodCall occurrences="5">
+      <code>__invoke</code>
+      <code>__invoke</code>
+      <code>__invoke</code>
+      <code>setParam</code>
+      <code>setParam</code>
+    </MixedMethodCall>
+    <UndefinedThisPropertyAssignment occurrences="2">
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;plugin</code>
+    </UndefinedThisPropertyAssignment>
+    <UndefinedThisPropertyFetch occurrences="5">
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;event</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+    </UndefinedThisPropertyFetch>
+  </file>
+  <file src="test/ModuleTest.php">
+    <InvalidArgument occurrences="4">
+      <code>$events</code>
+      <code>$services</code>
+      <code>$servicesConfig</code>
+      <code>[]</code>
+    </InvalidArgument>
+    <InvalidDocblock occurrences="1">
+      <code>public function expectedListeners(): array</code>
+    </InvalidDocblock>
+    <MismatchingDocblockParamType occurrences="1">
+      <code>callable(MvcEvent|MvcAuthEvent):null|Response</code>
+    </MismatchingDocblockParamType>
+    <MixedArgument occurrences="2">
+      <code>$config['service_manager']</code>
+      <code>$config['service_manager']</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$config</code>
+    </MixedArgumentTypeCoercion>
+    <MixedInferredReturnType occurrences="1"/>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$listener</code>
+    </PossiblyInvalidArgument>
+  </file>
+  <file src="test/MvcAuthEventTest.php">
+    <InvalidScalarArgument occurrences="3">
+      <code>'success'</code>
+      <code>'success'</code>
+      <code>'success'</code>
+    </InvalidScalarArgument>
+  </file>
+  <file src="test/RouteMatchFactoryTrait.php">
+    <UndefinedDocblockClass occurrences="1">
+      <code>RouteMatch|V2RouteMatch</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="test/TestAsset/AuthenticationService.php">
+    <MissingConstructor occurrences="1">
+      <code>$identity</code>
+    </MissingConstructor>
+  </file>
+</files>

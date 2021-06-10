@@ -112,6 +112,8 @@ class OAuth2Adapter extends AbstractAdapter
      * Perform pre-flight authentication operations.
      *
      * Performs a no-op; nothing needs to happen for this adapter.
+     *
+     * @return void
      */
     public function preAuth(Request $request, Response $response)
     {
@@ -120,8 +122,7 @@ class OAuth2Adapter extends AbstractAdapter
     /**
      * Attempt to authenticate the current request.
      *
-     * @return false|Identity\IdentityInterface False on failure, IdentityInterface
-     *     otherwise
+     * @return Identity\AuthenticatedIdentity|Identity\GuestIdentity|Response
      */
     public function authenticate(Request $request, Response $response, MvcAuthEvent $mvcAuthEvent)
     {

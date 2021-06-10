@@ -40,7 +40,7 @@ class AuthenticationOAuth2AdapterFactoryTest extends TestCase
         AuthenticationOAuth2AdapterFactory::factory('foo', $config, $this->services);
     }
 
-    public function testCreatesInstanceFromValidConfiguration()
+    public function testCreatesInstanceFromValidConfiguration(): void
     {
         $config = [
             'adapter' => 'pdo',

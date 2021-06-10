@@ -24,7 +24,7 @@ class OAuth2AdapterTest extends TestCase
     /**
      * @group 83
      */
-    public function testReturns401ResponseWhenErrorOccursDuringValidation()
+    public function testReturns401ResponseWhenErrorOccursDuringValidation(): void
     {
         $oauth2Response = $this->getMockBuilder(OAuth2Response::class)
             ->disableOriginalConstructor()
@@ -68,7 +68,7 @@ class OAuth2AdapterTest extends TestCase
     /**
      * @group 83
      */
-    public function testReturns403ResponseWhenInvalidScopeDetected()
+    public function testReturns403ResponseWhenInvalidScopeDetected(): void
     {
         $oauth2Response = $this->getMockBuilder(OAuth2Response::class)
             ->disableOriginalConstructor()
@@ -112,7 +112,7 @@ class OAuth2AdapterTest extends TestCase
     /**
      * @group 83
      */
-    public function testReturnsGuestIdentityIfOAuth2ResponseIsNotAnError()
+    public function testReturnsGuestIdentityIfOAuth2ResponseIsNotAnError(): void
     {
         $oauth2Response = $this->getMockBuilder(OAuth2Response::class)
             ->disableOriginalConstructor()
@@ -150,7 +150,7 @@ class OAuth2AdapterTest extends TestCase
     /**
      * @group 83
      */
-    public function testErrorResponseIncludesOAuth2ResponseHeaders()
+    public function testErrorResponseIncludesOAuth2ResponseHeaders(): void
     {
         $expectedHeaders = [
             'WWW-Authenticate' => 'Bearer realm="example.com", '

@@ -63,6 +63,8 @@ class DefaultAuthenticationListener
      *
      * Adds the authentication adapter, and updates the list of supported
      * authentication types based on what the adapter provides.
+     *
+     * @return void
      */
     public function attach(AdapterInterface $adapter)
     {
@@ -78,6 +80,7 @@ class DefaultAuthenticationListener
      * merged with any types already discovered.
      *
      * @param array $types
+     * @return void
      */
     public function addAuthenticationTypes(array $types)
     {
@@ -144,6 +147,7 @@ class DefaultAuthenticationListener
      * Set the API/version to authentication type map.
      *
      * @param array $map
+     * @return void
      */
     public function setAuthMap(array $map)
     {
@@ -270,7 +274,7 @@ class DefaultAuthenticationListener
      * This method is triggered if no authentication type was discovered in the
      * request.
      */
-    private function triggerAdapterPreAuth(HttpRequest $request, HttpResponse $response)
+    private function triggerAdapterPreAuth(HttpRequest $request, HttpResponse $response): void
     {
         foreach ($this->adapters as $adapter) {
             $adapter->preAuth($request, $response);
@@ -304,7 +308,7 @@ class DefaultAuthenticationListener
      *
      * @deprecated
      */
-    private function attachHttpAdapter(MvcAuthEvent $mvcAuthEvent)
+    private function attachHttpAdapter(MvcAuthEvent $mvcAuthEvent): void
     {
         if (! $this->httpAdapter instanceof HttpAuth) {
             return;

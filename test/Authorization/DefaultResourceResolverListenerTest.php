@@ -41,7 +41,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         return new MvcAuthEvent($mvcEvent, $this->authentication, $this->authorization);
     }
 
-    public function testBuildResourceStringReturnsFalseIfControllerIsMissing()
+    public function testBuildResourceStringReturnsFalseIfControllerIsMissing(): void
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
@@ -49,7 +49,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         $this->assertFalse($this->listener->buildResourceString($routeMatch, $request));
     }
 
-    public function testBuildResourceStringReturnsEntityWhenIdentifierIsZero()
+    public function testBuildResourceStringReturnsEntityWhenIdentifierIsZero(): void
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
@@ -63,7 +63,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         );
     }
 
-    public function testBuildResourceStringReturnsControllerActionFormattedStringForNonRestController()
+    public function testBuildResourceStringReturnsControllerActionFormattedStringForNonRestController(): void
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
@@ -73,7 +73,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         $this->assertEquals('Foo\Bar\Controller::foo', $this->listener->buildResourceString($routeMatch, $request));
     }
 
-    public function testBuildResourceStringReturnsControllerNameAndCollectionIfNoIdentifierAvailable()
+    public function testBuildResourceStringReturnsControllerNameAndCollectionIfNoIdentifierAvailable(): void
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
@@ -85,7 +85,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         );
     }
 
-    public function testBuildResourceStringReturnsControllerNameAndResourceIfIdentifierInRouteMatch()
+    public function testBuildResourceStringReturnsControllerNameAndResourceIfIdentifierInRouteMatch(): void
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();
@@ -98,7 +98,7 @@ class DefaultResourceResolverListenerTest extends TestCase
         );
     }
 
-    public function testBuildResourceStringReturnsControllerNameAndResourceIfIdentifierInQueryString()
+    public function testBuildResourceStringReturnsControllerNameAndResourceIfIdentifierInQueryString(): void
     {
         $mvcEvent   = $this->mvcAuthEvent->getMvcEvent();
         $routeMatch = $mvcEvent->getRouteMatch();

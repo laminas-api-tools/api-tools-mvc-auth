@@ -37,7 +37,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->factory = new Factory\DefaultAuthenticationListenerFactory();
     }
 
-    public function testCreatingOAuth2ServerFromStorageService()
+    public function testCreatingOAuth2ServerFromStorageService(): void
     {
         $adapter = $this->getMockBuilder(PdoStorage::class)->disableOriginalConstructor()->getMock();
 
@@ -66,7 +66,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithNoConfigServiceReturnsListenerWithNoHttpAdapter()
+    public function testCallingFactoryWithNoConfigServiceReturnsListenerWithNoHttpAdapter(): void
     {
         $factory = $this->factory;
 
@@ -78,7 +78,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithConfigMissingMvcAuthSectionReturnsListenerWithNoHttpAdapter()
+    public function testCallingFactoryWithConfigMissingMvcAuthSectionReturnsListenerWithNoHttpAdapter(): void
     {
         $this->services->setService('config', []);
         $factory = $this->factory;
@@ -91,7 +91,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithConfigMissingAuthenticationSubSectionReturnsListenerWithNoHttpAdapter()
+    public function testCallingFactoryWithConfigMissingAuthenticationSubSectionReturnsListenerWithNoHttpAdapter(): void
     {
         $this->services->setService('config', ['api-tools-mvc-auth' => []]);
         $factory = $this->factory;
@@ -104,7 +104,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithConfigMissingHttpSubSubSectionReturnsListenerWithNoHttpAdapter()
+    public function testCallingFactoryWithConfigMissingHttpSubSubSectionReturnsListenerWithNoHttpAdapter(): void
     {
         $this->services->setService('config', ['api-tools-mvc-auth' => ['authentication' => []]]);
         $factory = $this->factory;
@@ -117,7 +117,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithConfigMissingAcceptSchemesRaisesException()
+    public function testCallingFactoryWithConfigMissingAcceptSchemesRaisesException(): void
     {
         $this->services->setService(
             'config',
@@ -137,7 +137,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $factory($this->services, 'DefaultAuthenticationListener');
     }
 
-    public function testCallingFactoryWithBasicSchemeButMissingHtpasswdValueReturnsListenerWithNoHttpAdapter()
+    public function testCallingFactoryWithBasicSchemeButMissingHtpasswdValueReturnsListenerWithNoHttpAdapter(): void
     {
         $this->services->setService('config', [
             'api-tools-mvc-auth' => [
@@ -159,7 +159,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithDigestSchemeButMissingHtdigestValueReturnsListenerWithNoHttpAdapter()
+    public function testCallingFactoryWithDigestSchemeButMissingHtdigestValueReturnsListenerWithNoHttpAdapter(): void
     {
         $this->services->setService('config', [
             'api-tools-mvc-auth' => [
@@ -183,7 +183,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertNotInstanceOf(HttpBasic::class, $httpAdapter);
     }
 
-    public function testCallingFactoryWithBasicSchemeAndHtpasswdValueReturnsListenerWithHttpAdapter()
+    public function testCallingFactoryWithBasicSchemeAndHtpasswdValueReturnsListenerWithHttpAdapter(): void
     {
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
@@ -207,7 +207,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertContains('basic', $listener->getAuthenticationTypes());
     }
 
-    public function testCallingFactoryWithDigestSchemeAndHtdigestValueReturnsListenerWithHttpAdapter()
+    public function testCallingFactoryWithDigestSchemeAndHtdigestValueReturnsListenerWithHttpAdapter(): void
     {
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
@@ -231,7 +231,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertContains('digest', $listener->getAuthenticationTypes());
     }
 
-    public function testCallingFactoryWithCustomAuthenticationTypesReturnsListenerComposingThem()
+    public function testCallingFactoryWithCustomAuthenticationTypesReturnsListenerComposingThem(): void
     {
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);
@@ -258,7 +258,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertEquals(['digest', 'token'], $listener->getAuthenticationTypes());
     }
 
-    public function testFactoryWillUsePreconfiguredOAuth2ServerInstanceProvidedByLaminasOAuth2()
+    public function testFactoryWillUsePreconfiguredOAuth2ServerInstanceProvidedByLaminasOAuth2(): void
     {
         // Configure mock OAuth2 Server
         $oauth2Server = $this->getMockBuilder(OAuth2Server::class)->disableOriginalConstructor()->getMock();
@@ -295,7 +295,7 @@ class DefaultAuthenticationListenerFactoryTest extends TestCase
         $this->assertSame($oauth2Server, $actualOauth2Server);
     }
 
-    public function testCallingFactoryWithAuthenticationMapReturnsListenerComposingMap()
+    public function testCallingFactoryWithAuthenticationMapReturnsListenerComposingMap(): void
     {
         $authenticationService = $this->getMockBuilder(AuthenticationServiceInterface::class)->getMock();
         $this->services->setService('authentication', $authenticationService);

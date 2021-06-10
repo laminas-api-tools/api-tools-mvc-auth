@@ -73,7 +73,7 @@ class AclAuthorizationFactoryTest extends TestCase
     /**
      * @dataProvider whitelistAclProvider
      */
-    public function testCanCreateWhitelistAcl(array $config)
+    public function testCanCreateWhitelistAcl(array $config): void
     {
         $this->services->setService('config', $config);
 
@@ -114,7 +114,7 @@ class AclAuthorizationFactoryTest extends TestCase
         }
     }
 
-    public function testBlacklistAclSpecificationHonorsBooleansSetForMethods()
+    public function testBlacklistAclSpecificationHonorsBooleansSetForMethods(): void
     {
         $config = [
             'api-tools-mvc-auth' => [
@@ -187,7 +187,7 @@ class AclAuthorizationFactoryTest extends TestCase
         }
     }
 
-    public function testBlacklistAclsDenyByDefaultForUnspecifiedHttpMethods()
+    public function testBlacklistAclsDenyByDefaultForUnspecifiedHttpMethods(): void
     {
         $config = [
             'api-tools-mvc-auth' => [
@@ -248,7 +248,7 @@ class AclAuthorizationFactoryTest extends TestCase
         $this->assertTrue($acl->isAllowed('guest', 'Foo\Bar\RpcController::do', 'DELETE'));
     }
 
-    public function testRpcActionsAreNormalizedWhenCreatingAcl()
+    public function testRpcActionsAreNormalizedWhenCreatingAcl(): void
     {
         $config = [
             'api-tools-mvc-auth' => [

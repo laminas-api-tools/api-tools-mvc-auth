@@ -47,7 +47,6 @@ class AclAuthorizationFactory implements FactoryInterface
      *
      * Provided for backwards compatibility; proxies to __invoke().
      *
-     * @param ContainerInterface|ServiceLocatorInterface $container
      * @return AclAuthorization
      */
     public function createService(ServiceLocatorInterface $container)
@@ -91,8 +90,12 @@ class AclAuthorizationFactory implements FactoryInterface
      * @param array $aclConfig
      * @param bool $denyByDefault
      */
-    protected function createAclConfigFromPrivileges($controllerService, array $privileges, &$aclConfig, $denyByDefault)
-    {
+    protected function createAclConfigFromPrivileges(
+        $controllerService,
+        array $privileges,
+        &$aclConfig,
+        $denyByDefault
+    ): void {
         // Normalize the controller service name.
         // laminas-mvc will always pass the name using namespace seprators, but
         // the admin may write the name using dash seprators.

@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:disable Generic.Files.LineLength.TooLong
 
 namespace LaminasTest\ApiTools\MvcAuth\Authentication;
 
@@ -76,13 +76,13 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->listener     = new DefaultAuthenticationListener();
     }
 
-    public function testInvokeReturnsEarlyWhenNotHttpRequest()
+    public function testInvokeReturnsEarlyWhenNotHttpRequest(): void
     {
         $this->mvcAuthEvent->getMvcEvent()->setRequest(new Request());
         $this->assertNull($this->listener->__invoke($this->mvcAuthEvent));
     }
 
-    public function testInvokeForBasicAuthAddsAuthorizationHeader()
+    public function testInvokeForBasicAuthAddsAuthorizationHeader(): void
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
@@ -139,7 +139,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         return ['identity' => $identity, 'mvc_event' => $this->mvcAuthEvent->getMvcEvent()];
     }
 
-    public function testInvokeForBasicAuthHasNoIdentityWhenNotValid()
+    public function testInvokeForBasicAuthHasNoIdentityWhenNotValid(): void
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'basic',
@@ -155,7 +155,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertNull($this->mvcAuthEvent->getIdentity());
     }
 
-    public function testInvokeForDigestAuthAddsAuthorizationHeader()
+    public function testInvokeForDigestAuthAddsAuthorizationHeader(): void
     {
         $httpAuth = new HttpAuth([
             'accept_schemes' => 'digest',
@@ -212,7 +212,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     /**
      * @group 23
      */
-    public function testListenerPullsDigestUsernameFromAuthenticationIdentityWhenCreatingAuthenticatedIdentityInstance()
+    public function testListenerPullsDigestUsernameFromAuthenticationIdentityWhenCreatingAuthenticatedIdentityInstance(): void
     {
         $httpAuth       = $this->getMockBuilder(HttpAuth::class)
             ->disableOriginalConstructor()
@@ -249,7 +249,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertEquals('user', $identity->getRoleId());
     }
 
-    public function testBearerTypeProxiesOAuthServer()
+    public function testBearerTypeProxiesOAuthServer(): void
     {
         $token = [
             'user_id' => 'test',
@@ -263,7 +263,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertIdentityMatchesToken($token, $identity);
     }
 
-    public function testQueryAccessTokenProxiesOAuthServer()
+    public function testQueryAccessTokenProxiesOAuthServer(): void
     {
         $token = [
             'user_id' => 'test',
@@ -546,7 +546,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     /**
      * @group 55
      */
-    public function testDoesNotPerformAuthenticationWhenMatchedControllerHasNoAuthMapEntryAndAuthSchemesAreDefined()
+    public function testDoesNotPerformAuthenticationWhenMatchedControllerHasNoAuthMapEntryAndAuthSchemesAreDefined(): void
     {
         // Minimal HTTP adapter mock, as we are not expecting any method calls
         $httpAuth = $this->getMockBuilder(HttpAuth::class)
@@ -584,7 +584,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     /**
      * @group 55
      */
-    public function testDoesNotPerformAuthenticationWhenMatchedControllerHasAuthMapEntryNotInDefinedAuthSchemes()
+    public function testDoesNotPerformAuthenticationWhenMatchedControllerHasAuthMapEntryNotInDefinedAuthSchemes(): void
     {
         // Minimal HTTP adapter mock, as we are not expecting any method calls
         $httpAuth = $this->getMockBuilder(HttpAuth::class)
@@ -615,7 +615,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertInstanceOf(GuestIdentity::class, $identity);
     }
 
-    public function testAllowsAttachingAdapters()
+    public function testAllowsAttachingAdapters(): void
     {
         $types   = ['foo'];
         $adapter = $this->getMockBuilder(AdapterInterface::class)
@@ -627,7 +627,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->listener->attach($adapter);
     }
 
-    public function testCanRetrieveSupportedAuthenticationTypes()
+    public function testCanRetrieveSupportedAuthenticationTypes(): void
     {
         $types   = ['foo'];
         $adapter = $this->getMockBuilder(AdapterInterface::class)
@@ -640,7 +640,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertEquals($types, $this->listener->getAuthenticationTypes());
     }
 
-    public function testAdapterPreAuthIsTriggeredWhenNoTypeMatchedInRequest()
+    public function testAdapterPreAuthIsTriggeredWhenNoTypeMatchedInRequest(): void
     {
         $map = [
             'Foo\V2' => 'oauth2',
@@ -677,7 +677,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertInstanceOf(GuestIdentity::class, $identity);
     }
 
-    public function testMatchedAdapterIsAuthenticatedAgainst()
+    public function testMatchedAdapterIsAuthenticatedAgainst(): void
     {
         $map = [
             'Foo\V2' => 'oauth2',
@@ -720,7 +720,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertSame($expected, $identity);
     }
 
-    public function testFirstAdapterProvidingTypeIsAuthenticatedAgainst()
+    public function testFirstAdapterProvidingTypeIsAuthenticatedAgainst(): void
     {
         $map = [
             'Foo\V2' => 'oauth2',
@@ -776,14 +776,14 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertSame($expected, $identity);
     }
 
-    public function testListsProvidedNonAdapterAuthenticationTypes()
+    public function testListsProvidedNonAdapterAuthenticationTypes(): void
     {
         $types = ['foo'];
         $this->listener->addAuthenticationTypes($types);
         $this->assertEquals($types, $this->listener->getAuthenticationTypes());
     }
 
-    public function testListsCombinedAuthenticationTypes()
+    public function testListsCombinedAuthenticationTypes(): void
     {
         $types       = ['foo'];
         $customTypes = ['bar'];
@@ -801,7 +801,7 @@ class DefaultAuthenticationListenerTest extends TestCase
         $this->assertEquals(array_merge($customTypes, $types), $this->listener->getAuthenticationTypes());
     }
 
-    public function testOauth2RequestIncludesHeaders()
+    public function testOauth2RequestIncludesHeaders(): void
     {
         $this->request->getHeaders()->addHeaderLine('Authorization', 'Bearer TOKEN');
 
@@ -823,7 +823,7 @@ class DefaultAuthenticationListenerTest extends TestCase
     /**
      * @group 83
      */
-    public function testAllowsAdaptersToReturnResponsesAndReturnsThemDirectly()
+    public function testAllowsAdaptersToReturnResponsesAndReturnsThemDirectly(): void
     {
         $map = [
             'Foo\V2' => 'custom',

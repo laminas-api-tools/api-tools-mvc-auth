@@ -31,20 +31,20 @@ class DefaultAuthenticationPostListenerTest extends TestCase
         return new MvcAuthEvent($mvcEvent, $this->authentication, $this->authorization);
     }
 
-    public function testReturnsNullWhenEventDoesNotHaveAuthenticationResult()
+    public function testReturnsNullWhenEventDoesNotHaveAuthenticationResult(): void
     {
         $listener = $this->listener;
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testReturnsNullWhenAuthenticationResultIsValid()
+    public function testReturnsNullWhenAuthenticationResultIsValid(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->setAuthenticationResult(new AuthenticationResult(1, 'foo'));
         $this->assertNull($listener($this->mvcAuthEvent));
     }
 
-    public function testReturnsComposedEventResponseWhenNotAuthorizedButNotAnHttpResponse()
+    public function testReturnsComposedEventResponseWhenNotAuthorizedButNotAnHttpResponse(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->setAuthenticationResult(new AuthenticationResult(0, 'foo'));
@@ -53,7 +53,7 @@ class DefaultAuthenticationPostListenerTest extends TestCase
         $this->assertSame($response, $listener($this->mvcAuthEvent));
     }
 
-    public function testReturns401ResponseWhenNotAuthorizedAndHttpResponseComposed()
+    public function testReturns401ResponseWhenNotAuthorizedAndHttpResponseComposed(): void
     {
         $listener = $this->listener;
         $this->mvcAuthEvent->setAuthenticationResult(new AuthenticationResult(0, 'foo'));

@@ -25,7 +25,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->htdigest = __DIR__ . '/../TestAsset/htdigest';
     }
 
-    public function testFactoryRaisesExceptionWhenNoAcceptSchemesPresent()
+    public function testFactoryRaisesExceptionWhenNoAcceptSchemesPresent(): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('accept_schemes');
@@ -59,7 +59,7 @@ class HttpAdapterFactoryTest extends TestCase
         HttpAdapterFactory::factory(['accept_schemes' => $acceptSchemes]);
     }
 
-    public function testFactoryRaisesExceptionWhenRealmIsMissing()
+    public function testFactoryRaisesExceptionWhenRealmIsMissing(): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('realm');
@@ -68,7 +68,7 @@ class HttpAdapterFactoryTest extends TestCase
         ]);
     }
 
-    public function testRaisesExceptionWhenDigestConfiguredAndNoDomainsPresent()
+    public function testRaisesExceptionWhenDigestConfiguredAndNoDomainsPresent(): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('digest_domains');
@@ -79,7 +79,7 @@ class HttpAdapterFactoryTest extends TestCase
         ]);
     }
 
-    public function testRaisesExceptionWhenDigestConfiguredAndNoNoncePresent()
+    public function testRaisesExceptionWhenDigestConfiguredAndNoNoncePresent(): void
     {
         $this->expectException(ServiceNotCreatedException::class);
         $this->expectExceptionMessage('digest_domains');
@@ -132,7 +132,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertNull($adapter->getDigestResolver());
     }
 
-    public function testCanReturnBasicAdapterWithApacheResolver()
+    public function testCanReturnBasicAdapterWithApacheResolver(): void
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes' => ['basic'],
@@ -145,7 +145,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertNull($adapter->getDigestResolver());
     }
 
-    public function testCanReturnDigestAdapterWithFileResolver()
+    public function testCanReturnDigestAdapterWithFileResolver(): void
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes' => ['digest'],
@@ -160,7 +160,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertInstanceOf(FileResolver::class, $adapter->getDigestResolver());
     }
 
-    public function testCanReturnCompoundAdapter()
+    public function testCanReturnCompoundAdapter(): void
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes' => ['basic', 'digest'],
@@ -176,7 +176,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertInstanceOf(FileResolver::class, $adapter->getDigestResolver());
     }
 
-    public function testCanReturnBasicAdapterWithCustomResolverFromServiceManager()
+    public function testCanReturnBasicAdapterWithCustomResolverFromServiceManager(): void
     {
         $keyForServiceManager = 'keyForServiceManager';
 
@@ -208,7 +208,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertNull($adapter->getDigestResolver());
     }
 
-    public function testCanReturnDigestAdapterWithCustomResolverFromServiceManager()
+    public function testCanReturnDigestAdapterWithCustomResolverFromServiceManager(): void
     {
         $keyForServiceManager = 'keyForServiceManager';
 
@@ -240,7 +240,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertSame($resolver, $adapter->getDigestResolver());
     }
 
-    public function testCanReturnAdapterWithNoResolversAndInvalidServiceManager()
+    public function testCanReturnAdapterWithNoResolversAndInvalidServiceManager(): void
     {
         $adapter = HttpAdapterFactory::factory([
             'accept_schemes'          => ['basic', 'digest'],
@@ -256,7 +256,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertNull($adapter->getDigestResolver());
     }
 
-    public function testCanReturnAdapterWithNoResolversAndInvalidResolverKeys()
+    public function testCanReturnAdapterWithNoResolversAndInvalidResolverKeys(): void
     {
         $serviceManager = $this->getMockBuilder(ServiceLocatorInterface::class)->getMock();
         $serviceManager->expects($this->never())->method('has');
@@ -275,7 +275,7 @@ class HttpAdapterFactoryTest extends TestCase
         $this->assertNull($adapter->getDigestResolver());
     }
 
-    public function testCanReturnAdapterWithNoResolversAndMissingServiceManagerEntries()
+    public function testCanReturnAdapterWithNoResolversAndMissingServiceManagerEntries(): void
     {
         $missingKeyForServiceManager = 'missingKeyForServiceManager';
 

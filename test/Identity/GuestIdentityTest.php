@@ -15,32 +15,32 @@ class GuestIdentityTest extends TestCase
         $this->identity = new GuestIdentity();
     }
 
-    public function testGuestIsAnIdentityType()
+    public function testGuestIsAnIdentityType(): void
     {
         $this->assertInstanceOf(IdentityInterface::class, $this->identity);
     }
 
-    public function testGuestImplementsAclRole()
+    public function testGuestImplementsAclRole(): void
     {
         $this->assertInstanceOf(AclRoleInterface::class, $this->identity);
     }
 
-    public function testGuestImplementsRbacRole()
+    public function testGuestImplementsRbacRole(): void
     {
         $this->assertInstanceOf(RbacRoleInterface::class, $this->identity);
     }
 
-    public function testGuestRoleIdIsGuest()
+    public function testGuestRoleIdIsGuest(): void
     {
         $this->assertEquals('guest', $this->identity->getRoleId());
     }
 
-    public function testGuestRoleNameIsGuest()
+    public function testGuestRoleNameIsGuest(): void
     {
         $this->assertEquals('guest', $this->identity->getName());
     }
 
-    public function testGuestDoesNotComposeAuthenticationIdentity()
+    public function testGuestDoesNotComposeAuthenticationIdentity(): void
     {
         $this->assertNull($this->identity->getAuthenticationIdentity());
     }
