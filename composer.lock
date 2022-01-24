@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4215f026a1c6a8fd67e09bd8a64c626",
+    "content-hash": "f51904396e91f6b4b61535f26e1eb614",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -1292,24 +1292,23 @@
         },
         {
             "name": "laminas/laminas-permissions-rbac",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-permissions-rbac.git",
-                "reference": "ef224b6c7376d6fc8131b6d5b3609fe2583ffadb"
+                "reference": "ce117f1d2fb8ec8ec6186633bf485a89149fe46f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-permissions-rbac/zipball/ef224b6c7376d6fc8131b6d5b3609fe2583ffadb",
-                "reference": "ef224b6c7376d6fc8131b6d5b3609fe2583ffadb",
+                "url": "https://api.github.com/repos/laminas/laminas-permissions-rbac/zipball/ce117f1d2fb8ec8ec6186633bf485a89149fe46f",
+                "reference": "ce117f1d2fb8ec8ec6186633bf485a89149fe46f",
                 "shasum": ""
             },
             "require": {
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^7.3 || ~8.0.0"
+                "php": "^7.3 || ~8.0.0 || ~8.1.0"
             },
-            "replace": {
-                "zendframework/zend-permissions-rbac": "^3.0.2"
+            "conflict": {
+                "zendframework/zend-permissions-rbac": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
@@ -1341,7 +1340,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-04-08T13:07:31+00:00"
+            "time": "2021-10-13T17:50:42+00:00"
         },
         {
             "name": "laminas/laminas-router",
@@ -5864,7 +5863,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3 || ~8.0.0 || ~8.1.0"
+        "php": "^7.4 || ~8.0.0 || ~8.1.0"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"
