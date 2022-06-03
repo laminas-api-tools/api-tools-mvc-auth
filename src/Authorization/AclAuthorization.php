@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\ApiTools\MvcAuth\Authorization;
 
 use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;

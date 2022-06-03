@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\ApiTools\MvcAuth\Identity;
 
 use Laminas\ApiTools\MvcAuth\Identity\GuestIdentity;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\ApiTools\MvcAuth\TestAsset;
 
 use Laminas\ApiTools\MvcAuth\Identity\IdentityInterface;

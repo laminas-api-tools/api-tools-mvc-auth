@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\ApiTools\MvcAuth;
 
 use Laminas\Mvc\Router\RouteMatch as V2RouteMatch;
