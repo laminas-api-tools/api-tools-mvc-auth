@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\ApiTools\MvcAuth;
 
 use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;

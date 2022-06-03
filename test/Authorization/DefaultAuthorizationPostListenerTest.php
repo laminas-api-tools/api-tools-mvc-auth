@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\ApiTools\MvcAuth\Authorization;
 
 use Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface;
