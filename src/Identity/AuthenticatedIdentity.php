@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Laminas\ApiTools\MvcAuth\Identity;
 
 use Laminas\Permissions\Rbac\Role;
-use Laminas\Permissions\Rbac\RoleInterface;
 
 class AuthenticatedIdentity extends Role implements IdentityInterface
 {
-    /** @var string|RoleInterface */
+    /** @var string|IdentityInterface */
     protected $identity;
 
-    /** @param string|RoleInterface $identity */
+    /** @param string|IdentityInterface $identity */
     public function __construct($identity)
     {
         $this->identity = $identity;
@@ -24,7 +23,7 @@ class AuthenticatedIdentity extends Role implements IdentityInterface
         return $this->name;
     }
 
-    /** @return string|RoleInterface */
+    /** @return string|IdentityInterface */
     public function getAuthenticationIdentity()
     {
         return $this->identity;
