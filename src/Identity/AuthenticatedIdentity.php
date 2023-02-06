@@ -8,10 +8,10 @@ use Laminas\Permissions\Rbac\Role;
 
 class AuthenticatedIdentity extends Role implements IdentityInterface
 {
-    /** @var string|IdentityInterface */
+    /** @var mixed */
     protected $identity;
 
-    /** @param string|IdentityInterface $identity */
+    /** @param mixed $identity */
     public function __construct($identity)
     {
         $this->identity = $identity;
@@ -23,7 +23,7 @@ class AuthenticatedIdentity extends Role implements IdentityInterface
         return $this->name;
     }
 
-    /** @return string|IdentityInterface */
+    /** @return mixed */
     public function getAuthenticationIdentity()
     {
         return $this->identity;
