@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.7.3@38c452ae584467e939d55377aaf83b5a26f19dd1">
+<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
   <file src="config/module.config.php">
+    <MixedArrayOffset occurrences="1"/>
     <UndefinedClass occurrences="1">
       <code>Authentication\AuthHttpAdapter</code>
     </UndefinedClass>
@@ -27,7 +28,10 @@
     <DeprecatedMethod occurrences="1">
       <code>attachHttpAdapter</code>
     </DeprecatedMethod>
-    <DeprecatedProperty occurrences="2">
+    <DeprecatedProperty occurrences="5">
+      <code>$this-&gt;httpAdapter</code>
+      <code>$this-&gt;httpAdapter</code>
+      <code>$this-&gt;httpAdapter</code>
       <code>$this-&gt;httpAdapter</code>
       <code>$this-&gt;httpAdapter</code>
     </DeprecatedProperty>
@@ -53,9 +57,8 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Authentication/HttpAdapter.php">
-    <MixedArgument occurrences="2">
+    <MixedArgument occurrences="1">
       <code>$name</code>
-      <code>$resultIdentity</code>
     </MixedArgument>
     <MixedAssignment occurrences="3">
       <code>$name</code>
@@ -70,7 +73,7 @@
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>Identity\AuthenticatedIdentity|Identity\GuestIdentity|Response</code>
     </ImplementedReturnTypeMismatch>
-    <MixedArgument occurrences="11">
+    <MixedArgument occurrences="10">
       <code>$oauth2Response</code>
       <code>$oauth2Response-&gt;getHttpHeaders()</code>
       <code>$request-&gt;getContent()</code>
@@ -78,7 +81,6 @@
       <code>$request-&gt;getHeaders()-&gt;toArray()</code>
       <code>$request-&gt;getPost()-&gt;toArray()</code>
       <code>$request-&gt;getQuery()-&gt;toArray()</code>
-      <code>$token</code>
       <code>$token['user_id']</code>
       <code>$value</code>
       <code>method_exists($request, 'getServer') ? $request-&gt;getServer()-&gt;toArray() : $_SERVER</code>
@@ -238,7 +240,6 @@
     <MixedArgument occurrences="3">
       <code>$data</code>
       <code>$listener</code>
-      <code>$type</code>
       <code>$type</code>
     </MixedArgument>
     <MixedArrayAccess occurrences="2">
@@ -417,6 +418,9 @@
       <code>$container-&gt;get($config['digest_resolver_factory'])</code>
       <code>$key</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="1">
+      <code>$config['accept_schemes']</code>
+    </MixedArgumentTypeCoercion>
     <PossiblyNullReference occurrences="2">
       <code>get</code>
       <code>get</code>
@@ -434,18 +438,16 @@
       <code>$oauth2Config</code>
       <code>$oauth2Config</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="5">
+    <MixedArrayAccess occurrences="4">
       <code>$adapterConfig['storage']</code>
       <code>$adapterConfig['storage']</code>
       <code>$config['api-tools-mvc-auth']</code>
       <code>$config['api-tools-oauth2']</code>
-      <code>$servers-&gt;api[$type]</code>
     </MixedArrayAccess>
     <MixedArrayAssignment occurrences="1">
       <code>$servers-&gt;api[$type]</code>
     </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="3">
-      <code>$servers-&gt;api[$type]</code>
+    <MixedArrayOffset occurrences="2">
       <code>$servers-&gt;api[$type]</code>
       <code>$servers-&gt;api[$type]</code>
     </MixedArrayOffset>
@@ -456,6 +458,10 @@
       <code>$name</code>
       <code>$oauth2Config</code>
     </MixedAssignment>
+    <TypeDoesNotContainType occurrences="2">
+      <code>null !== $servers-&gt;application</code>
+      <code>null !== $servers-&gt;application</code>
+    </TypeDoesNotContainType>
     <UnusedVariable occurrences="1">
       <code>$name</code>
     </UnusedVariable>
@@ -467,7 +473,8 @@
       <code>$server-&gt;getStorage('refresh_token')</code>
       <code>$server-&gt;getStorage('user_credentials')</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="2">
+      <code>self::createMongoDatabase($config, $container)</code>
       <code>self::createPdoConfig($config)</code>
     </InvalidArgument>
     <InvalidCast occurrences="1">
@@ -586,10 +593,8 @@
       <code>getStorage</code>
       <code>write</code>
     </MixedMethodCall>
-    <PropertyNotSetInConstructor occurrences="3">
+    <PropertyNotSetInConstructor occurrences="1">
       <code>$authenticationResult</code>
-      <code>MvcAuthEvent</code>
-      <code>MvcAuthEvent</code>
     </PropertyNotSetInConstructor>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $flag</code>
@@ -605,14 +610,11 @@
       <code>$r</code>
       <code>$r</code>
     </MissingClosureParamType>
-    <MixedArgument occurrences="7">
-      <code>$identity</code>
-      <code>$mvcAuthEvent-&gt;getAuthenticationResult()-&gt;getIdentity()</code>
+    <MixedArgument occurrences="4">
       <code>$mvcAuthEvent::EVENT_AUTHENTICATION</code>
       <code>$mvcAuthEvent::EVENT_AUTHENTICATION_POST</code>
       <code>$mvcAuthEvent::EVENT_AUTHORIZATION</code>
       <code>$mvcAuthEvent::EVENT_AUTHORIZATION_POST</code>
-      <code>$result-&gt;getIdentity()</code>
     </MixedArgument>
     <MixedAssignment occurrences="2">
       <code>$result</code>
@@ -792,12 +794,6 @@
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Authentication/OAuth2AdapterTest.php">
-    <MissingClosureParamType occurrences="4">
-      <code>$subject</code>
-      <code>$subject</code>
-      <code>$subject</code>
-      <code>$subject</code>
-    </MissingClosureParamType>
     <MixedAssignment occurrences="1">
       <code>$instance</code>
     </MixedAssignment>
@@ -855,7 +851,7 @@
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Authorization/DefaultAuthorizationListenerTest.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument occurrences="3">
       <code>$container</code>
       <code>[]</code>
     </InvalidArgument>
@@ -1158,9 +1154,6 @@
     <MixedAssignment occurrences="1">
       <code>$storageConfig</code>
     </MixedAssignment>
-    <PossiblyNullArgument occurrences="1">
-      <code>$storage</code>
-    </PossiblyNullArgument>
     <PossiblyUndefinedVariable occurrences="1">
       <code>$class</code>
     </PossiblyUndefinedVariable>
@@ -1169,9 +1162,6 @@
     </TooManyArguments>
   </file>
   <file src="test/Identity/AuthenticatedIdentityTest.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;authIdentity</code>
-    </InvalidArgument>
     <MixedMethodCall occurrences="4">
       <code>getAuthenticationIdentity</code>
       <code>getName</code>

@@ -31,7 +31,7 @@ class NamedOAuth2ServerFactory
         return function ($type = null) use ($oauth2Config, $mvcAuthConfig, $container, $servers) {
             // Empty type == legacy configuration.
             if (empty($type)) {
-                if ($servers->application) {
+                if (null !== $servers->application) {
                     return $servers->application;
                 }
                 $factory                     = new OAuth2ServerInstanceFactory($oauth2Config, $container);
@@ -62,7 +62,7 @@ class NamedOAuth2ServerFactory
             // At this point, a $type was specified, but no matching adapter
             // was found. Attempt to pull a global OAuth2 instance; if none is
             // present, this will raise an exception anyways.
-            if ($servers->application) {
+            if (null !== $servers->application) {
                 return $servers->application;
             }
             $factory                     = new OAuth2ServerInstanceFactory($oauth2Config, $container);

@@ -207,7 +207,6 @@ class OAuth2ServerFactoryTest extends TestCase
                     break;
                 default:
                     $this->fail(sprintf('Unknown grant type: %s!', $type));
-                    break;
             }
 
             // and have an instance of the appropriate class.
