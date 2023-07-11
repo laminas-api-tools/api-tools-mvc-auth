@@ -65,6 +65,10 @@
       <code>$name</code>
       <code>$resultIdentity</code>
     </MixedAssignment>
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>null !== $this-&gt;httpAuth-&gt;getBasicResolver()</code>
+      <code>null !== $this-&gt;httpAuth-&gt;getDigestResolver()</code>
+    </RedundantConditionGivenDocblockType>
     <TooManyArguments occurrences="1">
       <code>authenticate</code>
     </TooManyArguments>
