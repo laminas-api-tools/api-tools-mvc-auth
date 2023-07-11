@@ -17,7 +17,6 @@ use OAuth2\Server as OAuth2Server;
 use function array_merge;
 use function array_unique;
 use function count;
-use function get_class;
 use function gettype;
 use function is_object;
 use function rtrim;
@@ -231,7 +230,7 @@ class DefaultAuthenticationListener
                 __METHOD__,
                 RouteMatch::class,
                 V2RouteMatch::class,
-                is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
+                is_object($routeMatch) ? $routeMatch::class : gettype($routeMatch)
             ));
         }
 
