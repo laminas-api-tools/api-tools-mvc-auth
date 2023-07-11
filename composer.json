@@ -41,7 +41,7 @@
         "laminas/laminas-mvc": "^2.7.9 || ^3.0.2",
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-permissions-rbac": "^2.6.0 || ^3.0",
-        "laminas/laminas-servicemanager": "^2.7.6 || ^3.1",
+        "laminas/laminas-servicemanager": "^3.11",
         "laminas/laminas-stdlib": "^2.7.8 || ^3.0.1",
         "laminas/laminas-zendframework-bridge": "^1.1"
     },

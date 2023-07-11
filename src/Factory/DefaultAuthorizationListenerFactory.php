@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\MvcAuth\Authorization\AuthorizationInterface;
 use Laminas\ApiTools\MvcAuth\Authorization\DefaultAuthorizationListener;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
 use function sprintf;
 

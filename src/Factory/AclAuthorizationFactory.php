@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\MvcAuth\Authorization\AclAuthorization;
 use Laminas\ApiTools\MvcAuth\Authorization\AclAuthorizationFactory as AclFactory;
 use Laminas\Http\Request;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
 use function array_key_exists;
 use function array_keys;

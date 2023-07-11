@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\OAuth2\Factory\OAuth2ServerInstanceFactory;
+use Psr\Container\ContainerInterface;
 
 /**
  * Override factory for the Laminas\ApiTools\OAuth2\Service\OAuth2Server service.
