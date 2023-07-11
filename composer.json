@@ -20,6 +20,9 @@
         "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "platform": {
+            "php": "8.0.99"
         }
     },
     "extra": {
@@ -28,9 +31,9 @@
         }
     },
     "require": {
-        "php": "^7.3 || ~8.0.0 || ~8.1.0",
-        "laminas-api-tools/api-tools-api-problem": "^1.4.0",
-        "laminas-api-tools/api-tools-content-negotiation": "^1.5.0",
+        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "laminas-api-tools/api-tools-api-problem": "^1.5.0",
+        "laminas-api-tools/api-tools-content-negotiation": "^1.8.0",
         "laminas-api-tools/api-tools-oauth2": "^1.7",
         "laminas/laminas-authentication": "^2.5.3",
         "laminas/laminas-eventmanager": "^3.2",
