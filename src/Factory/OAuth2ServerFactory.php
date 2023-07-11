@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\OAuth2\Adapter\MongoAdapter;
 use Laminas\ApiTools\OAuth2\Adapter\PdoAdapter;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
@@ -17,6 +16,7 @@ use OAuth2\GrantType\RefreshToken;
 use OAuth2\GrantType\UserCredentials;
 use OAuth2\OpenID\GrantType\AuthorizationCode as OpenIDAuthorizationCodeGrantType;
 use OAuth2\Server as OAuth2Server;
+use Psr\Container\ContainerInterface;
 
 use function array_key_exists;
 use function array_merge;

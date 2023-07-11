@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Authentication\Adapter\Http as HttpAuth;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Factory for creating the DefaultAuthHttpAdapterFactory from configuration.

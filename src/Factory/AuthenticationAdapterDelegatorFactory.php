@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\MvcAuth\Authentication\DefaultAuthenticationListener;
 use Laminas\ApiTools\MvcAuth\Authentication\HttpAdapter;
 use Laminas\ApiTools\MvcAuth\Authentication\OAuth2Adapter;
 use Laminas\ServiceManager\DelegatorFactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
 use function is_array;
 use function is_string;

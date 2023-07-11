@@ -69,11 +69,11 @@ class HttpAdapter extends AbstractAdapter
         $providesBase = $this->providesBase ? $this->providesBase . '-' : '';
         $provides     = [];
 
-        if ($this->httpAuth->getBasicResolver()) {
+        if (null !== $this->httpAuth->getBasicResolver()) {
             $provides[] = $providesBase . 'basic';
         }
 
-        if ($this->httpAuth->getDigestResolver()) {
+        if (null !== $this->httpAuth->getDigestResolver()) {
             $provides[] = $providesBase . 'digest';
         }
 

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Authentication\Adapter\Http as HttpAuth;
 use Laminas\Authentication\Adapter\Http\ApacheResolver;
 use Laminas\Authentication\Adapter\Http\FileResolver;
 use Laminas\ServiceManager\Exception\ServiceNotCreatedException;
+use Psr\Container\ContainerInterface;
 
 use function array_merge;
 use function implode;

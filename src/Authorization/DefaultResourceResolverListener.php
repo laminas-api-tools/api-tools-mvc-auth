@@ -12,7 +12,6 @@ use Laminas\Router\RouteMatch;
 use Laminas\Stdlib\RequestInterface;
 
 use function array_key_exists;
-use function get_class;
 use function gettype;
 use function is_object;
 use function sprintf;
@@ -84,7 +83,7 @@ class DefaultResourceResolverListener
                 __METHOD__,
                 RouteMatch::class,
                 V2RouteMatch::class,
-                is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
+                is_object($routeMatch) ? $routeMatch::class : gettype($routeMatch)
             ));
         }
 

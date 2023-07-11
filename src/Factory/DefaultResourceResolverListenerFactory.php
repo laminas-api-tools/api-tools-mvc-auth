@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Laminas\ApiTools\MvcAuth\Factory;
 
-use Interop\Container\ContainerInterface;
 use Laminas\ApiTools\MvcAuth\Authorization\DefaultResourceResolverListener;
 use Laminas\Http\Request;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
+use Psr\Container\ContainerInterface;
 
 /**
  * Factory for creating the DefaultResourceResolverListener from configuration.
