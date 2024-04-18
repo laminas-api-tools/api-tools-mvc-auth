@@ -22,7 +22,7 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         },
         "platform": {
-            "php": "8.0.99"
+            "php": "8.1.99"
         }
     },
     "extra": {
@@ -31,24 +31,24 @@
         }
     },
     "require": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
         "laminas-api-tools/api-tools-api-problem": "^1.5.0",
         "laminas-api-tools/api-tools-content-negotiation": "^1.8.0",
         "laminas-api-tools/api-tools-oauth2": "^1.9",
-        "laminas/laminas-authentication": "^2.5.3",
-        "laminas/laminas-eventmanager": "^3.2",
-        "laminas/laminas-http": "^2.5.4",
-        "laminas/laminas-mvc": "^2.7.9 || ^3.0.2",
-        "laminas/laminas-permissions-acl": "^2.6",
-        "laminas/laminas-permissions-rbac": "^2.6.0 || ^3.0",
-        "laminas/laminas-servicemanager": "^3.11",
-        "laminas/laminas-stdlib": "^2.7.8 || ^3.0.1",
+        "laminas/laminas-authentication": "^2.9.0",
+        "laminas/laminas-eventmanager": "^3.4",
+        "laminas/laminas-http": "^2.15.1",
+        "laminas/laminas-mvc": "^2.7.9 || ^3.3.0",
+        "laminas/laminas-permissions-acl": "^2.9",
+        "laminas/laminas-permissions-rbac": "^2.6.0 || ^3.2",
+        "laminas/laminas-servicemanager": "^3.11.1",
+        "laminas/laminas-stdlib": "^2.7.8 || ^3.6.1",
         "laminas/laminas-zendframework-bridge": "^1.1"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.3.0",
-        "laminas/laminas-session": "^2.8.5",
-        "phpspec/prophecy-phpunit": "^2.0",
+        "laminas/laminas-session": "^2.12.0",
+        "phpspec/prophecy-phpunit": "^2.0.1",
         "phpunit/phpunit": "^9.5.10",
         "psalm/plugin-phpunit": "^0.16.0",
         "vimeo/psalm": "^4.7"
